@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+        xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                            http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+  <named-query name="BLSecurity.MstrPersonSecPolicy">
+    <query><![CDATA[
+FROM MstrPersonSecPolicy
+ORDER BY person_sec_policy_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLSecurity.MstrPerson">
+    <query><![CDATA[
+FROM MstrPerson WHERE user_id IN (:user_id)
+ORDER BY user_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLSecurity.MstrInvalidPasswd">
+    <query><![CDATA[
+FROM MstrInvalidPasswd
+ORDER BY invalid_passwd_key ASC
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileManager.UploadFile">
+    <query><![CDATA[
+FROM UploadFile
+WHERE folder_name = :folder_name
+AND file_name = :file_name
+ORDER BY upload_file_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileManager.UploadFileSys">
+    <query><![CDATA[
+FROM UploadFile
+WHERE folder_name = :folder_name
+AND system_file_name = :system_file_name
+ORDER BY upload_file_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileTransfer.QueueExternalIfSendStatus">
+    <query><![CDATA[
+FROM QueueExternalIfSendStatus
+WHERE send_status IN (:send_status)
+AND external_if_target_code = :external_if_target_code
+ORDER BY create_date ASC
+    ,request_seq
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileTransfer.ExternalIfSendDataDetail">
+    <query><![CDATA[
+FROM ExternalIfSendDataDetail WHERE external_if_send_status_key = :external_if_send_status_key
+ORDER BY external_if_send_status_key,
+         line_number
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileTransfer.ExternalIfSendFileSeqNo">
+    <query><![CDATA[
+FROM ExternalIfSendFileSeqNo
+WHERE file_type = :file_type
+ORDER BY external_if_send_file_seq_no_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileTransfer.GetExtIfDataSrActualDetail">
+    <query><![CDATA[
+FROM ExtIfDataSrActualDetail
+WHERE external_if_data_sr_actual_key = :external_if_data_sr_actual_key
+ORDER BY external_if_data_sr_actual_detail_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLFileTransfer.QueueExternalIfRecv">
+    <query><![CDATA[
+FROM
+    QueueExternalIfRecv
+WHERE recv_status IN (:recv_status)
+AND external_if_target_code = :external_if_target_code
+ORDER BY recv_date ASC,
+         queue_external_if_recv_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLBookMark.BookMarkUserScreen">
+    <query><![CDATA[
+FROM
+    Bookmark
+WHERE user_id = :user_id
+AND bookmark_screen_id = :bookmark_screen_id
+AND db_area_div = :db_area_div
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLBookMark.BookMarkUserParameter">
+    <query><![CDATA[
+FROM
+    Bookmark
+WHERE user_id = :user_id
+AND bookmark_screen_id = :bookmark_screen_id
+AND db_area_div = :db_area_div
+AND bookmark_parameter = :bookmark_parameter
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLBookMark.BookMarkUser">
+    <query><![CDATA[
+FROM
+    Bookmark
+WHERE user_id = :user_id
+AND db_area_div = :db_area_div
+ORDER BY last_regist_datetime DESC
+    ]]></query>
+  </named-query>
+
+  <named-query name="TableSearchSetting.UserTableType">
+    <query><![CDATA[
+FROM
+    TableSearchSetting
+WHERE user_id = :user_id
+AND table_id = :table_id
+AND setting_type = :setting_type
+    ]]></query>
+  </named-query>
+
+  <named-query name="GetMstrPatlampList">
+    <query><![CDATA[
+FROM MstrPatlamp
+WHERE patlamp_id = :patlamp_id
+ORDER BY patlamp_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="GetMstrPatlampModelList">
+    <query><![CDATA[
+FROM MstrPatlampModel
+WHERE patlamp_model_id = :patlamp_model_id
+ORDER BY patlamp_key
+    ]]></query>
+  </named-query>
+
+  <named-query name="GetInfoComputer">
+    <query><![CDATA[
+FROM
+    InfoComputer
+WHERE computer_id = :computer_id
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLSecurity.InfoUser">
+    <query><![CDATA[
+FROM
+    InfoUser
+WHERE user_id = :user_id
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLSecurity.InfoComputerProcWorkcell">
+    <query><![CDATA[
+FROM
+    InfoComputerProcWorkcell
+WHERE client_device_id = :client_device_id
+AND site_code = :site_code
+    ]]></query>
+  </named-query>
+
+  <named-query name="BLSecurity.HistChangePassword">
+    <query><![CDATA[
+FROM HistChangePassword
+WHERE user_number = :user_number
+AND ng_flag = :ng_flag
+ORDER BY first_regist_datetime DESC
+    ]]></query>
+  </named-query>
+
+</entity-mappings>

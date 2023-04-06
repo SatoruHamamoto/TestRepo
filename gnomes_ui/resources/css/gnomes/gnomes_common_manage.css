@@ -1,0 +1,324 @@
+/* データ項目のタイトル */
+.common-header-col-title {
+  background-color: #004b92;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 1px;
+  padding: 2.5px 10px;
+  text-align: center;
+  width: 30%;
+  white-space: nowrap;
+}
+
+.manage-title-lh {
+  line-height: 28px;
+  padding: 0px 10px;
+}
+
+/* データ項目のデータ */
+.common-header-col-data {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  overflow: hidden;
+  padding: 2.5px 10px;
+  width: 70%;
+  white-space: nowrap;
+  text-align: left;
+  word-break: break-word;
+}
+
+.common-header-col-data.common-input.common-text-number {
+  text-align: left;
+  /*padding: 3px 3px;*/
+}
+
+.common-header-col-data.common-text-number {
+  text-align: right;
+}
+
+/* データ項目のデータ （タイトル無し）*/
+.common-header-col-data-titleless {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  overflow: hidden;
+  padding: 2.5px 2px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.common-header-col-data.common-client-header-col-data {
+  height: 23px;
+}
+
+.common-header-col-data.common-client-header-col-data .common-header-col-data-titleless,
+.common-header-col-data.common-client-header-col-data .common-header-col-data {
+  padding: 0px;
+}
+
+/* ヘッダーのカラム */
+.common-pulldown-column1 {
+  float: left;
+  width: 100%;
+}
+
+/* データ項目のデータ(チェックボックス・ラジオボタン用) */
+.common-vertical-col-data {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 69%;
+  height: auto;
+  white-space: nowrap;
+}
+
+/* データ項目のデータ(チェックボックス・ラジオボタン用)（タイトル無し） */
+.common-vertical-col-data-titleless {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 99%;
+  height: auto;
+  white-space: nowrap;
+}
+
+.common-vertical-col-title {
+  height: auto;
+}
+
+/* データ項目のデータ(pulldown用) */
+.common-pulldown-col-data {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 67%;
+  white-space: nowrap;
+}
+
+
+/* データ項目のデータ(unit付きpulldown用) */
+.common-pulldown-col-unit-data {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 35%;
+  white-space: nowrap;
+}
+
+/* データ項目の右文字列(pulldown用) */
+.common-pulldown-col-unit {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 20%;
+  white-space: nowrap;
+}
+
+.common-header-col-data.common-text-wrap, textarea.common-text-wrap {
+  overflow: auto;
+  white-space: normal;
+  height: 23px;
+}
+
+textarea.common-header-col-height-2 {
+  height: 38px !important;
+  line-height: 165%;
+}
+
+textarea.common-header-col-height-3 {
+  height: 62px !important;
+  line-height: 170%;
+}
+
+.common-header-col-height-2 {
+  height: 49.5px !important;
+  line-height: 185%;
+}
+
+.common-header-col-height-3 {
+  height: 72.5px !important;
+  line-height: 185%;
+}
+
+.common-header-col-height-4 {
+  height: 95px !important;
+  line-height: 185%;
+}
+
+.common-header-col-height-5 {
+  height: 118px !important;
+  line-height: 185%;
+}
+
+.common-header-col-height-6 {
+  height: 143px !important;
+  line-height: 192%;
+}
+
+.common-header-col-height-7 {
+  height: 167px !important;
+  line-height: 192%;
+}
+
+.common-header-col-height-8 {
+  height: 191px !important;
+  line-height: 192%;
+}
+
+.common-header-col-height-9 {
+  height: 215px !important;
+  line-height: 192%;
+}
+
+.common-header-col-height-10 {
+  height: 239px !important;
+  line-height: 200%;
+}
+
+.common-header-col-title.common-header-col-height-2 {
+  line-height: 45px;
+}
+
+.common-header-col-title.common-header-col-height-3 {
+  line-height: 71px;
+}
+
+.common-header-col-title.common-header-col-height-4 {
+  line-height: 95px;
+}
+
+.common-header-col-title.common-header-col-height-5 {
+  line-height: 118px;
+}
+
+.common-header-col-title.common-header-col-height-6 {
+  line-height: 143px;
+}
+
+.common-header-col-title.common-header-col-height-7 {
+  line-height: 167px;
+}
+
+.common-header-col-title.common-header-col-height-8 {
+  line-height: 191px;
+}
+
+.common-header-col-title.common-header-col-height-9 {
+  line-height: 215px;
+}
+
+.common-header-col-title.common-header-col-height-10 {
+  line-height: 239px;
+}
+
+/*----------------------------------------
+テキストエリアカスタムタグの行数による高さ設定
+---------------------------------------- */
+.ctag-textarea-height-manage-row-1 {
+    height: 28px;
+    line-height: 28px;
+}
+.ctag-textarea-height-manage-row-2 {
+    height: 35px;
+    line-height: 35px;
+}
+.ctag-textarea-height-manage-row-3 {
+    height: 46px;
+    line-height: 43px;
+}
+.ctag-textarea-height-manage-row-4 {
+    height: 64px;
+    line-height: 64px;
+}
+.ctag-textarea-height-manage-row-5 {
+    height: 72px;
+    line-height: 72px;
+}
+.ctag-textarea-height-manage-row-6 {
+    height: 88px;
+    line-height: 88px;
+}
+.ctag-textarea-height-manage-row-7 {
+    height: 96px;
+    line-height: 100px;
+}
+.ctag-textarea-height-manage-row-8 {
+    height: 112px;
+    line-height: 112px;
+}
+.ctag-textarea-height-manage-row-9 {
+    height: 124px;
+    line-height: 124px;
+}
+.ctag-textarea-height-manage-row-10 {
+    height: 132px;
+    line-height: 136px;
+}
+.ctag-textarea-height-manage-row-11 {
+    height: 148px;
+    line-height: 148px;
+}
+.ctag-textarea-height-manage-row-12 {
+    height: 160px;
+    line-height: 160px;
+}
+.ctag-textarea-height-manage-row-13 {
+    height: 172px;
+    line-height: 172px;
+}
+.ctag-textarea-height-manage-row-14 {
+    height: 184px;
+    line-height: 184px;
+}
+.ctag-textarea-height-manage-row-15 {
+    height: 196px;
+    line-height: 196px;
+}
+.ctag-textarea-height-manage-row-16 {
+    height: 208px;
+    line-height: 208px;
+}
+.ctag-textarea-height-manage-row-17 {
+    height: 220px;
+    line-height: 220px;
+}
+.ctag-textarea-height-manage-row-18 {
+    height: 232px;
+    line-height: 232px;
+}
+.ctag-textarea-height-manage-row-19 {
+    height: 244px;
+    line-height: 244px;
+}
+.ctag-textarea-height-manage-row-20 {
+    height: 260px;
+    line-height: 260px;
+}
+
+table td .common-text-number {
+  width: auto;
+}

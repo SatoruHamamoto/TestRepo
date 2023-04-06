@@ -1,0 +1,1523 @@
+/* #####################################################################
+   #
+   #   Project       : Modal Login with jQuery Effects
+   #   Author        : Rodrigo Amarante (rodrigockamarante)
+   #   Version       : 1.0
+   #   Created       : 07/28/2015
+   #   Last Change   : 08/02/2015
+   #
+   ##################################################################### */
+
+body {
+	overflow-x: hidden;
+}
+
+.MENU_BODY {
+    background-color: #FFFFFF;
+}
+
+#backgroundMenu {
+	height: 100px;
+}
+
+.table-bordered {
+    border: 1px solid #dddddd;
+    border-collapse: separate;
+    border-collapse: collapse;
+    border-left: 0;
+    border-radius: 8px;
+}
+.glyphicon {
+	color: black;
+}
+#timeline {
+  list-style: none;
+  position: relative;
+}
+#timeline:before {
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 2px;
+  background-color: #4997cd;
+  left: 50%;
+  margin-left: -1.5px;
+}
+#timeline .clearFix {
+  clear: both;
+  height: 0;
+}
+#timeline .timeline-badge {
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2em;
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #4997cd;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+#timeline .timeline-badge span.timeline-balloon-date-day {
+  font-size: 1.4em;
+}
+#timeline .timeline-badge span.timeline-balloon-date-month {
+  font-size: .7em;
+  position: relative;
+  top: -10px;
+}
+#timeline .timeline-badge.timeline-filter-movement {
+  background-color: #ffffff;
+  font-size: 1.7em;
+  height: 35px;
+  margin-left: -18px;
+  width: 35px;
+  top: 40px;
+}
+#timeline .timeline-badge.timeline-filter-movement a span {
+  color: #4997cd;
+  font-size: 1.3em;
+  top: -1px;
+}
+#timeline .timeline-badge.timeline-future-movement {
+  background-color: #ffffff;
+  height: 35px;
+  width: 35px;
+  font-size: 1.7em;
+  top: -16px;
+  margin-left: -18px;
+}
+#timeline .timeline-badge.timeline-future-movement a span {
+  color: #4997cd;
+  font-size: .9em;
+  top: 2px;
+  left: 1px;
+}
+#timeline .timeline-movement {
+  border-bottom: dashed 1px #4997cd;
+  position: relative;
+}
+#timeline .timeline-movement.timeline-movement-top {
+  height: 60px;
+}
+#timeline .timeline-movement .timeline-item {
+  padding: 20px 0;
+}
+#timeline .timeline-movement .timeline-item .timeline-panel {
+  border: 1px solid #d4d4d4;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  color: #666;
+  padding: 10px;
+  position: relative;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+#timeline .timeline-movement .timeline-item .timeline-panel .timeline-panel-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#timeline .timeline-movement .timeline-item .timeline-panel.credits .timeline-panel-ul {
+  text-align: right;
+}
+#timeline .timeline-movement .timeline-item .timeline-panel.credits .timeline-panel-ul li {
+  color: #666;
+}
+#timeline .timeline-movement .timeline-item .timeline-panel.credits .timeline-panel-ul li span.importo {
+  color: #468c1f;
+  font-size: 1.3em;
+}
+#timeline .timeline-movement .timeline-item .timeline-panel.debits .timeline-panel-ul {
+  text-align: left;
+}
+#timeline .timeline-movement .timeline-item .timeline-panel.debits .timeline-panel-ul span.importo {
+  color: #e2001a;
+  font-size: 1.3em;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+/*
+* {
+    font-family: 'Roboto', sans-serif;
+}
+*/
+#login-modal .modal-dialog {
+    width: 350px;
+}
+
+#login-modal input[type=text], input[type=password] {
+	margin-top: 10px;
+}
+
+#change-pass-modal .modal-dialog {
+    width: 350px;
+}
+
+#change-pass-modal input[type=text], input[type=password] {
+	margin-top: 10px;
+}
+
+#select-pulldown-modal .modal-dialog {
+    width: 350px;
+}
+
+#select-pulldown-modal input[type=text], input[type=password] {
+	margin-top: 10px;
+}
+
+#license-check-modal .modal-dialog {
+    width: 350px;
+}
+
+#license-check-modal input[type=text], input[type=password] {
+	margin-top: 10px;
+}
+
+#div-login-msg,
+#div-lost-msg,
+#div-register-msg {
+    border: 1px solid #dadfe1;
+    height: 30px;
+    line-height: 28px;
+    transition: all ease-in-out 500ms;
+}
+
+#div-login-msg.success,
+#div-lost-msg.success,
+#div-register-msg.success {
+    border: 1px solid #68c3a3;
+    background-color: #c8f7c5;
+}
+
+#div-login-msg.error,
+#div-lost-msg.error,
+#div-register-msg.error {
+    border: 1px solid #eb575b;
+    background-color: #ffcad1;
+}
+
+#icon-login-msg,
+#icon-lost-msg,
+#icon-register-msg {
+    width: 30px;
+    float: left;
+    line-height: 28px;
+    text-align: center;
+    background-color: #dadfe1;
+    margin-right: 5px;
+    transition: all ease-in-out 500ms;
+}
+
+#icon-login-msg.success,
+#icon-lost-msg.success,
+#icon-register-msg.success {
+    background-color: #68c3a3 !important;
+}
+
+#icon-login-msg.error,
+#icon-lost-msg.error,
+#icon-register-msg.error {
+    background-color: #eb575b !important;
+}
+
+#img_logo {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+/* #########################################
+   #    override the bootstrap configs     #
+   ######################################### */
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .8;
+}
+
+.modal-content {
+    background-color: #ececec;
+    border: 1px solid #bdc3c7;
+    border-radius: 0px;
+    outline: 0;
+}
+
+.modal-header {
+    min-height: 16.43px;
+    padding: 15px 15px 15px 15px;
+    border-bottom: 0px;
+}
+
+.modal-body {
+    position: relative;
+    padding: 5px 15px 5px 15px;
+}
+
+.modal-footer {
+    padding: 15px 15px 15px 15px;
+    text-align: left;
+    border-top: 0px;
+}
+
+.modal-guidance {
+    padding: 15px 15px 15px 15px;
+    padding-left: 40px;
+    text-align: left;
+    border-top:1px solid #e5e5e5;
+}
+
+.checkbox {
+    margin-bottom: 0px;
+}
+
+.btn {
+    border-radius: 0px;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}
+
+.btn-lg, .btn-group-lg>.btn {
+    border-radius: 0px;
+}
+
+.btn-link {
+    padding: 5px 10px 0px 0px;
+    color: #95a5a6;
+}
+
+.btn-link:hover, .btn-link:focus {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.glyphicon {
+    top: 0px;
+}
+
+.form-control {
+  border-radius: 0px;
+}
+
+
+body{
+	margin: 0;
+	padding: 100px 0 100px 0;
+}
+* html body{
+	overflow: hidden;
+}
+div#headerArea {
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	background-color: #4E9ABE;
+	color: #fff;
+
+}
+
+.table-cell-text {
+	overflow:	hidden;
+}
+
+#dropdownMenu1 {
+	width: 100%;
+	text-align: left;
+}
+
+.message-dropdown-menu {
+	width: 100%;
+}
+
+.headerBtn {
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	padding: 4px;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+}
+
+div#headerBox{
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #4E9ABE;
+	color: #fff;
+	display: block;
+
+}
+div#headerToolBox{
+	float: top;
+	position: fixed !important;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+}
+
+div#headerDataBox{
+	/* float: top;
+	position: fixed !important;
+	position: absolute; */
+	background-color:#ffffff;
+	width: 100%;
+	z-index: 2;
+}
+
+#headerText{
+	padding-top: 5pt;
+	width: 100%;
+}
+
+div#mainBox {
+/*	position: fixed !important;
+	position: absolute;
+*/
+	left: 0px;
+	width: 100%;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+}
+#main_area {
+	height: 100%;
+}
+
+.doubleBox:after {
+		content:	"";
+		display:	block;
+		clear:		both;
+}
+
+.panel-body {
+	width:	50%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.logo {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.navbar {
+	margin-bottom: 0px;
+}
+.form-horizontal {
+
+}
+.form-detailarea {
+	width: 	50%;
+	background-color:	#00ff00;
+}
+
+/* メッセージ画面 メッセージメニュー表エリア */
+#messageMenuArea {
+}
+#messageMenuAreaTable {
+	overflow-y:hidden;
+	margin-bottom: 0px;
+}
+
+/* メッセージメニュー表 */
+#TABLE_MESSAGE_MENU_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+	color: #000000;
+}
+overflow-x:hidden;
+}
+#TABLE_MESSAGE_MENU_LIST tr{
+}
+#TABLE_MESSAGE_MENU_LIST td{
+	height: 60px;
+}
+#TABLE_MESSAGE_MENU_LIST img{
+	padding-top: 5px;
+	padding-right: 5px;
+	float: left;
+}
+/* 一覧表示用 */
+/* 表エリア */
+#tableArea {
+}
+#tableAreaHeader {
+	overflow-y:hidden;
+	overflow-x:hidden;
+	margin-bottom: 0px;
+}
+#tableAreaTable {
+	overflow-y:auto;
+	overflow-x:auto;
+	margin-bottom: 0px;
+	/* 高さ：(ウィンドウの高さ - ヘッダーの高さ) - テーブルヘッダーの高さ */
+	height: calc((100vh - 100px) - 65px);
+}
+/* */
+
+/* 詳細表示用 */
+/* 左右に分かれる場合 */
+/* 右側詳細エリア */
+#rightDetailArea {
+	color:black;
+	/* 高さ：(ウィンドウの高さ - ヘッダーの高さ) */
+	height: calc(100vh - 100px);
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+/* */
+/* 上下に分かれる場合 */
+/* 上部表エリア */
+#topTableArea {
+}
+#topTableAreaHeader {
+	overflow-y:hidden;
+	overflow-x:hidden;
+	margin-bottom: 0px;
+}
+#topTableAreaTable {
+	overflow-y:auto;
+	overflow-x:auto;
+	margin-bottom: 0px;
+	/* 高さ：((ウィンドウの高さ - ヘッダーの高さ) / 2) - テーブルヘッダーの高さ */
+	height: calc(((100vh - 100px)/2) - 65px);
+}
+/* */
+/* 下部詳細エリア */
+#bottomDetailArea {
+	color:black;
+	/* 高さ：(ウィンドウの高さ - ヘッダーの高さ) / 2 */
+	height: calc((100vh - 100px)/2);
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+/* */
+/* 詳細エリア内部 */
+#detailInnerArea {
+	color:black;
+
+}
+
+/* */
+/* メッセージ画面 メッセージ表エリア */
+#messageArea {
+}
+#messageAreaTable {
+	overflow-y:hidden;
+	overflow-x:auto;
+	margin-bottom: 0px;
+	height: calc(100vh - 100px);
+}
+.iconPadding{
+	margin-left: 10px;
+}
+.messageIconBtn {
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+}
+
+/* CSSでのアイコン表示。凍結中 */
+/* .iconMessage input[value="5"]{ */
+/* .iconMessage{
+	width: 24px;
+    height: 24px;
+	background: url('../images/icons/major-process-alert.png');
+} */
+
+/* ユーザー表 */
+#TABLE_USER_LIST_HEAD{
+	width: 100%;
+	margin-bottom: 0px;
+	height: 65px;
+
+}
+#TABLE_USER_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_USER_LIST td{
+	/*
+	padding-top: 0px;
+	padding-bottom: 0px;
+	*/
+}
+#TABLE_USER_LIST input{
+
+}
+#TABLE_USER_LIST > tbody{
+	width: 100vw;
+
+}
+#TABLE_USER_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_USER_LIST th {
+	height: 60px;
+}
+#TABLE_USER_LIST_BODY {
+
+}
+/* テーブル内ラベル */
+.tableLabel {
+	color:blue;
+	font-weight: normal;
+	word-break:break-all
+
+}
+
+/* メッセージ表 */
+#TABLE_MESSAGE_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_MESSAGE_LIST td{
+	/*
+	padding-top: 0px;
+	padding-bottom: 0px;
+	*/
+}
+#TABLE_MESSAGE_LIST input{
+
+}
+#TABLE_MESSAGE_LIST > tbody{
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+	overflow-x:hidden;
+}
+#TABLE_MESSAGE_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_MESSAGE_LIST th {
+	height: 40px;
+}
+#TABLE_MESSAGE_LIST_BODY {
+	height: calc(100vh - 100px);
+}
+/* */
+
+/* 列幅 */
+.widthIcon {
+	width: 50px;
+	min-width: 50px;
+	max-width: 50px;
+}
+.widthSmall{
+	width: 100px;
+	min-width: 100px;
+	max-width: 100px;
+}
+.widthMedium{
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+}
+.widthLarge{
+	width: 200px;
+	min-width: 200px;
+	max-width: 200px;
+}
+.widthVeryLarge{
+	width: 300px;
+	min-width: 300px;
+	max-width: 300px;
+}
+.widthMessageLength{
+	width: 500px;
+	min-width: 500px;
+	max-width: 500px;
+}
+.widthHuge{
+	width: 2000px;
+	min-width: 2000px;
+	max-width: 2000px;
+}
+.widthLastCol{
+	width: 100%;
+	min-width: 50px;
+}
+.widthLargeLastCol{
+	width: 100%;
+	min-width: 200px;
+}
+.width-100{
+	width: 100%;
+}
+
+.left{
+	text-align:left;
+}
+.right{
+	text-align:right;
+}
+.center{
+	text-align:center;
+}
+.form-horizontal .control-label.text-left{
+    text-align: left;
+}
+/**{
+  font-family         :'Meiryo UI' !important;
+}
+*/
+.MENU_TABLE {
+		visibility: collapse;
+}
+
+.MENU_HR {
+	visibility: collapse;
+	display: none;
+}
+
+div#footerArea {
+	position: fixed !important;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	background-color: #4E9ABE;
+	color: #fff;
+
+	font-family         :'Meiryo UI'; /*screen_font_family*/
+	font-size           :11pt; /*screen_font_size*/
+	font-weight         :normal; /*screen_font_weight*/
+	color               :Black; /*screen_color*/
+	text-decoration     : none     ;
+	text-shadow		:0px 1px 0px rgba(255,255,255,0.7);
+
+
+}
+* html div#contentsArea{
+	height: 100%;
+	overflow: auto;
+}
+
+.boxA:after	{content:"";
+				display: block;
+				clear: both
+			}
+
+.box_GNOMES001	{float:left;
+				width: 50px;
+				}
+
+
+.box3			{float:left;
+				}
+
+.box4			{float:bottom;
+}
+
+.logo	{ /* センタリング */
+    text-align: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+.logo h1 { /* 丸とフォントのスタイリング */
+    margin: 0;
+    padding-top: 38px;
+    width: 200px;
+    height: 100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 26px;
+    color: #000;
+    background-color: #ddd;
+}
+
+/*
+.site h1		{margin: 0;
+			font-family: 'Paytone One', sans-serif;
+			font-weight: normal;
+			font-size: 60px
+			}
+.site p		{margin: 0;
+			font-size: 12px
+			}
+*/
+.menu ul		{margin: 0;
+			padding: 0;
+			list-style: none}
+
+.menu ul a	{display: block;
+			padding: 5px;
+			color: #000000;
+			font-size: 14px;
+			text-decoration: none}
+
+.menu li a:hover  { background-color: #eeeeee}
+
+.menu ul:after	{
+				content	: "";
+				display	: block;
+				clear		: both;
+				}
+
+.menu li			{float		: left;
+				width		: auto}
+
+  nav.sidebar, .main{
+    -webkit-transition: margin 200ms ease-out;
+      -moz-transition: margin 200ms ease-out;
+      -o-transition: margin 200ms ease-out;
+      transition: margin 200ms ease-out;
+  }
+
+  body,html{
+    height: 100%;
+  }
+
+  nav.sidebar, .main{
+    -webkit-transition: margin 200ms ease-out;
+      -moz-transition: margin 200ms ease-out;
+      -o-transition: margin 200ms ease-out;
+      transition: margin 200ms ease-out;
+  }
+
+  .main{
+    padding: 10px 10px 0 10px;
+  }
+
+
+  @media (min-width: 765px) {
+
+    .main{
+      position: absolute;
+      width: calc(100% - 40px);
+      margin-left: 40px;
+      float: right;
+    }
+
+    nav.sidebar:hover + .main{
+      margin-left: 200px;
+    }
+
+    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+      margin-left: 0px;
+    }
+
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+      text-align: center;
+      width: 100%;
+      margin-left: 0px;
+    }
+
+    nav.sidebar a{
+      padding-right: 13px;
+    }
+
+    nav.sidebar .navbar-nav > li:first-child{
+      border-top: 1px #e5e5e5 solid;
+    }
+
+    nav.sidebar .navbar-nav > li{
+      border-bottom: 1px #e5e5e5 solid;
+    }
+
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+      position: static;
+      float: none;
+      width: auto;
+      margin-top: 0;
+      background-color: transparent;
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+      padding: 0 0px 0 0px;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+      color: #777;
+    }
+
+    nav.sidebar{
+      width: 200px;
+      height: 100%;
+      margin-left: -160px;
+      float: left;
+      margin-bottom: 0px;
+    }
+
+    nav.sidebar li {
+      width: 100%;
+    }
+
+    nav.sidebar:hover{
+      margin-left: 0px;
+    }
+
+    .forAnimate{
+      opacity: 0;
+    }
+  }
+
+  @media (min-width: 1330px) {
+
+    .main{
+      width: calc(100% - 200px);
+      margin-left: 200px;
+    }
+
+    nav.sidebar{
+      margin-left: 0px;
+      float: left;
+    }
+
+    nav.sidebar .forAnimate{
+      opacity: 1;
+    }
+  }
+
+  nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #CCC;
+    background-color: transparent;
+  }
+
+  nav:hover .forAnimate{
+    opacity: 1;
+  }
+  section{
+    padding-left: 15px;
+  }
+/**
+ * システム共通スタイルシート
+ */
+/* ============================ メニュー用クラス ============================== */
+.MENU_BODY{
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  color               :Black; /*screen_color*/
+  background-color    :#FFFFC0; /*screen_bgcolor*/
+  text-decoration     : none     ;
+
+}
+
+.MENU_FORM{
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+}
+.MENU_TABLE{
+  width               : 100%; /* 900px;*/ /*menu_width*/
+  min-width           : 600px;
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-top-width    : 0px;
+  border-right-width  : 0px;
+  border-bottom-width : 0px;
+  border-left-width   : 0px;
+  border-style        : none none none none;
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  cellpadding         : 0px;
+  cellspacing         : 0px;
+  visibility		  : hidden;
+}
+.MENU_TR{
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+  visibility: hidden;
+}
+.MENU_TD{
+  height              : 20px;
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+  height              : 20px;
+  visibility: hidden;
+}
+.MENU_TOP_MSG{
+  width               : 85%;
+  border-style        : none none none none;
+  color               : red ; /* [TOPMSG] */
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  font-weight         :bold; /*screen_font_weight*/
+}
+/* R3.02.20RC14 ADD >>------------------------------ */
+/**
+ * 「ロード中」メッセージ表示用スタイル
+ */
+.LOAD_MSG{
+  width               : 85%;
+  border-style        : none none none none;
+  color               : green ; /* [TOPMSG] */
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  font-weight         :bold; /*screen_font_weight*/
+}
+/* ------------------------------<< R3.02.20RC14 ADD */
+.MENU_PAGE_NO{
+  color               : blue;
+  text-align          : right;
+}
+.MENU_TITLE1{
+  height              : 20px;
+  width               : 75%; /* 55%; */
+  /*font-family         :'Meiryo UI'; /*menu_title1_font_family*/
+  /*font-size           :12pt; /*menu_title1_font_size*/
+	font-family: 'Paytone One', sans-serif;
+	font-weight: normal;
+	font-size: 60px;
+  border-style        : none none none none;
+  color               :Black; /*menu_title1_color*/
+  font-weight         :bold; /*menu_title1_font_weight*/
+}
+.MENU_TITLE2{
+  height              : 20px;
+  width               : 75%; /* 55%; */
+  font-family         :'Meiryo UI'; /*menu_title2_font_family*/
+  /*font-size           :12pt; /*menu_title2_font_size*/
+  border-style        : none none none none;
+  color               :Black; /*menu_title2_color*/
+  font-weight         :bold; /*menu_title2_font_weight*/
+}
+.MENU_HR{
+  width               : 100%; /* 900px; */ /*menu_width*/
+}
+
+/* ========================== サブメニュー用クラス ============================ */
+.SUB_MENU_BODY{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt     ;
+  font-weight         : bold   ;
+  color               : black ;
+  background-color    :#FFFFC0; /*screen_bgcolor*/
+  text-decoration     : none     ;
+  link                : blue     ;
+  alink               : blue     ;
+  vlink               : blue     ;
+}
+.SUB_MENU_FORM{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+}
+.SUB_MENU_TABLE{
+  width               : 100%;
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-top-width    : 0px;
+  border-right-width  : 0px;
+  border-bottom-width : 0px;
+  border-left-width   : 0px;
+  border-style        : none none none none;
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  cellpadding         : 0px;
+  cellspacing         : 0px;
+}
+.SUB_MENU_TR{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+}
+.SUB_MENU_TD{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+  height              : 20px;
+}
+.SUB_MENU_TOP_MSG{
+  border-style       : none none none none;
+  background-color   :#AADFDF; /*menu_bgcolor*/
+  background-color   :#AADFDF; /*menu_bgcolor*/
+  font-weight        : bold;
+  width              : 100%;
+}
+.SUB_MENU_PAGE_NO{
+  color              : blue;
+  text-align         : right;
+}
+.SUB_MENU_TITLE{
+  width              : 85% ;
+  font-family        :'Meiryo UI'; /*menu_title2_font_family*/
+  font-size          :12pt; /*menu_title2_font_size*/
+  border-style       : none none none none;
+  color              :Black; /*menu_title2_color*/
+  font-weight        :bold; /*menu_title2_font_weight*/
+  white-space        : nowrap;
+}
+.SUB_MENU_HR{
+  width              : 100% ;
+}
+.SUB_MENU_EXIT_BTN{
+  text-align         : center;
+  width              : 100px;
+  color              : black ;
+  background-color   : silver ;
+}
+
+
+/* ============================ 共通オブジェクトクラス ============================== */
+
+
+TABLE{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+
+TR{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+
+TD{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  height             :26px; /*screen_table_height*/
+  /*font-weight        :bold; /*screen_font_weight*/
+  text-indent        : 1px;
+}
+FONT{
+  color              : blue;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+INPUT{
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+  color              :Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+}
+SELECT{
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+  color              :Blue; /*screen_select_color*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+A{
+  color              :#993366; /*screen_link_color*/
+}
+.NOINPUT_TEXT{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  font-weight        : normal;
+}
+.LINK_TEXT{
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  background-color   : rgba(0, 0, 0, 0);
+  color              :#993366; /*screen_link_color*/
+  CURSOR             : hand;
+  border-style       : none none none none;
+  TEXT-DECORATION    : underline;
+}
+
+ /*gridのgutter調整*/
+.row-0{
+    margin-left:0px;
+    margin-right:0px;
+}
+.row-0 > div{
+        padding-right:0px;
+        padding-left:0px;
+    }
+}
+
+/* ============================ メニュー共通ボタン ============================== */
+/* メニュー共通ボタン通常表示 */
+.MENUBTN_UP{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#FFFFFF; /*menu_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* メニュー共通ボタン通過時表示 */
+.MENUBTN_DOWN{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#FFFFFF; /*menu_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : inset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : inset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 4px 0px 0px 0px;
+}
+/* メニュー共通ボタンクリック時 */
+.MENUBTN_OVER{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#FFFFFF; /*menu_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* メニュー共通ボタンクリック時 */
+.MENUBTN_OUT{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : auto;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#D0D0D0; /*menu_button_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+
+/* 2015/09/28Add メニュー共通ボタン使用不可時のキャプション変更 */
+.MENUBTN_OUT[disabled] {
+  color              : Gray;
+}
+/* ============================ システム共通ボタン ============================== */
+/* システム共通ボタン通常表示 */
+.COMBTN_UP{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタン通過時表示 */
+.COMBTN_DOWN{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : inset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : inset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 4px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.COMBTN_OVER{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.COMBTN_OUT{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : auto;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#D0D0D0; /*screen_button_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* ============================ カスタムボタン ============================== */
+/* システム共通ボタン通常表示 */
+.CSTBTN_UP{
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタン通過時表示 */
+.CSTBTN_DOWN{
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : inset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : inset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 4px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.CSTBTN_OVER{
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.CSTBTN_OUT{
+  height             :20px; /*menu_button_height*/
+  cursor             : auto;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#D0D0D0; /*screen_button_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+
+
+//========================= ビルダー用オブジェクト ==============================
+/* テキスト入力通常表示 */
+.NMLTXT_NORMAL{
+  color   :Blue; /*screen_inputtext_color*/
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+}
+/* テキスト入力反転表示 */
+.NMLTXT_CHANGE{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* テキスト入力エラー表示 */
+.NMLTXT_ERR{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* テキスト入力エリア通常表示 */
+.NMLTXA_NORMAL{
+  color              :Blue; /*screen_inputtext_color*/
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+}
+/* テキスト入力エリア反転表示 */
+.NMLTXA_CHANGE{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* テキスト入力エリアエラー表示 */
+.NMLTXA_ERR{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* チェックボックス通常表示 */
+.CHECKBOX{
+  background-color   : rgba(0, 0, 0, 0);
+}
+/* チェックボックス反転表示 */
+.CHECKBOX_CHANGE{
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* チェックボックスエラー表示 */
+.CHECKBOX_ERR{
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* ドロップダウン通常表示 */
+.NMLDLD_NORMAL{
+  color              :Blue; /*screen_select_color*/
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+}
+/* ドロップダウン反転表示 */
+.NMLDLD_CHANGE{
+  color              :#FFFFFF; /*screen_select_bgcolor*/
+  background-color   :Blue; /*screen_select_color*/
+}
+/* ドロップダウンエラー表示 */
+.NMLDLD_ERR{
+  color              :#FFFFFF; /*screen_select_bgcolor*/
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* ラジオボタン通常表示 */
+.RADIO{
+  background-color   : rgba(0, 0, 0, 0);
+}
+/* ラジオボタン反転表示 */
+.RADIO_CHANGE{
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* ラジオボタンエラー表示 */
+.RADIO_ERR{
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* テキスト表示 */
+.NMLLBL_NORMAL{
+  color              :Blue; /*screen_span_color*/
+}

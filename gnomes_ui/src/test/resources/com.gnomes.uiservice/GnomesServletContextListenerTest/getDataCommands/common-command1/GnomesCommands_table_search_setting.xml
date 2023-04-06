@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE configuration>
+<commandDatas>
+    <commandDataList>
+        <!-- 保存 -->
+        <commandData commandId="COMMAND_ID_Y99004C001">
+            <initCommandFlag>false</initCommandFlag>
+            <isTransactional>true</isTransactional>
+            <isFunctionBeanBegin>false</isFunctionBeanBegin>
+            <isFunctionBeanEnd>false</isFunctionBeanEnd>
+            <tokenCheckFlg>true</tokenCheckFlg>
+            <tokenUpdateFlg>true</tokenUpdateFlg>
+            <doBusinessClassMethod>com.gnomes.system.logic.BLTableSearchSetting.save</doBusinessClassMethod>
+            <serviceFormBeanName>com.gnomes.system.view.TableSearchSettingServiceFormBean</serviceFormBeanName>
+            <serviceFunctionBeanName>com.gnomes.system.data.TableSearchSettingFunctionBean</serviceFunctionBeanName>
+            <mappingFunctionBeanFromForm>
+                <entry>
+                    <key>tableId</key>
+                    <value>tableId</value>
+                </entry>
+                <entry>
+                    <key>settingType</key>
+                    <value>settingType</value>
+                </entry>
+                <entry>
+                    <key>setting</key>
+                    <value>setting</value>
+                </entry>
+                <entry>
+                    <key>saveScreenId</key>
+                    <value>saveScreenId</value>
+                </entry>
+            </mappingFunctionBeanFromForm>
+        </commandData>
+        <!-- 初期化 -->
+        <commandData commandId="COMMAND_ID_Y99004C002">
+            <initCommandFlag>false</initCommandFlag>
+            <isTransactional>true</isTransactional>
+            <isFunctionBeanBegin>false</isFunctionBeanBegin>
+            <isFunctionBeanEnd>false</isFunctionBeanEnd>
+            <tokenCheckFlg>true</tokenCheckFlg>
+            <tokenUpdateFlg>true</tokenUpdateFlg>
+            <doBusinessClassMethod>com.gnomes.system.logic.BLTableSearchSetting.delete</doBusinessClassMethod>
+            <serviceFormBeanName>com.gnomes.system.view.TableSearchSettingServiceFormBean</serviceFormBeanName>
+            <serviceFunctionBeanName>com.gnomes.system.data.TableSearchSettingFunctionBean</serviceFunctionBeanName>
+            <mappingFunctionBeanFromForm>
+                <entry>
+                    <key>tableId</key>
+                    <value>tableId</value>
+                </entry>
+                <entry>
+                    <key>settingType</key>
+                    <value>settingType</value>
+                </entry>
+                <entry>
+                    <key>saveScreenId</key>
+                    <value>saveScreenId</value>
+                </entry>
+            </mappingFunctionBeanFromForm>
+        </commandData>
+    </commandDataList>
+    <screenDataList>
+    </screenDataList>
+</commandDatas>

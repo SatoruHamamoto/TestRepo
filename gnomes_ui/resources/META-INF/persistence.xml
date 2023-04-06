@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+  <persistence-unit name="gnomes-ui" transaction-type="JTA">
+    <!--  SQLServer -->
+    <jta-data-source>java:/MSSqlDS</jta-data-source>
+    <!-- MySQL -->
+    <!--
+    <jta-data-source>java:/MySqlDS</jta-data-source>
+    -->
+    <!-- oracle -->
+    <!--
+    <jta-data-source>java:/OracleDS</jta-data-source>
+    -->
+
+    <mapping-file>META-INF/gnomes_jpql_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_pulldown_query.xml</mapping-file>
+    <jar-file>lib/gnomes_resource.jar</jar-file>
+    <jar-file>lib/gnomes_database.jar</jar-file>
+    <jar-file>lib/gnomes_ui.jar</jar-file>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+    <properties>
+        <property name="hibernate.hbm2ddl.auto" value="none" />
+
+        <property name="hibernate.show_sql" value="false" />
+        <property name="hibernate.format_sql" value="false" />
+        <property name="hibernate.use_sql_comments" value="true" />
+
+        <property name="hibernate.cache.use_second_level_cache" value="true" />
+        <property name="hibernate.cache.use_query_cache" value="true" />
+        <property name="hibernate.generate_statistics" value="false" />
+        <property name="javax.persistence.query.timeout" value="300000" />
+
+        <!-- 履歴登録情報 start -->
+        <!-- 履歴登録対象テーブルの接頭語 -->
+        <property name="org.hibernate.envers.audit_table_prefix" value="h_"/>
+        <!-- 履歴登録対象テーブルの接尾語 -->
+        <property name="org.hibernate.envers.audit_table_suffix" value=""/>
+
+        <!-- リレーション項目の変更時に履歴を記録するか否か -->
+        <property name="org.hibernate.envers.revision_on_collection_change" value="false"/>
+        <!-- @version 項目の更新を履歴に残さないか否か -->
+        <property name="org.hibernate.envers.do_not_audit_optimistic_locking_field" value="false"/>
+        <!-- 履歴登録テーブルのデフォルトスキーマ名 -->
+        <!-- SQLServer -->
+        <property name="org.hibernate.envers.default_schema" value="[GNOMES-SQLDB\GNOMES].gnomestest.gnomestest"/>
+        <!-- MySQL -->
+        <!--
+        <property name="org.hibernate.envers.default_catalog" value="gnomestest"/>
+        -->
+        <!-- oracle -->
+        <!--
+        <property name="org.hibernate.envers.default_schema" value="gnomestest"/>
+        -->
+        <!-- 削除時の履歴データ（各項目の値）を残すか否か -->
+        <property name="org.hibernate.envers.store_data_at_delete" value="true"/>
+        <!-- 履歴登録情報 end -->
+
+        <!-- SQLServer -->
+        <property name="hibernate.dialect" value="com.gnomes.system.dialect.GnomesSqlServerDialect" />
+        <!-- MySQL -->
+        <!--
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+        -->
+        <!-- oracle -->
+        <!--
+        <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
+        -->
+    </properties>
+  </persistence-unit>
+
+  <persistence-unit name="gnomes-ui_nonjta" transaction-type="RESOURCE_LOCAL">
+    <!-- SQLServer -->
+    <non-jta-data-source>java:/MSSqlNonJtaDS</non-jta-data-source>
+    <!-- MySQL -->
+    <!--
+    <non-jta-data-source>java:/MySqlNonJtaDS</non-jta-data-source>
+    -->
+    <!-- oracle -->
+    <!--
+    <non-jta-data-source>java:/OracleNonJtaDS</non-jta-data-source>
+    -->
+    <mapping-file>META-INF/gnomes_jpql_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_pulldown_query.xml</mapping-file>
+    <jar-file>lib/gnomes_resource.jar</jar-file>
+    <jar-file>lib/gnomes_database.jar</jar-file>
+    <jar-file>lib/gnomes_ui.jar</jar-file>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+        <property name="hibernate.hbm2ddl.auto" value="none" />
+        <property name="hibernate.show_sql" value="false" />
+        <property name="hibernate.format_sql" value="false" />
+        <property name="hibernate.use_sql_comments" value="true" />
+
+        <!-- 履歴登録情報 start -->
+        <!-- 履歴登録対象テーブルの接頭語 -->
+        <property name="org.hibernate.envers.audit_table_prefix" value="h_"/>
+        <!-- 履歴登録対象テーブルの接尾語 -->
+        <property name="org.hibernate.envers.audit_table_suffix" value=""/>
+
+        <!-- リレーション項目の変更時に履歴を記録するか否か -->
+        <property name="org.hibernate.envers.revision_on_collection_change" value="false"/>
+        <!-- @version 項目の更新を履歴に残さないか否か -->
+        <property name="org.hibernate.envers.do_not_audit_optimistic_locking_field" value="false"/>
+        <!-- 履歴登録テーブルのデフォルトスキーマ名 -->
+        <!-- SQLServer -->
+        <property name="org.hibernate.envers.default_schema" value="[GNOMES-SQLDB\GNOMES].gnomestest.gnomestest"/>
+        <!-- MySQL -->
+        <!--
+        <property name="org.hibernate.envers.default_catalog" value="gnomestest"/>
+        -->
+        <!-- oracle -->
+        <!--
+        <property name="org.hibernate.envers.default_schema" value="gnomestest"/>
+        -->
+        <!-- 削除時の履歴データ（各項目の値）を残すか否か -->
+        <property name="org.hibernate.envers.store_data_at_delete" value="true"/>
+        <!-- 履歴登録情報 end -->
+        <!-- SQLServer -->
+        <property name="hibernate.dialect" value="com.gnomes.system.dialect.GnomesSqlServerDialect" />
+        <!-- MySQL -->
+        <!--
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+        -->
+        <!-- oracle -->
+        <!--
+        <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
+        -->
+    </properties>
+  </persistence-unit>
+</persistence>

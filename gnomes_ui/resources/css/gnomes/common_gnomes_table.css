@@ -1,0 +1,84 @@
+/* #####################################################################
+   #
+   #   Project       : Modal Login with jQuery Effects
+   #   Author        : Rodrigo Amarante (rodrigockamarante)
+   #   Version       : 1.0
+   #   Created       : 07/28/2015
+   #   Last Change   : 08/02/2015
+   #
+   ##################################################################### */
+
+.MENU_BODY {
+    background-color: #FFFFFF;
+}
+
+.gnomesTable {
+    table-layout: fixed;
+}
+
+
+.TABLE_GLOW  {
+	color				:#4f4f4f;
+	border				:1px solid #a8a8a8;
+	/*background-color	:#aaaaaa;*/
+	background-image	:url("./images/gnomes/ui-bg_highlight-soft_100_deedf7_1x100.png");
+	background-origin	:padding-box;
+	background-repeat	:repeat-x;
+	background-position-x	: 50%;
+	background-position-y	: 50%;
+	background-size			: auto;
+	border-bottom-color	: #a8a8a8;
+	border-bottom-left-radius	: 3px;
+	border-bottom-right-radius	: 3px;
+	border-bottom-style		: solid;
+	font-size			: 17px;
+	text-shadow		:0px 1px 0px rgba(255,255,255,0.7);
+	-moz-box-shadow		:inset 0px 1px 0px #fff;
+	-webkit-box-shadow	:inset 0px 1px 0px #fff;
+
+}
+
+/* ADD START 2016/10/18 Fujiwara */
+.TABLE_LABEL {
+  color              :Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  font-weight		 : normal;
+}
+
+/* ADD END */
+
+INPUT{
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+  color              :Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+}
+.NOINPUT_TEXT{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  font-weight		 : normal;
+}
+
+
+ /*grid‚Ìgutter’²®*/
+.row-0{
+    margin-left:0px;
+    margin-right:0px;
+}
+.row-0 > div{
+        padding-right:0px;
+        padding-left:0px;
+    }
+}
+
+
+

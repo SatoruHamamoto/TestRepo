@@ -1,0 +1,92 @@
+/* #####################################################################
+   #
+   #   Project       : Modal Search with jQuery Effects
+   #   Author        : Rodrigo Amarante (rodrigockamarante)
+   #   Version       : 1.0
+   #   Created       : 07/28/2015
+   #   Last Change   : 08/02/2015
+   #
+   ##################################################################### */
+
+
+
+/* ============================ 共通検索ダイアログ ============================== */
+/* 検索モーダルのスタイルリスト */
+.searchFormPartition{
+	border-top: 1px solid #DDDDDD;
+	font-weight :normal;
+	margin:10px 0 0;
+	text-align:left;
+	padding:0;
+	height:10px;
+}
+.searchFormPartitionText{
+	position: relative;
+	top: -9px;
+	padding-right:3px;
+	background:white;
+}
+
+.searchModal div.modal-body{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.searchModal-lg{
+	width: 75vw;x;
+}
+
+.filterSelectBox{
+	margin-bottom: 0px;
+}
+
+
+/* フィルタ部 */
+#filterTable{
+	line-height: 150%;
+}
+
+#filterTable div.tr{
+	margin-bottom: 2px;
+}
+.enableCheckBox{
+	/*margin-bottom:7px !important;*/
+	margin-top:13px !important;
+	margin-right:10px !important;
+}
+
+#filterArea {
+}
+
+/* ソート部 */
+#sortTable{
+	border: 1px #cccccc solid;
+	margin-top:5px;
+}
+#sortTable td{
+	border: 1px #cccccc solid;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	vertical-align: middle;
+	height: 30px;
+}
+#sortTable select{
+	height: 28px;
+}
+#sortArea {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.buttonTd{
+	text-align: center;
+}
+.orderFont{
+	font-size: 14pt;
+}
+
+
+#filterArea .bootstrap-datetimepicker-widget.dropdown-menu{
+/*    position: static;	*/
+}
+

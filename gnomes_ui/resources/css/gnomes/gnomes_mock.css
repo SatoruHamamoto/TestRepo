@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/* mockのみ共通に使用する定義 */
+
+/*
+ 指示または注意事項
+*/
+.mock-header-column-OrderOrNotes {
+  white-space:pre-wrap;
+  height: 64px;
+}
+
+.mock-header-column-OrderOrNotes + div {
+  height: 64px;
+}
+
+/*----------------------------------------
+ 範囲のinputボックス
+---------------------------------------- */
+.mock-data-input-size-date-range {
+  display: inline-block;
+  width: 40%;
+}
+

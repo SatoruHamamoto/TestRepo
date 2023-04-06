@@ -1,0 +1,113 @@
+﻿/* キーボード入力のレイアウト調整 */
+.ui-num-keyboard { 
+   min-width: 2.2em;
+}
+
+.ui-keyboard-bksp.ui-num-keyboard,
+.ui-keyboard-del.ui-num-keyboard,
+.ui-keyboard-cancel.ui-num-keyboard,
+.ui-keyboard-accept.ui-num-keyboard {
+    min-width: 3.1em;
+}
+
+.ui-keyboard {
+  transform: scale(1.0);
+}
+
+.noaccept.ui-keyboard-accept {
+    display: none;
+}
+
+.ui-keyboard-tab {
+    display: none;
+}
+
+/* 横幅のレスポンシブ調整 */
+@media screen and (min-width:480px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 0.8em;
+    }
+}
+@media screen and (min-width:480px) and (max-width:650px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 0.7em;
+    }
+}
+@media screen and (min-width:650px) and (max-width:767px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.0em;
+    }
+}
+@media screen and (min-width:767px) and (max-width:800px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 0.85em;
+    }
+}
+@media screen and (min-width:800px) and (max-width:850px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 0.9em;
+    }
+}
+@media screen and (min-width:850px) and (max-width:900px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.0em;
+    }
+}
+@media screen and (min-width:900px) and (max-width:950px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.1em;
+    }
+}
+@media screen and (min-width:950px) and (max-width:1000px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.2em;
+    }
+}
+@media screen and (min-width:1000px) and (max-width:1050px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.28em;
+    }
+}
+@media screen and (min-width:1050px) and (max-width:1100px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.36em;
+    }
+}@media screen and (min-width:1100px) and (max-width:1150px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.46em;
+    }
+}@media screen and (min-width:1150px) and (max-width:1200px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.53em;
+    }
+}
+@media screen and (min-width:1200px) and (max-width:1250px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.6em;
+    }
+}
+@media screen and (min-width:1250px) and (max-width:1300px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.7em;
+    }
+}
+@media screen and (min-width:1300px) and (max-width:1350px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.8em;
+    }
+}
+@media screen and (min-width:1350px) and (max-width:1400px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.87em;
+    }
+}
+@media screen and (min-width:1400px) and (max-width:1450px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 1.95em;
+    }
+}
+@media screen and (min-width:1450px) {
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-size: 2.0em;
+    }
+}

@@ -1,0 +1,915 @@
+/* #####################################################################
+   #
+   #   Project       : Modal Login with jQuery Effects
+   #   Author        : Rodrigo Amarante (rodrigockamarante)
+   #   Version       : 1.0
+   #   Created       : 07/28/2015
+   #   Last Change   : 08/02/2015
+   #
+   ##################################################################### */
+.table-bordered {
+    border: 1px solid #dddddd;
+    border-collapse: separate;
+    border-collapse: collapse;
+    border-left: 0;
+    border-radius: 8px;
+}
+.glyphicon {
+	color: black;
+}
+div#headerArea {
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #4E9ABE;
+	color: #fff;
+
+}
+
+/*.defaultHeader {
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+
+}*/
+
+.table-cell-text {
+	overflow:	hidden;
+}
+
+#dropdownMenu1 {
+	width: 100%;
+	text-align: left;
+}
+.dropdown-menu {
+	width: 100%;
+}
+.headerBtn {
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	padding: 4px;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+}
+
+div#headerBox{
+/*	position: fixed !important;
+	position: absolute;
+*/
+	position: relative !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #4E9ABE;
+	color: #fff;
+	display: block;
+
+}
+div#headerDataBox{
+	/* float: top;
+	position: fixed !important;
+	position: absolute; */
+	top: 50px;
+	padding-top: 5pt;
+	background-color:#ffffff;
+	width: 100%;
+
+}
+
+#headerText{
+	height: 50px;
+	width: 100%;
+	font-size:13pt;
+}
+label{
+	margin-bottom: 0px;
+	color: black;
+	font-size:18pt;
+}
+.headerText{
+	margin-bottom: 5px;
+	color: white;
+	font-size:18pt;
+}
+
+.left{
+	text-align:left;
+}
+.right{
+	text-align:right;
+}
+.float{
+	float:left;
+}
+.multiDataCol{
+	width: 50%;
+	float: left;
+}
+
+#headerContainer{
+	width: 100%;
+	padding-left: 0pt;
+}
+
+.MENU_BODY_SOP{
+	padding: 0px;
+	overflow: hidden;
+}
+
+
+div#mainBox {
+/*	position: fixed !important;
+	position: absolute;
+*/
+	left: 0px;
+	width: 100%;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+
+	/*
+	padding-right: 16px;
+	*/
+}
+#main_area {
+	height: 100%;
+}
+
+.border-box{
+
+   border: 1px solid #000000;
+
+}
+
+/* SOP実行画面 左側*/
+div#mainBoxLeft {
+/*	position: fixed !important;
+	position: absolute; */
+	/*top: 220px;*/
+	left: 0px;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+	float:left;
+	/* width:100%; */
+	height: calc(100vh - 200px);
+	overflow-y:auto;
+	padding: 10px;
+	padding-right: 0px;
+	margin-right: -10px;
+
+}
+
+/* SOP実行画面 右側*/
+/*
+div#mainBoxRight {
+
+	background-color:#ffffff;
+	min-height: 50px;
+	overflow-y:auto;
+	padding: 10px;
+
+}
+*/
+
+#main_areaLeft {
+	margin-bottom: 0px;
+}
+
+/* 上下スクロールボタン(旧サンプル用：未使用) */
+.scrollButton{
+	background-color: #dddddd;
+	color: #000000;
+	text-align: center;
+	height: 30px;
+	font-size: 15pt;
+}
+
+/* 開閉ボタン（上部） */
+.openButtonTop{
+}
+/* 開閉ボタンエリア（上部） */
+.openButtonTopArea{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* 開閉ボタン(左右) */
+.openButton{
+	height: calc(100vh - 210px);
+	margin-top:10px;
+	margin-left: 10px;
+}
+
+.openButtonArea{
+	float:left;
+	padding-left: 0px;
+}
+
+/* SOP一覧表 */
+.scrollButtonList {
+	/*height: 100%;*/
+	height: calc(100vh - 280px);
+}
+#TABLE_SOP_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_SOP_LIST td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#TABLE_SOP_LIST > tbody{
+	height: calc(100vh - 322px);
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+}
+#TABLE_SOP_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_SOP_LIST th {
+	height: 30px;
+}
+/* */
+
+/* SOP実行画面 右側*/
+div#mainBoxRight {
+
+	background-color:#ffffff;
+	height: calc(100vh - 200px);
+	overflow-y:auto;
+	padding: 10px;
+
+}
+
+#main_areaRight {
+
+}
+
+.sopDetailArea{
+	background-color:	#ffffff;
+	font-size:			18pt; /*screen_font_size*/
+	color:				Black;
+	word-break:			break-all;
+	overflow-y: auto;
+
+	margin-top: 5px;
+	margin-bottom: 5px;
+
+}
+
+.sopSideArea{
+	background-color:	#ffffff;
+	font-size:			18pt; /*screen_font_size*/
+	color:				Black;
+	word-break:			break-all;
+	overflow-y: auto;
+
+	margin-bottom: 10px;
+
+}
+
+
+.margin-area{
+	width: calc(100% - 20px);
+	margin: 10px;
+}
+
+/* SOP用左ボタンサイズ */
+.sopLeftButton{
+	width: 150px;
+	height: 75px;
+	float: left;
+	margin: 10px 0px;
+	font-weight: bold; /*screen_font_weight*/
+	font-size: 18px;
+}
+/* SOP用右ボタンサイズ */
+.sopRightButton{
+	width: 150px;
+	height: 75px;
+	float: right;
+	margin: 10px 0px;
+	font-weight: bold; /*screen_font_weight*/
+	font-size: 18px;
+}
+
+/* 作業開始ボタン */
+.workStartButton{
+	width: 150px;
+	height: 75px;
+	margin: 10px;
+	font-weight: bold; /*screen_font_weight*/
+	font-size: 18px;
+}
+
+
+/* 詳細検索ボタン */
+.searchDetailButton{
+
+	margin: 10px 0px;
+	font-weight: bold; /*screen_font_weight*/
+	font-size: 20px;
+	float: right;
+	text-decoration: underline;
+}
+
+/* ボタン部品の中央揃え */
+#center-button {
+	text-align:center;
+}
+
+
+/* 仕込実績メイン画面用 */
+.inputTableArea{
+	height: calc(100vh - 242px);
+	overflow-y: hidden;
+	margin-bottom: 0px;
+
+}
+/* 仕込実績メイン画面テーブル */
+#TABLE_INPUT_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_INPUT_LIST td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#TABLE_INPUT_LIST > tbody{
+	height: calc(100vh - 282px);
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+}
+#TABLE_INPUT_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_INPUT_LIST th {
+	height: 30px;
+}
+/* */
+
+/* 仕込実績詳細画面用 */
+.inputDetailTableArea{
+	height: calc(100vh - 352px);
+	overflow-y:hidden;
+	margin-bottom: 0px;
+
+}
+.inputDetailTextArea{
+	height: 50px;
+}
+/* 仕込実績詳細画面テーブル */
+#TABLE_INPUT_DETAIL_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_INPUT_DETAIL_LIST td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#TABLE_INPUT_DETAIL_LIST > tbody{
+	height: calc(100vh - 397px);
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+}
+#TABLE_INPUT_DETAIL_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_INPUT_DETAIL_LIST th {
+	height: 30px;
+}
+/* */
+
+/* データ設定画面用 */
+.dataSetTableArea{
+	height: calc(100vh - 302px);
+	overflow-y:hidden;
+	margin-bottom: 0px;
+}
+/* データ設定画面テーブル */
+#TABLE_DATA_SET_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_DATA_SET_LIST td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#TABLE_DATA_SET_LIST > tbody{
+	height: calc(100vh - 372px);
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+}
+#TABLE_DATA_SET_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_DATA_SET_LIST th {
+	height: 60px;
+}
+/* */
+
+/* データ設定画面用(3行テスト) */
+.dataSetTableArea3{
+	height: calc(100vh - 302px);
+	overflow-y:hidden;
+	margin-bottom: 0px;
+}
+/* データ設定画面テーブル(3行テスト) */
+#TABLE_DATA_SET_LIST3{
+	width: 100%;
+	margin-bottom: 0px;
+	font-size: 12px;
+}
+#TABLE_DATA_SET_LIST3 td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#TABLE_DATA_SET_LIST3 > tbody{
+	height: calc(100vh - 392px);
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+}
+#TABLE_DATA_SET_LIST3 tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_DATA_SET_LIST3 th {
+	height: 90px;
+}
+
+/* 工程端末画面サンプル_No26 */
+#TABLE_DATA_SET_LIST4{
+	width: 100%;
+	margin-bottom: 0px;
+	font-size: 12px;
+}
+#TABLE_DATA_SET_LIST4 td{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#TABLE_DATA_SET_LIST4 > tbody{
+	height: calc(100vh - 505px);
+	float:left;/*この設定によりoverflowが有効となる*/
+	overflow:auto;
+}
+#TABLE_DATA_SET_LIST4 tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+/*
+#TABLE_DATA_SET_LIST4 th {
+	height: 90px;
+}
+*/
+
+/* */
+
+/* SOP実行画面サンプル用 */
+.sopDetailTop{
+	overflow-y:auto;
+	height: calc((100vh - 200px) * 0.25 );
+
+}
+.sopDetailTop > textarea{
+	overflow-y:auto;
+	width: 100%;
+	height: 95%;
+
+}
+.sopDetailBottom{
+	overflow-y:auto;
+	height: calc((100vh - 200px) * 0.75 );
+}
+.sopDetailBottom > textarea{
+	overflow-y:auto;
+	width: 100%;
+	height: 95%;
+
+}
+
+
+/* 列幅 */
+.widthIcon {
+	width: 50px;
+	min-width: 50px;
+	max-width: 50px;
+}
+.widthSmall{
+	width: 100px;
+	min-width: 100px;
+	max-width: 100px;
+}
+.widthMedium{
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+}
+.widthLarge{
+	width: 200px;
+	min-width: 200px;
+	max-width: 200px;
+}
+.widthVeryLarge{
+	width: 300px;
+	min-width: 300px;
+	max-width: 300px;
+}
+.widthLastCol{
+	width: 100%;
+	min-width: 50px;
+}
+.widthLargeLastCol{
+	width: 100%;
+	min-width: 200px;
+}
+.width-100{
+	width: 100%;
+}
+
+.widthSopCheckBox{
+	width: 125px;
+	min-width: 125px;
+	max-width: 125px;
+}
+
+.SopCheckBox {
+	width: 60px;
+	height:	60px;
+}
+input[type=checkbox] {
+	margin: 20px;
+}
+
+
+/* bootstrap アコーディオン表示の速度調整 */
+.collapsing{
+	transition: height 0s ease;
+}
+
+.doubleBox:after {
+		content:	"";
+		display:	block;
+		clear:		both;
+}
+.leftBox {
+
+}
+.rightBox {
+		float:	right:
+		width:	50%;
+}
+
+.panel-body {
+	width:	50%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.logo {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.navbar {
+	margin-bottom: 0px;
+}
+.form-horizontal {
+
+}
+.form-detailarea {
+	width: 	50%;
+	background-color:	#00ff00;
+}
+
+/**{
+  font-family         :'Meiryo UI' !important;
+}
+*/
+.MENU_TABLE {
+		visibility: collapse;
+}
+
+.MENU_HR {
+	visibility: collapse;
+}
+
+TABLE{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+
+FONT{
+  color              : blue;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+INPUT{
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+  color              :Black; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :18pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+}
+SELECT{
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+  color              :Black; /*screen_select_color*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+A{
+  color              :#2a6496; /*screen_link_color*/
+}
+.NOINPUT_TEXT{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  font-weight		 : normal;
+}
+.NOINPUT_TEXTAREA{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  color              : Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          : 18pt; /*screen_font_size*/
+  font-family        : 'Meiryo UI'; /*screen_font_family*/
+  font-weight		 : normal;
+  ime-mode           : inactive;
+  word-wrap          : break-word;
+}
+.LINK_TEXT{
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  background-color   : rgba(0, 0, 0, 0);
+  color              :#993366; /*screen_link_color*/
+  CURSOR             : hand;
+  border-style       : none none none none;
+  TEXT-DECORATION    : underline;
+}
+#confirm{
+  background-color   :buttonface; /*screen_inputtext_bgcolor*/
+  color              :Black; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :18pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+  margin			 :  10px;
+}
+
+ /*gridのgutter調整*/
+.row-0{
+    margin-left:0px;
+    margin-right:0px;
+}
+.row-0 > div{
+        padding-right:0px;
+        padding-left:0px;
+    }
+}
+
+/* スクロールボタン */
+div.scrollBtn {
+	width:100%;
+}
+div.scrollBtn img{
+	width:70px;
+}
+
+
+/**追加*/
+
+.menu-title-sample {
+	color:	#000000;
+}
+
+.mainAriaRight {
+	color:	#ffffff;
+}
+
+.subAriaLeft {
+	color:	#ffffff;
+}
+
+.main-title {
+	color:	#000000;
+}
+
+.menu-sub-title {
+	color:	#000000;
+	font-size:			18pt; /*screen_font_size*/
+}
+
+.menu-item-title {
+	color:	#000000;
+	font-size:			18pt; /*screen_font_size*/
+}
+
+.btn-location {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.btn-style-color {
+	color: #000000;
+	background-color: #ffffff;
+	border-color: #dddddd;
+}
+
+.a-tag-text {
+	color:	#005580;
+}
+
+.table-local-border {
+	border-bottom: none;
+	border-top: none;
+}
+
+/* サブ画面 上側*/
+div#subBoxOver {
+/*	position: fixed !important;
+	position: absolute; */
+	/*top: 220px;*/
+	left: 0px;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+	float:left;
+	/* width:100%; */
+	height: calc(100vh - 200px);
+	overflow-y:auto;
+	padding: 10px;
+	padding-right: 0px;
+	margin-right: -10px;
+
+}
+
+/* サブ画面 下側*/
+div#subBoxUnder {
+	background-color:#ffffff;
+	height: calc(100vh - 200px);
+	overflow-y:auto;
+	padding: 10px;
+
+}
+
+/** メイン左側 **/
+div#mainBoxLeft {
+
+	background-color:#ffffff;
+	height: calc(100vh - 200px);
+	overflow-y:auto;
+	padding: 10px;
+
+}
+
+.more-search-button {
+	color: #000000;
+	background-color: #ffffff;
+	float: right;
+
+	font-size:			14pt; /*screen_font_size*/
+}
+
+.headerBtn {
+	background-color: #ffffff;
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	padding: 4px;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+	height: auto;
+}
+
+.headerBtn-color {
+	color:	#000000;
+	background-color: #ffffff;
+}
+
+/*作業種別*/
+.margin-area-top{
+	width: auto;
+	margin: 10px;
+}
+
+/*SOPガイダンス*/
+.margin-area-centor{
+	width: auto;
+	margin: 10px;
+}
+
+/*SOPガイダンス表示時の罫線設定*/
+.sop-style {
+	border: 1px solid #000000;
+	border-collapse: collapse;
+}
+
+/*SOPガイダンス*/
+.margin-area-bottom{
+	width: auto;
+	margin: 10px;
+}
+
+/*アイコン中央表示*/
+.center-Icon {
+	text-align:center;
+}
+
+/*テキスト中央表示*/
+.centor-text {
+	text-align:center;
+}
+
+/*テキストのフォント設定*/
+.text-font {
+	font-size:18pt;
+	color:	#000000;
+}
+
+/*SOP一覧エリア*/
+div#sopListArea {
+	left: 0px;
+	background-color: #ffffff;
+	color: #000;
+	display: block;
+	float:left;
+	height:auto;
+	overflow:hidden;
+	padding: 10px;
+	padding-right: 0px;
+	margin-right: -10px;
+
+}
+
+div.sopDetailBox {
+	background-color:#ffffff;
+	height: 100%;
+	width:100%;
+}
+
+/** No22用 **/
+div#mainBoxMainArea {
+
+	left: 0px;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+	float:left;
+	height:auto;
+	overflow-y:hideen;
+/*
+	padding: 10px;
+	padding-right: 0px;
+	margin-right: -10px;
+*/
+}
+/** 検索メニュー **/
+div#mainBoxSearchArea {
+	float:right;
+	background-color:#ffffff;
+	overflow-y:hidden;
+	padding: 10px;
+
+}

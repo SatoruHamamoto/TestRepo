@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+ 
+<!--  <web-app>  -->
+    <display-name>GNOMES TEST</display-name>
+
+
+    <context-param>
+      <param-name>LOCALE</param-name>
+      <param-value>ja_JP</param-value>
+    </context-param>
+
+    <context-param>
+      <param-name>TZ</param-name>
+      <param-value>Asia/Tokyo</param-value>
+    </context-param>
+
+<!-- Uncomment to specify timezone for DB store
+    <context-param>
+      <param-name>DB-TZ</param-name>
+      <param-value>Asia/Tokyo</param-value>
+    </context-param>
+ -->
+ 
+    <!-- 帳票印刷情報 start -->
+    <!-- 帳票印字処理で使用する定義ファイル名 -->
+    <context-param>
+      <param-name>ReportDefinitionXMLFileName</param-name>
+      <param-value>C:/gnomes/print/config.xml</param-value>
+    </context-param>
+    <!-- 帳票印字処理で使用する DB サーバ名 -->
+    <context-param>
+      <param-name>ReportDBServerName</param-name>
+      <param-value>GNOMES-SQLDB\GNOMES</param-value>
+    </context-param>
+    <!-- 帳票印字処理で使用する DB接続のポートNo. -->
+    <context-param>
+      <param-name>ReportDBPortNo</param-name>
+      <param-value>1433</param-value>
+    </context-param>
+    <!-- 帳票印字処理で使用する DBユーザのユーザID -->
+    <context-param>
+      <param-name>ReportDBUserName</param-name>
+      <param-value>gnomes1</param-value>
+    </context-param>
+    <!-- 帳票印字処理で使用する DBユーザのパスワード -->
+    <context-param>
+      <param-name>ReportDBPassword</param-name>
+      <param-value>56GF+OukPxuWMkEZLIvkNQ==</param-value>
+    </context-param>
+    <!-- 帳票印字処理で使用する DB名 -->
+    <context-param>
+      <param-name>ReportDBName</param-name>
+      <param-value>gnomes</param-value>
+    </context-param>
+    <!-- DB種類 -->
+    <context-param>
+      <param-name>ReportDBType</param-name>
+      <param-value>3</param-value>
+    </context-param>
+    <!-- 帳票印刷情報 end -->
+ 
+ 
+    <listener>
+        <!-- 
+        <listener-class>com.gnomes.uiservice.GnomesServletContextListener</listener-class>
+         -->
+        <listener-class>com.gnomes.uiservice.GnomesServletContextListenerDemo</listener-class>
+    </listener>
+
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/gnomes_tag</taglib-uri>
+            <taglib-location>/WEB-INF/taglibs/gnomes_tag.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
+    
+<!--  きかない
+    <context-param>
+        <param-name>org.jboss.weld.bean.ManagedBean.DEBUG</param-name>
+        <param-value>true</param-value>
+  </context-param> 
+-->
+
+</web-app>

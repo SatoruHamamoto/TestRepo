@@ -1,0 +1,10 @@
+<!-- Wildfly Ver16用に設定 -->
+<jboss-deployment-structure>
+ <deployment>
+  <exclusions>
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.log4j" />
+    <module name="org.jboss.resteasy.resteasy-json-binding-provider"/>
+  </exclusions>
+ </deployment>
+</jboss-deployment-structure>

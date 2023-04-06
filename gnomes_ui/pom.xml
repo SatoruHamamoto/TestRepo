@@ -1,0 +1,1258 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+<!--
+/* ========================== MODIFICATION HISTORY ==========================
+ * Release  Date       ID/Name                   Comment
+ * ==========================================================================
+ * R0.01.01 2020/01/15 17:15 YJP/S.Hamamoto           初版
+ * [END OF MODIFICATION HISTORY]
+ * ==========================================================================
+*/
+-->
+	<!--
+		*******************************************************************************************
+			基本情報
+		*******************************************************************************************
+	 -->
+	<parent>
+		<groupId>com.gnomes</groupId>
+		<artifactId>gnomes</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>gnomes_ui</artifactId>
+
+	<!--
+		*******************************************************************************************
+		 プロパティ定義
+		 		[note] Wildflyバージョンが上がったら適切に修正すること
+		*******************************************************************************************
+	 -->
+	<properties>
+		<version.jacoco>0.7.9</version.jacoco>
+		<version.arquillian_jacoco>1.0.0.Alpha9</version.arquillian_jacoco>
+		<camel-ver>2.19.1</camel-ver>
+
+		<!--  カバレッジ取得用の実行コンテナ -->
+		<jacocoContainer>wildfly-arquillian-container-remote</jacocoContainer>
+		<!--  テスト用DB接続先 -->
+		<testDbType>h2</testDbType>
+		<!--  JSPテスト実行有無 -->
+		<testJspType>none</testJspType>
+		<!--  ビルドtargetパス -->
+		<buildTargetPath>target</buildTargetPath>
+		<!--  freesia_uiパス -->
+		<freesiaUiPath>${basedir}/../../freesia/freesia_ui</freesiaUiPath>
+		<!--  warパス -->
+		<makeWarPath>C:\EX\UI</makeWarPath>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>github</id>
+			<name>GitHub Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/yokogawaelectric/gnomes</url>
+			<snapshots>
+				<enabled>true</enabled>
+			<!-- never, daily, interval:X (where X is in minutes) or always -->
+			<!--<updatePolicy>daily</updatePolicy> -->
+		    </snapshots>
+		</repository>
+	</repositories>
+
+	<!--
+		*******************************************************************************************
+		 依存関係基本定義
+			Wildflyに標準に無いものを一括で取る場合
+			ArquillanとShinkwrapを指定
+		*******************************************************************************************
+	 -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.3.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-bom</artifactId>
+				<version>2.0.0</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!--
+		*******************************************************************************************
+		 依存関係定義
+			使用するWildflyバージョンに合わせて外部ライブラリを配置する
+
+		*******************************************************************************************
+	 -->
+	<dependencies>
+
+		<!-- JMockit  -->
+		<dependency>
+			<groupId>org.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
+			<version>1.49</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Optional, but highly recommended -->
+		<!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA)
+         JPA from JUnit/TestNG -->
+
+ 	<!-- ******   1.Arquillan指定   ****** ユニットテストで使用実行環境では使っていない -->
+
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-persistence-dbunit</artifactId>
+			<version>1.0.0.Alpha7</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-persistence-integration-tests</artifactId>
+			<version>1.0.0.Alpha7</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-extension-byteman</artifactId>
+			<version>1.0.0.Alpha4</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+ 	<!-- ******   2.hancrest  ******
+			Hamcrestは、マッチャーオブジェクトを記述するためのフレームワークであり、
+			「一致」ルールを宣言的に定義できます
+			自動テストで使用実行環境では使っていない
+	-->
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+ 	<!-- ******   3.jackson  ******
+			Java 用の JSON パーサーライブラリの１つ。
+			Java オブジェクトと JSON の相互変換とかができる。(Apr, 2016)古い
+	-->
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+ 	<!-- ******   4.mockito  ******
+			Javaのユニットテストのために開発されたモックフレームワーク
+			ユニットテストで使用実行環境では使っていない
+	-->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.12.4</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+    		<groupId>org.mockito</groupId>
+    		<artifactId>mockito-inline</artifactId>
+    		<version>3.12.4</version>
+    		<scope>test</scope>
+		</dependency>
+
+ 	<!-- ******   5.ShrinkWrap  ******
+			ShrinkWrapは、Javaでアーカイブを作成する、もっとも簡単な方法で、
+			Arquillianのデプロイメントメカニズムに力を与えます
+			ユニットテストで使用実行環境では使っていない
+	-->
+
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-spi</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-api-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-spi-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+ 	<!-- ******   5.apache.poi  ******
+			Webスパイダー、インデックスビルダー、コンテンツ管理システムなどのテキスト抽出アプリケーションです。
+			GNOMESではExcelへの出力で使用しています。
+			2020/01/16 3.13 -> 3.17
+	-->
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-collections4</artifactId>
+					<groupId>org.apache.commons</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+ 	<!-- ******   6.apache.commons collection4  ******
+			プログラミング中によく出くわす場面で使いたい基本的な機能のまとめ。主にUtils系メソッド
+	-->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+
+ 	<!-- ******   7.dbUnit  ******
+			単体テストで使用できるフレームワーク
+			実行環境では使っていない
+	-->
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.5.3</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-collections</artifactId>
+					<groupId>commons-collections</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+ 	<!-- ******   8.opencsv  ******
+			CSVファイルの入出力を行う WEB-INF\libに包含
+	-->
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>4.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-collections4</artifactId>
+					<groupId>org.apache.commons</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+ 	<!-- ******   9.apache CAMEL  ******
+			複数システム統合の簡便化を目的としたオープンソースのJava製フレームワーク
+			システム統合の際のデータフォーマット・プロトコルの差異への対応工数の削減や、
+			データフローの一元管理によるメンテナンス性の向上
+	-->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel-ver}</version>
+		</dependency>
+		<!-- camel context -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cdi</artifactId>
+			<version>${camel-ver}</version>
+		</dependency>
+
+ 	<!-- ******   10.RXTXcomm  ******
+			シリアル通信オープンソース
+	-->
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>RXTXcomm</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/RXTXcomm.jar</systemPath>
+		</dependency>
+
+ 	<!-- ******   11.JDBC8  ******
+
+	-->
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/ojdbc8.jar</systemPath>
+		</dependency>
+
+ 	<!-- ******   11.バリデーション  ******
+			Javaオブジェクトのバリデーションを担う
+			GNOMESでは、EmailとURLのバリデーションで使う
+	-->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-collections</artifactId>
+					<groupId>commons-collections</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+ 	<!-- ******   12.GNOMES内部ライブラリ  ******
+			リソースとデータベースを利用
+	-->
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>gnomes_database</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>gnomes_resource</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+ 	<!-- ******   13.Talendライブラリ  ******
+			Camelと連携して定義を簡素化する
+	-->
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>Patlite</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/Talend_Patlite.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>Patlamp</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/Talend_Patlamp.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>sendMail</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/TalendSendMail.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>externalif</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/Talend_ExternalIf.jar</systemPath>
+		</dependency>
+
+ 	<!-- ******   14.GRANDSIGHT_EX RSライブラリ  ******
+			テンプレートの種類ごとに作っているので多いがいづれ1つに収まる
+	-->
+		<dependency>
+			<groupId>biz.grandsight.ex.rs</groupId>
+			<artifactId>report-gen-normal</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>biz.grandsight.ex.rs</groupId>
+			<artifactId>report-gen-multi-stage</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>biz.grandsight.ex.rs</groupId>
+			<artifactId>report-gen-multi-stage41</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>biz.grandsight.ex.rs</groupId>
+			<artifactId>report-gen-multiple</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>biz.grandsight.ex.rs</groupId>
+			<artifactId>report-gen-multiple21</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>biz.grandsight.ex.rs</groupId>
+			<artifactId>report-gen-multiple-multi-stage</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+
+ 	<!-- ******   15.google zxing  ******
+			Google が開発して公開している、様々な一次元や二次元のバーコードの生成/操作ができる
+			オープンソースライブラリ
+	-->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+ 	<!-- ******   16.Microsoft SQLServer JDBCライブラリ  ******
+		SQLServer 16移行で使用するライブラリ、2019/11時点では最新
+	-->
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>7.4.1.jre8</version>
+		</dependency>
+
+ 	<!-- ******   17.ASPOSE CELLS  ******
+		Microsoft Excel に依存することなくスプレッドシートの読み込み、書き出し、操作を Java
+		アプリケーション内で可能にする Excel スプレッドシート処理 API
+		GRANDSIGHT_EX内部で購入
+	-->
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>aspose-cells</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/aspose-cells-17.12.jar</systemPath>
+		</dependency>
+
+ 	<!-- ******   18.beanutils  ******
+	-->
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-collections</artifactId>
+					<groupId>commons-collections</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+ 	<!-- ******   19.wildfly-protocol  ******
+		使用するWildflyバージョンに合わせて外部ライブラリを配置する
+		Wildfly 16だと　wildfly-protocol-8.0.0.Final
+	-->
+		<dependency>
+			<groupId>org.wildfly.core</groupId>
+			<artifactId>wildfly-protocol</artifactId>
+			<version>8.0.0.Final</version>
+		</dependency>
+
+ 	<!-- ******   20.PDFBox  ******
+		RSがPDFに透かしを入れるために使用
+	-->
+		<!-- PDFBox -->
+		<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+
+ 	<!-- ******   21.bouncycastle  ******
+		Java用暗号ライブラリ GRANDSIGHT_EXのWEB_INF\LIBの中と整合性を確認すること
+	-->
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16 -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.46</version>
+		</dependency>
+
+ 	<!-- ******   22.commons-logging  ******
+
+	-->
+		<dependency>
+			<groupId>com.gnomes</groupId>
+			<artifactId>commons-logging-1.2</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/test/resources/lib/commons-logging-1.2.jar</systemPath>
+		</dependency>
+
+ 	<!-- ******   23.JBOSS Batch  ******
+			バッチ系
+	-->
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.batch/jboss-batch-api_1.0_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.batch</groupId>
+			<artifactId>jboss-batch-api_1.0_spec</artifactId>
+			<version>1.0.1.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>
+						jboss-interceptors-api_1.1_spec
+					</artifactId>
+					<groupId>org.jboss.spec.javax.interceptor</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- 必要ないのでは？
+		<dependency>
+			<groupId>javax.batch</groupId>
+			<artifactId>javax.batch-api</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		-->
+
+ 	<!-- ******   24.looponex  ******
+		looponex 2.04に合わせて使用
+	-->
+
+		<!-- loopOnEx -->
+		<dependency>
+			<groupId>looponex-common</groupId>
+			<artifactId>looponex-common</artifactId>
+			<version>2.04.02</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/WEB-INF/lib/looponex-common-2.04.02.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>looponex-user-api</groupId>
+			<artifactId>looponex-user-api</artifactId>
+			<version>2.04.02</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/WEB-INF/lib/looponex-user-api-2.04.02.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>looponex-user-api-impl-sf</groupId>
+			<artifactId>looponex-user-api-impl-sf</artifactId>
+			<version>2.04.02</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/WEB-INF/lib/looponex-user-api-impl-sf-2.04.02.jar</systemPath>
+		</dependency>
+
+	<!-- ******   25.jcifs  ******
+		JCIFS is an Open Source client library that implements the CIFS/SMB networking protocol in 100% Java
+	-->
+		<!-- https://mvnrepository.com/artifact/jcifs/jcifs -->
+		<dependency>
+		    <groupId>jcifs</groupId>
+		    <artifactId>jcifs</artifactId>
+		    <version>1.3.17</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>servlet-api</artifactId>
+		    		<groupId>javax.servlet</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+
+		<!-- **** 26. juniversalchardet -->
+		<!-- https://mvnrepository.com/artifact/com.googlecode.juniversalchardet/juniversalchardet -->
+		<dependency>
+			<groupId>com.googlecode.juniversalchardet</groupId>
+			<artifactId>juniversalchardet</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+
+		<!-- **** 27. net.bytebuddy -->
+		<dependency>
+			<groupId>net.bytebuddy</groupId>
+			<artifactId>byte-buddy-agent</artifactId>
+			<version>1.11.20</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.bytebuddy</groupId>
+			<artifactId>byte-buddy</artifactId>
+			<version>1.11.20</version>
+		</dependency>
+
+	</dependencies>
+	<!--
+		*******************************************************************************************
+		 	ビルドルール定義
+		*******************************************************************************************
+	-->
+	<build>
+		<!-- Maven will append the version to the finalName (which is the name
+         given to the generated war, and hence the context root) -->
+		<finalName>${project.artifactId}</finalName>
+
+		<!--  ビルドtargetパス -->
+		<directory>${project.basedir}/${buildTargetPath}</directory>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build
+            itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[1.3,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.8,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<!-- Java EE 7 doesn't require web.xml, Maven needs to catch up! -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<!-- The WildFly plugin deploys your war to a local WildFly container -->
+			<!-- To use, run: mvn package wildfly:deploy -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>${version.wildfly.maven.plugin}</version>
+			</plugin>
+
+			<!-- 日本語メソッド対応 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${version.surefire.plugin}</version>
+				<configuration>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+				</configuration>
+			</plugin>
+
+			<!-- clean -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<!-- conf(gnomes) -->
+						<fileset>
+							<directory>${freesiaUiPath}/conf</directory>
+							<includes>
+								<include>**/gnomes/**</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- lib -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/lib</directory>
+							<includes>
+								<include>*_demo.jar</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- リソース -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/src</directory>
+							<includes>
+								<include>Gnomes*</include>
+								<include>logging.properties</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- JPA  -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/src/META-INF</directory>
+							<includes>
+								<include>gnomes*</include>
+								<include>persistence.xml</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+
+						<!-- バッチジョブ  -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/src/META-INF/batch-jobs</directory>
+							<includes>
+								<include>gnomes*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+
+						<!-- キャメルルート  -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/camel-routes</directory>
+							<includes>
+								<include>gnomes*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+
+						<!-- 共通コマンド  -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/common-command</directory>
+							<includes>
+								<include>Gnomes*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+
+						<!-- カスタムタグ  -->
+						<fileset>
+							<directory>${freesiaUiPath}/WEB-INF/taglibs</directory>
+							<includes>
+								<include>gnomes*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- JSP  -->
+						<fileset>
+							<directory>${freesiaUiPath}/jsp</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- JS  -->
+						<fileset>
+							<directory>${freesiaUiPath}/js</directory>
+							<includes>**/bootstrap-datetimepicker/**</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>${freesiaUiPath}/js</directory>
+							<includes>**/gnomes/**</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- CSS  -->
+						<fileset>
+							<directory>${freesiaUiPath}/css</directory>
+							<includes>**/fonts/**</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>${freesiaUiPath}/css</directory>
+							<includes>**/gnomes/**</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- IMAGES  -->
+						<fileset>
+							<directory>${freesiaUiPath}/images</directory>
+							<includes>**/gnomes/**</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<!-- tool -->
+						<fileset>
+							<directory>${freesiaUiPath}/tool</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+
+
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectory>${freesiaUiPath}/WEB-INF/lib/</outputDirectory>
+					<!-- opencsv use commons-lang3 -->
+					<includeArtifactIds>jcifs,opencsv,commons-text,commons-lang3,camel-core,camel-cdi,commons-validator,report-gen-normal,report-gen-multi-stage,report-gen-multi-stage41,report-gen-multiple,report-gen-multiple21,report-gen-multiple-multi-stage,mssql-jdbc,core,javase,juniversalchardet,looponex-common,looponex-user-api,looponex-user-api-impl-sf</includeArtifactIds>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant</artifactId>
+						<version>1.7.0</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<!-- テスト用のリソースを生成するフェーズで設定ファイルのコピー -->
+					<execution>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+							<!-- DB接続先の設定 -->
+							<tasks>
+								<echo>----------------------------------------</echo>
+								<echo> D B 接 続 先 設 定 フ ァ イ ル を 設 定</echo>
+								<ant antfile="test_db_setup.xml" target="${testDbType}"/>
+								<!--   <ant antfile="test_jsp_setup.xml" target="${testJspType}"/> -->
+								<echo>----------------------------------------</echo>
+							</tasks>
+						</configuration>
+					</execution>
+
+					<!-- 設定ファイルを戻す -->
+					<execution>
+						<id>dbsetting</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+							<tasks>
+								<echo>----------------------------------------------------------</echo>
+								<echo> D B 接 続 先 設 定 フ ァ イ ル を オ リ ジ ナ ル に 戻 す</echo>
+								<ant antfile="test_db_setup.xml" target="org"/>
+								<!--  <ant antfile="test_jsp_setup.xml" target="none"/> -->
+								<echo>----------------------------------------------------------</echo>
+							</tasks>
+						</configuration>
+					</execution>
+
+					<!-- リソースファイルコピー -->
+					<execution>
+						<id>copy-resource</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+							<tasks>
+								<echo>*************************************************** copy-resource Start</echo>
+								<property name="dir.temp" value="${basedir}/build/tmp" />
+								<macrodef name="sync.mac">
+									<attribute name="src-dir" />
+									<attribute name="dst-dir" />
+									<element name="file-list"/>
+									<sequential>
+										<echo message="作業用ディレクトリをクリーンアップします" />
+										<delete dir="${dir.temp}" />
+										<mkdir dir="${dir.temp}" />
+
+										<!-- tmpに移動 -->
+										<move todir="${dir.temp}">
+											<fileset dir="@{dst-dir}">
+												<file-list />
+											</fileset>
+										</move>
+
+										<!-- tmpと比較元をsync -->
+										<sync todir="${dir.temp}"  verbose="true">
+											<fileset dir="@{src-dir}">
+												<file-list />
+											</fileset>
+										</sync>
+
+										<!-- tmpをもどす -->
+										<move todir="@{dst-dir}">
+											<fileset dir="${dir.temp}">
+												<include name="**/*"/>
+											</fileset>
+										</move>
+										<delete dir="${dir.temp}" />
+									</sequential>
+								</macrodef>
+
+								<!-- FIDES_WarBuild.xml -->
+								<copy todir="${freesiaUiPath}/ant" overwrite="true">
+									<fileset dir="${basedir}/resources/ant">
+										<include name="FIDES_WarBuild.xml" />
+									</fileset>
+								</copy>
+
+								<!-- リソース -->
+								<copy todir="${freesiaUiPath}/WEB-INF/src">
+									<fileset dir="${basedir}/resources">
+										<include name="*Gnomes*"/>
+										<include name="logging.properties"/>
+										<include name="gnomes-keystore.properties"/>
+									</fileset>
+								</copy>
+
+								<!-- JPA  -->
+								<copy todir="${freesiaUiPath}/WEB-INF/src/META-INF">
+									<fileset dir="${basedir}/resources/META-INF">
+										<include name="*gnomes*" />
+										<include name="persistence.xml" />
+									</fileset>
+								</copy>
+
+								<!-- バッチジョブ  -->
+								<copy todir="${freesiaUiPath}/WEB-INF/src/META-INF/batch-jobs">
+									<fileset dir="${basedir}/resources/batch-jobs">
+										<include name="*gnomes*"/>
+									</fileset>
+								</copy>
+
+								<!-- WEB-INF  -->
+								<copy todir="${freesiaUiPath}/WEB-INF" overwrite="true">
+									<fileset dir="${basedir}/resources/WEB-INF">
+										<include name="*"/>
+									</fileset>
+								</copy>
+
+								<!-- 共通コマンド  -->
+								<copy todir="${freesiaUiPath}/WEB-INF/common-command">
+									<fileset dir="${basedir}/resources/WEB-INF/common-command">
+										<include name="*Gnomes*"/>
+									</fileset>
+								</copy>
+
+								<!-- カスタムタグ  -->
+								<copy todir="${freesiaUiPath}/WEB-INF/taglibs">
+									<fileset dir="${basedir}/resources/WEB-INF/taglibs">
+										<include name="*gnomes*"/>
+									</fileset>
+								</copy>
+
+								<!-- JSP  -->
+								<copy todir="${freesiaUiPath}/jsp">
+									<fileset dir="${basedir}/resources/jsp">
+										<include name="**/*"/>
+									</fileset>
+								</copy>
+
+								<!-- js  -->
+								<copy todir="${freesiaUiPath}/js" overwrite="true">
+									<fileset dir="${basedir}/resources/js">
+										<include name="**/*"/>
+									</fileset>
+								</copy>
+
+								<!-- css  -->
+								<copy todir="${freesiaUiPath}/css" overwrite="true">
+									<fileset dir="${basedir}/resources/css">
+										<include name="*/*"/>
+									</fileset>
+								</copy>
+
+								<!-- LoopOnEx jar -->
+								<copy todir="${freesiaUiPath}/WEB-INF/lib" overwrite="true">
+									<fileset dir="${basedir}/resources/WEB-INF/lib">
+										<include name="*"/>
+									</fileset>
+								</copy>
+
+								<!-- images  -->
+								<copy todir="${freesiaUiPath}/images/gnomes">
+									<fileset dir="${basedir}/resources/images/gnomes">
+										<include name="*"/>
+										<include name="*/*"/>
+									</fileset>
+								</copy>
+
+								<!-- tool -->
+								<copy todir="${freesiaUiPath}/tool">
+									<fileset dir="${basedir}/tool">
+										<include name="*"/>
+										<include name="*/*"/>
+									</fileset>
+								</copy>
+
+								<echo>*************************************************** copy-resource End</echo>
+							</tasks>
+						</configuration>
+					</execution>
+
+					<!-- jarファイルコピー -->
+					<execution>
+						<id>copy-jar</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+							<tasks>
+								<echo>*************************************************** copy-jar Start</echo>
+								<!-- コピー jar -->
+								<copy file="${basedir}/target/gnomes_ui.jar" tofile="${freesiaUiPath}/WEB-INF/lib/gnomes_ui.jar" overwrite="true"/>
+
+								<!-- RXTX -->
+								<copy file="${basedir}/src/test/resources/lib/RXTXcomm.jar" tofile="${freesiaUiPath}/WEB-INF/lib/RXTXcomm.jar" overwrite="true"/>
+								<!-- Talend -->
+								<copy file="${basedir}/src/test/resources/lib/Talend_Patlamp.jar" tofile="${freesiaUiPath}/WEB-INF/lib/Talend_Patlamp.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/Talend_Patlite.jar" tofile="${freesiaUiPath}/WEB-INF/lib/Talend_Patlite.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/Talend_ExternalIf.jar" tofile="${freesiaUiPath}/WEB-INF/lib/Talend_ExternalIf.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/filecopy.jar" tofile="${freesiaUiPath}/WEB-INF/lib/filecopy.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/TalendSendMail.jar" tofile="${freesiaUiPath}/WEB-INF/lib/TalendSendMail.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/aspose-cells-17.12.jar" tofile="${freesiaUiPath}/WEB-INF/lib/aspose-cells-17.12.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/core-3.3.2.jar" tofile="${freesiaUiPath}/WEB-INF/lib/core-3.3.2.jar" overwrite="true"/>
+								<!-- PDFBox -->
+								<copy file="${basedir}/src/test/resources/lib/pdfbox-2.0.6.jar" tofile="${freesiaUiPath}/WEB-INF/lib/pdfbox-2.0.6.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/commons-logging-1.2.jar" tofile="${freesiaUiPath}/WEB-INF/lib/commons-logging-1.2.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/fontbox-2.0.6.jar" tofile="${freesiaUiPath}/WEB-INF/lib/fontbox-2.0.6.jar" overwrite="true"/>
+								<copy file="${basedir}/src/test/resources/lib/bcprov-jdk16-1.46.jar" tofile="${freesiaUiPath}/WEB-INF/lib/bcprov-jdk16-1.46.jar" overwrite="true"/>
+								<echo>*************************************************** copy-jar End</echo>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<author>true</author>
+					<source>1.8</source>
+					<show>protected</show>
+					<encoding>UTF-8</encoding>
+					<charset>UTF-8</charset>
+					<docencoding>UTF-8</docencoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jboss.weld.se</groupId>
+				<artifactId>weld-se</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<!-- カバレッジ出力と実行 -->
+		<profile>
+			<id>jacoco</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jacoco</groupId>
+					<artifactId>org.jacoco.core</artifactId>
+					<version>${version.jacoco}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.arquillian.extension</groupId>
+					<artifactId>arquillian-jacoco</artifactId>
+					<version>${version.arquillian_jacoco}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>${jacocoContainer}</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${version.surefire.plugin}</version>
+						<configuration>
+							<argLine>${jacocoArgs} -Dfile.encoding=UTF-8 -Xmx4096M -XX:MaxPermSize=256M</argLine>
+
+							<!--
+ 窶｢Maven管理下にないライブラリをテストで使うとき
+  とありができない
+                  <additionalClasspathElement>../gnomes_common_sample/target/gnomes_common_sample-1.0-SNAPSHOT.jar</additionalClasspathElement>
+ -->
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${version.jacoco}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<propertyName>jacocoArgs</propertyName>
+									<includes>
+										<include>*</include>
+									</includes>
+								</configuration>
+							</execution>
+							<execution>
+								<id>report</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<append>true</append>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- The default profile  -->
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${version.surefire.plugin}</version>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+					</plugin>
+
+
+				</plugins>
+			</build>
+		</profile>
+
+		<!--  マージ実行 -->
+		<profile>
+			<!-- An optional Arquillian testing profile that executes tests
+             in your WildFly instance -->
+			<!-- This profile will start a new WildFly instance, and execute the
+             test, shutting it down when done -->
+			<!-- Run with: mvn clean test -Parq-wildfly-managed -->
+			<id>arq-wildfly-managed</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<!-- リモート実行 -->
+		<profile>
+			<!-- An optional Arquillian testing profile that executes tests
+             in a remote WildFly instance -->
+			<!-- Run with: mvn clean test -Parq-wildfly-remote -->
+			<id>arq-wildfly-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-remote</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when
+             invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app
+             will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments'
+             folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>${version.war.plugin}</version>
+						<configuration>
+							<outputDirectory>deployments</outputDirectory>
+							<warName>ROOT</warName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

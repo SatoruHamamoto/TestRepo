@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="test_ant" default="test" basedir="." xmlns:ant="antlib:net.sf.antcontrib">
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+<!-- win -->
+<!--
+			<pathelement location="C:\GNOMES_NEW\pleiades\eclipse\plugins\org.apache.ant_1.9.4.v201504302020\lib\ant-contrib-1.0b3.jar"/>
+-->
+<!-- jenkins -->
+			<pathelement location="/home/gnomes/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+
+
+<!-- win setting -->
+<!--
+	<property name="mvn" value="mvn" />
+-->
+<!-- jenkins setting -->
+	<property name="mvn" value="/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/mvn350/bin/mvn" />
+
+	<macrodef name="mvn_no_clean_install_test">
+		<attribute name="classname" />
+		<sequential>
+<!--
+			<echo>class:@{classname}</echo>
+-->
+			<exec dir="." executable="${mvn}" spawn="false">
+				<arg line="test -DfailIfNoTests=false -Dtest=@{classname} -DjacocoContainer=wildfly-arquillian-container-managed -DtestDbType=${testDbType} -Pjacoco" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+<!--
+clean test -DjacocoContainer=wildfly-arquillian-container-managed -DtestDbType=mssql  -Pjacoco
+-->
+
+
+	<target name="test">
+<!--
+		<exec dir="." executable="${mvn}" spawn="false">
+			<arg line="-f gnomes_resource/pom.xml clean install" />
+		</exec>
+
+		<exec dir="." executable="${mvn}" spawn="false">
+			<arg line="-f gnomes_database/pom.xml clean install" />
+		</exec>
+-->
+
+		<exec dir="." executable="${mvn}" spawn="false">
+			<arg line="clean test -DfailIfNoTests=false -Dtest=AuditTrailDaoTest -DjacocoContainer=wildfly-arquillian-container-managed -DtestDbType=${testDbType} -Pjacoco" />
+		</exec>
+
+		<exec dir="." executable="${mvn}" spawn="false">
+			<arg line="test -DfailIfNoTests=false -Dtest=HistoryPrintoutDaoTest -DjacocoContainer=wildfly-arquillian-container-managed -DtestDbType=${testDbType} -Pjacoco" />
+		</exec>
+
+
+<!--
+		<exec dir="." executable="${mvn}" spawn="false">
+			<arg line="-f gnomes_ui/pom.xml clean test -Dtest=AuditTrailDaoTest -DjacocoContainer=wildfly-arquillian-container-managed -DtestDbType=${testDbType} -Pjacoco" />
+		</exec>
+
+		<exec dir="." executable="${mvn}" spawn="false">
+			<arg line="-f gnomes_ui/pom.xml test -Dtest=HistoryPrintoutDaoTest -DjacocoContainer=wildfly-arquillian-container-managed -DtestDbType=${testDbType} -Pjacoco" />
+		</exec>
+-->
+
+<!--
+		<for param="file">
+			<path>
+				<fileset dir="./gnomes_ui/src/test/java/com/gnomes" includes="**/*DaoTest.java" id="test_files">
+					<contains text="RunWith(Arquillian.class)" />
+					<exclude name="**/AuditTrailDaoTest.java" />
+					<exclude name="**/HistoryPrintoutDaoTest.java" />
+				</fileset>
+			</path>
+			<sequential>
+				<local name="filename" />
+				<basename property="filename" file="@{file}" suffix=".java"/>
+				<mvn_no_clean_install_test classname="${filename}" />
+            </sequential>
+        </for>
+-->
+     </target>
+
+</project>
+

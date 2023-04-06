@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE configuration>
+<dict>
+
+<!-- 非表示項目 -->
+    <!-- ログインユーザID -->
+    <hiddeninfo id="CommonSessionLoginUserId">
+        <input_text_name>sessionLoginUserId</input_text_name>
+    </hiddeninfo>
+
+    <!-- ダブル認証者ID -->
+    <hiddeninfo id="CommonCertUserName">
+        <input_text_name>certUserName</input_text_name>
+    </hiddeninfo>
+
+    <!-- ページトークン -->
+    <hiddeninfo id="CommonPageToken">
+        <input_text_name>pageToken</input_text_name>
+    </hiddeninfo>
+
+    <!-- コマンド -->
+    <hiddeninfo id="CommonCommand">
+        <input_text_name>command</input_text_name>
+    </hiddeninfo>
+
+    <!-- 入力チェックフラグ -->
+    <hiddeninfo id="CommonInputFlag">
+        <input_text_name>inputFlag</input_text_name>
+    </hiddeninfo>
+
+    <!-- ページングコマンド -->
+    <hiddeninfo id="CommonPagingCommand">
+        <input_text_name>pagingCommand</input_text_name>
+    </hiddeninfo>
+
+    <!-- ページングパラメータ -->
+    <hiddeninfo id="CommonPagingParam">
+        <input_text_name>pagingParam</input_text_name>
+    </hiddeninfo>
+
+    <!-- ウィンドウID -->
+    <hiddeninfo id="CommonWindowId">
+        <input_text_name>windowId</input_text_name>
+        <param_name>windowId</param_name>
+    </hiddeninfo>
+
+    <!-- 押下ボタンID -->
+    <hiddeninfo id="CommonButtonId">
+        <input_text_name>buttonId</input_text_name>
+    </hiddeninfo>
+
+    <!-- アイコンメニュー 空メニュー -->
+    <iconmenuinfo id="EmptyIconMenu">
+        <icon_menu_name>icon_menu_empty</icon_menu_name>
+        <image></image>
+    </iconmenuinfo>
+
+    <!-- 動的画面ID -->
+    <hiddeninfo id="DynamicScreenId">
+        <input_text_name>dynamicScreenId</input_text_name>
+        <param_name>dynamicScreenId</param_name>
+    </hiddeninfo>
+
+    <!-- 動的画面名ID -->
+    <hiddeninfo id="DynamicScreenNameId">
+        <input_text_name>dynamicScreenNameId</input_text_name>
+        <param_name>dynamicScreenNameId</param_name>
+    </hiddeninfo>
+
+    <!-- 動的タイトルID -->
+    <hiddeninfo id="DynamicTitleId">
+        <input_text_name>dynamicTitleId</input_text_name>
+        <param_name>dynamicTitleId</param_name>
+    </hiddeninfo>
+
+</dict>

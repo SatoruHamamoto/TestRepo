@@ -1,0 +1,8 @@
+
+<project name="sample.build"  basedir="." default="all">
+
+	<target name="all">
+		<ant antfile="../../freesia_ui/ant/FIDES_WarBuild.xml" dir="../freesia_ui/ant" />
+	</target>
+
+</project>

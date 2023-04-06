@@ -1,0 +1,415 @@
+/* #####################################################################
+   #
+   #   Project       : Modal Login with jQuery Effects
+   #   Author        : Rodrigo Amarante (rodrigockamarante)
+   #   Version       : 1.0
+   #   Created       : 07/28/2015
+   #   Last Change   : 08/02/2015
+   #
+   ##################################################################### */
+body {
+	overflow-x: hidden;
+}
+
+.MENU_BODY {
+    background-color: #FFFFFF;
+}
+
+#backgroundMenu {
+	height: 100px;
+}
+
+.table-bordered {
+    border: 1px solid #dddddd;
+    border-collapse: separate;
+    border-collapse: collapse;
+    border-left: 0;
+    border-radius: 8px;
+}
+.glyphicon {
+	color: black;
+}
+div#headerArea {
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	background-color: #4E9ABE;
+	color: #fff;
+
+}
+
+.table-cell-text {
+	overflow:	hidden;
+}
+
+#dropdownMenu1 {
+	width: 100%;
+	text-align: left;
+}
+.dropdown-menu {
+	width: 100%;
+}
+.headerBtn {
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	padding: 4px;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+}
+
+div#headerBox{
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #4E9ABE;
+	color: #fff;
+	display: block;
+
+}
+div#headerToolBox{
+	float: top;
+	position: fixed !important;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+}
+
+div#headerDataBox{
+	/* float: top;
+	position: fixed !important;
+	position: absolute; */
+	background-color:#ffffff;
+	width: 100%;
+	z-index: 2;
+}
+
+#headerText{
+	padding-top: 5pt;
+	width: 100%;
+}
+
+div#mainBox {
+/*	position: fixed !important;
+	position: absolute;
+*/
+	left: 0px;
+	width: 100%;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+}
+#main_area {
+	height: 100%;
+}
+
+.doubleBox:after {
+		content:	"";
+		display:	block;
+		clear:		both;
+}
+
+.panel-body {
+	width:	50%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.logo {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.navbar {
+	margin-bottom: 0px;
+}
+.form-horizontal {
+
+}
+.form-detailarea {
+	width: 	50%;
+	background-color:	#00ff00;
+}
+
+/* メッセージ画面 メッセージメニュー表エリア */
+#messageMenuArea {
+}
+#messageMenuAreaTable {
+	overflow-y:hidden;
+	margin-bottom: 0px;
+}
+
+
+/* */
+
+/* 一覧表示用 */
+/* 表エリア */
+#tableArea {
+}
+#tableAreaHeader {
+	overflow-y:hidden;
+	overflow-x:hidden;
+	margin-bottom: 0px;
+}
+#tableAreaTable {
+	overflow-y:auto;
+	overflow-x:auto;
+	margin-bottom: 0px;
+	/* 高さ：(ウィンドウの高さ - ヘッダーの高さ) - テーブルヘッダーの高さ */
+	height: calc((100vh - 100px) - 65px);
+}
+/* */
+
+/* 詳細表示用 */
+/* 左右に分かれる場合 */
+/* 右側詳細エリア */
+#rightDetailArea {
+	color:black;
+	/* 高さ：(ウィンドウの高さ - ヘッダーの高さ) */
+	height: calc(100vh - 100px);
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+/* */
+/* 上下に分かれる場合 */
+/* 上部表エリア */
+#topTableArea {
+}
+#topTableAreaHeader {
+	overflow-y:hidden;
+	overflow-x:hidden;
+	margin-bottom: 0px;
+}
+#topTableAreaTable {
+	overflow-y:auto;
+	overflow-x:auto;
+	margin-bottom: 0px;
+	/* 高さ：((ウィンドウの高さ - ヘッダーの高さ) / 2) - テーブルヘッダーの高さ */
+	height: calc(((100vh - 100px)/2) - 65px);
+}
+/* */
+/* 下部詳細エリア */
+#bottomDetailArea {
+	color:black;
+	/* 高さ：(ウィンドウの高さ - ヘッダーの高さ) / 2 */
+	height: calc((100vh - 100px)/2);
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+/* */
+/* 詳細エリア内部 */
+#detailInnerArea {
+	color:black;
+
+}
+/* */
+.iconPadding{
+	margin-left: 10px;
+}
+.messageIconBtn {
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+}
+
+/* ユーザー表 */
+#TABLE_USER_LIST_HEAD{
+	width: 100%;
+	margin-bottom: 0px;
+	height: 65px;
+
+}
+#TABLE_USER_LIST{
+	width: 100%;
+	margin-bottom: 0px;
+}
+#TABLE_USER_LIST td{
+	/*
+	padding-top: 0px;
+	padding-bottom: 0px;
+	*/
+}
+#TABLE_USER_LIST input{
+
+}
+#TABLE_USER_LIST > tbody{
+	width: 100vw;
+
+}
+#TABLE_USER_LIST tr{
+	width: 100%;
+	float:left;/*この設定によりoverflowが有効となる*/
+}
+#TABLE_USER_LIST th {
+	height: 60px;
+}
+#TABLE_USER_LIST_BODY {
+
+}
+/* */
+
+/* 列幅 */
+.widthIcon {
+	width: 50px;
+	min-width: 50px;
+	max-width: 50px;
+}
+.widthSmall{
+	width: 100px;
+	min-width: 100px;
+	max-width: 100px;
+}
+.widthMedium{
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+}
+.widthLarge{
+	width: 200px;
+	min-width: 200px;
+	max-width: 200px;
+}
+.widthVeryLarge{
+	width: 300px;
+	min-width: 300px;
+	max-width: 300px;
+}
+.widthMessageLength{
+	width: 500px;
+	min-width: 500px;
+	max-width: 500px;
+}
+.widthHuge{
+	width: 2000px;
+	min-width: 2000px;
+	max-width: 2000px;
+}
+.widthLastCol{
+	width: 100%;
+	min-width: 50px;
+}
+.widthLargeLastCol{
+	width: 100%;
+	min-width: 200px;
+}
+.width-100{
+	width: 100%;
+}
+
+.left{
+	text-align:left;
+}
+.right{
+	text-align:right;
+}
+.center{
+	text-align:center;
+}
+.form-horizontal .control-label.text-left{
+    text-align: left;
+}
+
+/**{
+  font-family         :'Meiryo UI' !important;
+}
+*/
+.MENU_TABLE {
+		visibility: collapse;
+}
+
+.MENU_HR {
+	visibility: collapse;
+	display: none;
+}
+
+TABLE{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+
+FONT{
+  color              : blue;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+INPUT{
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+  color              :Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+}
+SELECT{
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+  color              :Blue; /*screen_select_color*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+A{
+  color              :#993366; /*screen_link_color*/
+}
+.NOINPUT_TEXT{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  font-weight		 : normal;
+}
+.LINK_TEXT{
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  background-color   : rgba(0, 0, 0, 0);
+  color              :#993366; /*screen_link_color*/
+  CURSOR             : hand;
+  border-style       : none none none none;
+  TEXT-DECORATION    : underline;
+}
+
+
+ /*gridのgutter調整*/
+.row-0{
+    margin-left:0px;
+    margin-right:0px;
+}
+.row-0 > div{
+        padding-right:0px;
+        padding-left:0px;
+    }
+}
+
+
+

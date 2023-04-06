@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project name="test_db_setup"  basedir="." default="org">
+
+  <target name="org">
+    <copy file="${basedir}/src/test/resources/arquillian_org.xml"
+        tofile="${basedir}/src/test/resources/arquillian.xml" overwrite="true"/>
+    <copy file="${basedir}/src/test/resources/META-INF/test-persistence_org.xml"
+        tofile="${basedir}/src/test/resources/META-INF/test-persistence.xml" overwrite="true"/>
+  </target>
+
+  <target name="h2">
+    <copy file="${basedir}/src/test/resources/arquillian_org.xml"
+        tofile="${basedir}/src/test/resources/arquillian.xml" overwrite="true"/>
+    <copy file="${basedir}/src/test/resources/META-INF/test-persistence_org.xml"
+        tofile="${basedir}/src/test/resources/META-INF/test-persistence.xml" overwrite="true"/>
+  </target>
+
+  <target name="ora">
+    <copy file="${basedir}/src/test/resources/arquillian_ora.xml"
+        tofile="${basedir}/src/test/resources/arquillian.xml" overwrite="true"/>
+    <copy file="${basedir}/src/test/resources/META-INF/test-persistence_ora.xml"
+        tofile="${basedir}/src/test/resources/META-INF/test-persistence.xml" overwrite="true"/>
+  </target>
+
+  <target name="mysql">
+    <copy file="${basedir}/src/test/resources/arquillian_mysql.xml"
+        tofile="${basedir}/src/test/resources/arquillian.xml" overwrite="true"/>
+    <copy file="${basedir}/src/test/resources/META-INF/test-persistence_mysql.xml"
+        tofile="${basedir}/src/test/resources/META-INF/test-persistence.xml" overwrite="true"/>
+  </target>
+
+  <target name="mssql">
+    <copy file="${basedir}/src/test/resources/arquillian_mssql.xml"
+        tofile="${basedir}/src/test/resources/arquillian.xml" overwrite="true"/>
+    <copy file="${basedir}/src/test/resources/META-INF/test-persistence_mssql.xml"
+        tofile="${basedir}/src/test/resources/META-INF/test-persistence.xml" overwrite="true"/>
+  </target>
+
+</project>

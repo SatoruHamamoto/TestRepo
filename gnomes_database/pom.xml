@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gnomes</groupId>
+    <artifactId>gnomes</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>gnomes_database</artifactId>
+
+  <properties>
+    <version.jacoco>0.7.9</version.jacoco>
+    <version.arquillian_jacoco>1.0.0.Alpha9</version.arquillian_jacoco>
+    <camel-ver>2.19.1</camel-ver>
+
+    <!--  カバレッジ取得用の実行コンテナ -->
+    <jacocoContainer>wildfly-arquillian-container-remote</jacocoContainer>
+    <!--  テスト用DB接続先 -->
+    <testDbType>h2</testDbType>
+    <!--  JSPテスト実行有無 -->
+    <testJspType>none</testJspType>
+    <!--  ビルドtargetパス -->
+    <buildTargetPath>target</buildTargetPath>
+    <!--  freesia_uiパス -->
+    <freesiaUiPath>${basedir}/../../freesia/freesia_ui</freesiaUiPath>
+    <!--  warパス -->
+    <makeWarPath>C:\EX\UI</makeWarPath>
+  </properties>
+  
+  <build>
+    <!-- Maven will append the version to the finalName (which is the name
+      given to the generated war, and hence the context root) -->
+      <finalName>${project.artifactId}</finalName>
+      <plugins>
+        <!-- The WildFly plugin deploys your war to a local WildFly container -->
+        <!-- To use, run: mvn package wildfly:deploy -->
+        <plugin>
+          <groupId>org.wildfly.plugins</groupId>
+          <artifactId>wildfly-maven-plugin</artifactId>
+          <version>${version.wildfly.maven.plugin}</version>
+        </plugin>
+
+        <!--
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <classpathPrefix>lib/</classpathPrefix>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        -->
+
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.ant</groupId>
+              <artifactId>ant</artifactId>
+              <version>1.7.0</version>
+            </dependency>
+          </dependencies>
+
+          <executions>
+            <execution>
+              <id>copy-jar</id>
+              <phase>install</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <inherited>false</inherited>
+              <configuration>
+                <tasks>
+                  <echo>*************************************************** copy-jar Start</echo>
+                  <!-- コピー jar -->
+                  <copy file="${basedir}/target/gnomes_database.jar" tofile="${freesiaUiPath}/WEB-INF/lib/gnomes_database.jar"/>
+                  <echo>*************************************************** copy-jar End</echo>
+                </tasks>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+
+    <dependencies>
+      <dependency>
+        <groupId>com.gnomes</groupId>
+        <artifactId>gnomes_resource</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <!--
+    <dependency>
+      <groupId>com.gnomes</groupId>
+      <artifactId>hibernate-envers</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/../gnomes_ui/src/test/resources/lib/hibernate-envers.jar</systemPath>
+    </dependency>
+    -->
+  </dependencies>
+</project>

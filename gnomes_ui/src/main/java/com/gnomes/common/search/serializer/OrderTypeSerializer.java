@@ -1,0 +1,31 @@
+package com.gnomes.common.search.serializer;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.gnomes.common.search.SearchInfoController.OrderType;
+
+/**
+ * 検索共通  順序タイプのJsonSerializerクラス
+ */
+/* ========================== MODIFICATION HISTORY ==========================
+ * Release  Date       ID/Name                   Comment
+ * --------------------------------------------------------------------------
+ * R0.01.01 2017/03/01 YJP/30022467              初版
+ * [END OF MODIFICATION HISTORY]
+ * ==========================================================================
+ */
+public class OrderTypeSerializer extends JsonSerializer<OrderType> {
+
+	@Override
+	public void serialize(OrderType value, JsonGenerator jgen, SerializerProvider arg2)
+			throws IOException, JsonProcessingException {
+
+		jgen.writeNumber(value.getValue());
+
+	}
+
+}

@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+        xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                            http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+  <named-native-query name="GetMessageList" result-set-mapping="MessageListMapping">
+    <query><![CDATA[
+SELECT
+    m201.message_key
+   ,m201.occur_date
+   ,m201.occur_user_id
+   ,m201.occur_user_name
+   ,m201.origin_computer_name
+   ,m201.message_no
+   ,m201.resource_id
+   ,m201.category
+   ,m201.message_level
+   ,m201.message_origin_source
+   ,m201.db_area_div
+   ,m201.message_param1
+   ,m201.message_param2
+   ,m201.message_param3
+   ,m201.message_param4
+   ,m201.message_param5
+   ,m201.message_param6
+   ,m201.message_param7
+   ,m201.message_param8
+   ,m201.message_param9
+   ,m201.message_param10
+   ,m201.occur_site_code
+   ,m201.guidance_message
+   ,m201.link_info
+   ,m201.link_name
+FROM
+   message m201
+WHERE
+    ('SEARCH_COND_START' <> 'SEARCH_COND_END')
+ORDER BY
+    m201.occur_date DESC
+    :p1 :p2 :p3 :p4 :p5
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetMessageOccurCnt" result-set-mapping="MessageOccurCntMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(*) AS allCnt
+   ,COUNT(CASE WHEN m201.category = :alert THEN 1 ELSE NULL END) AS alertCnt
+   ,COUNT(CASE WHEN m201.category = :operation THEN 1 ELSE NULL END) AS operationGuideCnt
+FROM
+    message m201
+WHERE
+    ('SEARCH_COND_START' <> 'SEARCH_COND_END')
+    :p1 :p2 :p3 :p4
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetPopupMessageList" result-set-mapping="PopupMessageListMapping">
+    <query><![CDATA[
+SELECT
+    m201.occur_date
+   ,m201.occur_user_id
+   ,m201.occur_user_name
+   ,m201.origin_computer_name
+   ,m201.occur_site_code
+   ,m201.message_no
+   ,m201.resource_id
+   ,m201.category
+   ,m201.message_level
+   ,m201.db_area_div
+   ,m201.message_param1
+   ,m201.message_param2
+   ,m201.message_param3
+   ,m201.message_param4
+   ,m201.message_param5
+   ,m201.message_param6
+   ,m201.message_param7
+   ,m201.message_param8
+   ,m201.message_param9
+   ,m201.message_param10
+   ,m201.operation_type
+   ,m201.message_code
+   ,m201.message_key_name
+   ,m201.message_origin_source
+   ,m201.guidance_message
+   ,m201.link_info
+   ,m201.link_name
+FROM
+    message m201,
+    mstr_message_define m101
+WHERE
+    m201.message_no = m101.message_no
+AND m101.is_notice_push = :is_notice_push
+ORDER BY
+    m201.occur_date DESC
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetMessageCnt" result-set-mapping="MessageCntMapping">
+    <query><![CDATA[
+SELECT
+    count(m201.message_key) as cnt
+FROM
+    message m201
+WHERE
+    ('SEARCH_COND_START' <> 'SEARCH_COND_END')
+    :p1 :p2 :p3 :p4 :p5
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetMessageWatcherSearchList" result-set-mapping="MessageWatcherSearchListMapping">
+    <query><![CDATA[
+SELECT
+   m201.message_no
+  ,m201.category
+  ,m201.watcher_search_key
+FROM
+   message m201
+WHERE
+    (m201.watcher_search_key IS NOT NULL
+AND m201.watcher_search_key != '')
+AND :last_regist_datetime_from  <= m201.last_regist_datetime
+AND :last_regist_datetime_to >= m201.last_regist_datetime
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetSendMailCount" result-set-mapping="SendMailCountMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(message_key) cnt
+FROM
+    message
+WHERE
+    message_no = :message_no
+AND occur_date >= :occur_date
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetTmpQueueMailNoticeList" result-set-mapping="TmpQueueMailNoticeListMapping">
+    <query><![CDATA[
+SELECT
+    tmp_queue_mail_notice_key,
+    message_key,
+    occur_date,
+    message_no,
+    mail_notice_status,
+    first_regist_event_id,
+    first_regist_user_number,
+    first_regist_user_name,
+    first_regist_datetime,
+    last_regist_event_id,
+    last_regist_user_number,
+    last_regist_user_name,
+    last_regist_datetime,
+    version
+FROM
+    tmp_queue_mail_notice
+WHERE
+    mail_notice_status = :mail_notice_status
+ORDER BY
+    occur_date
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="JudgePersonLicenseCount" result-set-mapping="JudgePersonLicenseCountMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(1) AS cnt
+FROM (
+    SELECT per_pos.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_position per_pos
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+    UNION ALL
+    SELECT per_pos.user_id, pos_pri.privilege_id
+        FROM
+            mstr_person_position per_pos
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+            AND pos_pri.privilege_id = :privilege_id
+        WHERE
+                per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+    UNION ALL
+    SELECT per_rol.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_role per_rol
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_rol.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+    UNION ALL
+    SELECT per_pri.user_id, per_pri.privilege_id
+        FROM
+            mstr_person_privilege per_pri
+        WHERE
+                per_pri.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pri.site_code = '-'
+                 OR per_pri.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pri.order_process_code = '-'
+                 OR per_pri.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pri.work_process_code = '-'
+                 OR per_pri.work_process_code = :work_process_code)
+            AND per_pri.privilege_id = :privilege_id
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="JudgePersonLicenseCountAddWorkCell" result-set-mapping="JudgePersonLicenseCountAddWorkCellMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(1) AS cnt
+FROM (
+    SELECT per_pos.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_position per_pos
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+    UNION ALL
+    SELECT per_pos.user_id, pos_pri.privilege_id
+        FROM
+            mstr_person_position per_pos
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+            AND pos_pri.privilege_id = :privilege_id
+        WHERE
+                per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+    UNION ALL
+    SELECT per_rol.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_role per_rol
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_rol.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_rol.work_cell_code = '-'
+                 OR per_rol.work_cell_code = :work_cell_code)
+    UNION ALL
+    SELECT per_pri.user_id, per_pri.privilege_id
+        FROM
+            mstr_person_privilege per_pri
+        WHERE
+                per_pri.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pri.site_code = '-'
+                 OR per_pri.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pri.order_process_code = '-'
+                 OR per_pri.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pri.work_process_code = '-'
+                 OR per_pri.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pri.work_cell_code = '-'
+                 OR per_pri.work_cell_code = :work_cell_code)
+            AND per_pri.privilege_id = :privilege_id
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="JudgePersonLicenseSubstituteCount" result-set-mapping="JudgePersonLicenseSubstituteCountMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(1) AS cnt
+FROM (
+    SELECT per_pos.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = per_sub.user_id
+            AND per_pos.site_code IN ('-', per_sub.site_code)
+            AND per_pos.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_pos.work_process_code IN ('-', per_sub.work_process_code)
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+    UNION ALL
+    SELECT per_pos.user_id, pos_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = per_sub.user_id
+            AND per_pos.site_code IN ('-', per_sub.site_code)
+            AND per_pos.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_pos.work_process_code IN ('-', per_sub.work_process_code)
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+            AND pos_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+    UNION ALL
+    SELECT per_rol.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_role per_rol
+            ON per_rol.user_id = per_sub.user_id
+            AND per_rol.site_code IN ('-', per_sub.site_code)
+            AND per_rol.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_rol.work_process_code IN ('-', per_sub.work_process_code)
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+    UNION ALL
+    SELECT per_pri.user_id, per_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_privilege per_pri
+            ON per_pri.user_id = per_sub.user_id
+            AND per_pri.site_code IN ('-', per_sub.site_code)
+            AND per_pri.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_pri.work_process_code IN ('-', per_sub.work_process_code)
+            AND per_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="JudgePersonLicenseSubstituteCountAddWorkCell" result-set-mapping="JudgePersonLicenseSubstituteCountAddWorkCellMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(1) AS cnt
+FROM (
+    SELECT per_pos.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = per_sub.user_id
+            AND per_pos.site_code IN ('-', per_sub.site_code)
+            AND per_pos.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_pos.work_process_code IN ('-', per_sub.work_process_code)
+            AND per_pos.work_cell_code IN ('-', per_sub.work_cell_code)
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_sub.work_cell_code = '-'
+                 OR per_sub.work_cell_code = :work_cell_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+    UNION ALL
+    SELECT per_pos.user_id, pos_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = per_sub.user_id
+            AND per_pos.site_code IN ('-', per_sub.site_code)
+            AND per_pos.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_pos.work_cell_code IN ('-', per_sub.work_cell_code)
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+            AND pos_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_sub.work_cell_code = '-'
+                 OR per_sub.work_cell_code = :work_cell_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+    UNION ALL
+    SELECT per_rol.user_id, rol_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_role per_rol
+            ON per_rol.user_id = per_sub.user_id
+            AND per_rol.site_code IN ('-', per_sub.site_code)
+            AND per_rol.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_rol.work_process_code IN ('-', per_sub.work_process_code)
+            AND per_rol.work_cell_code IN ('-', per_sub.work_cell_code)
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+            AND rol_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_sub.work_cell_code = '-'
+                 OR per_sub.work_cell_code = :work_cell_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+    UNION ALL
+    SELECT per_pri.user_id, per_pri.privilege_id
+        FROM
+            mstr_person_substitute per_sub
+        INNER JOIN
+            mstr_person_privilege per_pri
+            ON per_pri.user_id = per_sub.user_id
+            AND per_pri.site_code IN ('-', per_sub.site_code)
+            AND per_pri.order_process_code IN ('-', per_sub.order_process_code)
+            AND per_pri.work_process_code IN ('-', per_sub.work_process_code)
+            AND per_pri.work_cell_code IN ('-', per_sub.work_cell_code)
+            AND per_pri.privilege_id = :privilege_id
+        WHERE
+                per_sub.substitute_user_id = :substitute_user_id
+            AND ('-' = :site_code
+                 OR per_sub.site_code = '-'
+                 OR per_sub.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_sub.order_process_code = '-'
+                 OR per_sub.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_sub.work_process_code = '-'
+                 OR per_sub.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_sub.work_cell_code = '-'
+                 OR per_sub.work_cell_code = :work_cell_code)
+            AND ('-' = :privilege_id
+                 OR per_sub.privilege_id = '-'
+                 OR per_sub.privilege_id = :privilege_id)
+            AND (per_sub.substitute_valid_from IS NULL OR per_sub.substitute_valid_from < :date_time)
+            AND (per_sub.substitute_valid_to   IS NULL OR per_sub.substitute_valid_to   > :date_time)
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="JudgePersonLicenseDoubleCheckCount" result-set-mapping="JudgePersonLicenseDoubleCheckCountMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(1) AS cnt
+FROM (
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND per_pos.position_id = dbl_chk.checker_position_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+            AND pos_rol.role_id = dbl_chk.checker_role_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_rol.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_role per_rol
+            ON per_rol.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+            AND per_rol.role_id = dbl_chk.checker_role_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+            AND rol_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+            AND pos_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_rol.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_role per_rol
+            ON per_rol.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+            AND rol_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pri.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_privilege per_pri
+            ON per_pri.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pri.site_code = '-'
+                 OR per_pri.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pri.order_process_code = '-'
+                 OR per_pri.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pri.work_process_code = '-'
+                 OR per_pri.work_process_code = :work_process_code)
+            AND per_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="JudgePersonLicenseDoubleCheckCountAddWorkCell" result-set-mapping="JudgePersonLicenseDoubleCheckCountAddWorkCellMapping">
+    <query><![CDATA[
+SELECT
+    COUNT(1) AS cnt
+FROM (
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+            AND per_pos.position_id = dbl_chk.checker_position_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+            AND pos_rol.role_id = dbl_chk.checker_role_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_rol.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_role per_rol
+            ON per_rol.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_rol.work_cell_code = '-'
+                 OR per_rol.work_cell_code = :work_cell_code)
+            AND per_rol.role_id = dbl_chk.checker_role_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+            AND rol_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pos.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_position per_pos
+            ON per_pos.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+            AND pos_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_rol.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_role per_rol
+            ON per_rol.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_rol.work_cell_code = '-'
+                 OR per_rol.work_cell_code = :work_cell_code)
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+            AND rol_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+    UNION ALL
+    SELECT per_pri.user_id
+        FROM
+            mstr_double_check dbl_chk
+        INNER JOIN
+            mstr_person_privilege per_pri
+            ON per_pri.user_id = :user_id
+            AND ('-' = :site_code
+                 OR per_pri.site_code = '-'
+                 OR per_pri.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pri.order_process_code = '-'
+                 OR per_pri.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pri.work_process_code = '-'
+                 OR per_pri.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pri.work_cell_code = '-'
+                 OR per_pri.work_cell_code = :work_cell_code)
+            AND per_pri.privilege_id = dbl_chk.checker_privilege_id
+        WHERE dbl_chk.privilege_id = :privilege_id
+            AND dbl_chk.checker_position_id <> ''
+            AND dbl_chk.checker_role_id <> ''
+            AND dbl_chk.checker_privilege_id <> ''
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="UpdatePrintoutStatusTimeoutError" result-set-mapping="UpdatePrintoutStatusTimeoutErrorMapping">
+    <query><![CDATA[
+UPDATE history_printout
+SET    printout_status = :printout_status,
+          printout_error_message = :printout_error_message,
+          last_regist_event_id = :last_regist_event_id,
+          last_regist_user_number = :last_regist_user_number,
+          last_regist_user_name = :last_regist_user_name,
+          last_regist_datetime = :last_regist_datetime,
+          version = :version
+WHERE  printout_status = :printout_status_processing
+AND    first_regist_datetime <= :first_regist_datetime
+    ]]></query>
+  </named-native-query>
+
+  <named-native-query name="GetScreenEnableButtonList" result-set-mapping="GetScreenEnableButtonListMapping">
+    <query><![CDATA[
+SELECT
+    button_id as buttonId
+FROM (
+    SELECT scr_but.button_id
+        FROM
+            mstr_person_position per_pos
+        INNER JOIN
+            mstr_position_role pos_rol
+            ON pos_rol.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = pos_rol.role_id
+        INNER JOIN
+            mstr_screen_button scr_but
+            ON rol_pri.privilege_id = scr_but.privilege_id
+        WHERE
+                per_pos.user_id = :user_id
+            AND scr_but.screen_id = :screen_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+    UNION ALL
+    SELECT scr_but.button_id
+        FROM
+            mstr_person_position per_pos
+        INNER JOIN
+            mstr_position_privilege pos_pri
+            ON pos_pri.position_id = per_pos.position_id
+        INNER JOIN
+            mstr_screen_button scr_but
+            ON pos_pri.privilege_id = scr_but.privilege_id
+        WHERE
+                per_pos.user_id = :user_id
+            AND scr_but.screen_id = :screen_id
+            AND ('-' = :site_code
+                 OR per_pos.site_code = '-'
+                 OR per_pos.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pos.order_process_code = '-'
+                 OR per_pos.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pos.work_process_code = '-'
+                 OR per_pos.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pos.work_cell_code = '-'
+                 OR per_pos.work_cell_code = :work_cell_code)
+    UNION ALL
+    SELECT scr_but.button_id
+        FROM
+            mstr_person_role per_rol
+        INNER JOIN
+            mstr_role_privilege rol_pri
+            ON rol_pri.role_id = per_rol.role_id
+        INNER JOIN
+            mstr_screen_button scr_but
+            ON rol_pri.privilege_id = scr_but.privilege_id
+        WHERE
+                per_rol.user_id = :user_id
+            AND scr_but.screen_id = :screen_id
+            AND ('-' = :site_code
+                 OR per_rol.site_code = '-'
+                 OR per_rol.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_rol.order_process_code = '-'
+                 OR per_rol.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_rol.work_process_code = '-'
+                 OR per_rol.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_rol.work_cell_code = '-'
+                 OR per_rol.work_cell_code = :work_cell_code)
+    UNION ALL
+    SELECT scr_but.button_id
+        FROM
+            mstr_person_privilege per_pri
+            INNER JOIN
+            mstr_screen_button scr_but
+            ON per_pri.privilege_id = scr_but.privilege_id
+        WHERE
+                per_pri.user_id = :user_id
+            AND scr_but.screen_id = :screen_id
+            AND ('-' = :site_code
+                 OR per_pri.site_code = '-'
+                 OR per_pri.site_code = :site_code)
+            AND ('-' = :order_process_code
+                 OR per_pri.order_process_code = '-'
+                 OR per_pri.order_process_code = :order_process_code)
+            AND ('-' = :work_process_code
+                 OR per_pri.work_process_code = '-'
+                 OR per_pri.work_process_code = :work_process_code)
+            AND ('-' = :work_cell_code
+                 OR per_pri.work_cell_code = '-'
+                 OR per_pri.work_cell_code = :work_cell_code)
+) judge
+    ]]></query>
+  </named-native-query>
+
+  <sql-result-set-mapping name="MessageListMapping">
+    <constructor-result target-class="com.gnomes.system.dto.MessageListDto">
+      <column name="message_key" class="java.lang.String"/>
+      <column name="occur_date" class="java.util.Date"/>
+      <column name="occur_user_id" class="java.lang.String"/>
+      <column name="occur_user_name" class="java.lang.String"/>
+      <column name="origin_computer_name" class="java.lang.String"/>
+      <column name="message_no" class="java.lang.String"/>
+      <column name="resource_id" class="java.lang.String"/>
+      <column name="category" class="java.lang.Integer"/>
+      <column name="message_level" class="java.lang.Integer"/>
+      <column name="message_origin_source" class="java.lang.String"/>
+      <column name="db_area_div" class="java.lang.Integer"/>
+      <column name="message_param1" class="java.lang.String"/>
+      <column name="message_param2" class="java.lang.String"/>
+      <column name="message_param3" class="java.lang.String"/>
+      <column name="message_param4" class="java.lang.String"/>
+      <column name="message_param5" class="java.lang.String"/>
+      <column name="message_param6" class="java.lang.String"/>
+      <column name="message_param7" class="java.lang.String"/>
+      <column name="message_param8" class="java.lang.String"/>
+      <column name="message_param9" class="java.lang.String"/>
+      <column name="message_param10" class="java.lang.String"/>
+      <column name="occur_site_code" class="java.lang.String"/>
+      <column name="guidance_message" class="java.lang.String"/>
+      <column name="link_info" class="java.lang.String"/>
+      <column name="link_name" class="java.lang.String"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="MessageOccurCntMapping">
+    <constructor-result target-class="com.gnomes.system.dto.MessageCntDto">
+      <column name="allCnt" class="java.math.BigInteger"/>
+      <column name="alertCnt" class="java.math.BigInteger"/>
+      <column name="operationGuideCnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="PopupMessageListMapping">
+    <constructor-result target-class="com.gnomes.system.dto.PopupMessageListDto">
+      <column name="occur_date" class="java.util.Date"/>
+      <column name="occur_user_id" class="java.lang.String"/>
+      <column name="occur_user_name" class="java.lang.String"/>
+      <column name="origin_computer_name" class="java.lang.String"/>
+      <column name="occur_site_code" class="java.lang.String"/>
+      <column name="message_no" class="java.lang.String"/>
+      <column name="resource_id" class="java.lang.String"/>
+      <column name="category" class="java.lang.Integer"/>
+      <column name="message_level" class="java.lang.Integer"/>
+      <column name="db_area_div" class="java.lang.Integer"/>
+      <column name="message_param1" class="java.lang.String"/>
+      <column name="message_param2" class="java.lang.String"/>
+      <column name="message_param3" class="java.lang.String"/>
+      <column name="message_param4" class="java.lang.String"/>
+      <column name="message_param5" class="java.lang.String"/>
+      <column name="message_param6" class="java.lang.String"/>
+      <column name="message_param7" class="java.lang.String"/>
+      <column name="message_param8" class="java.lang.String"/>
+      <column name="message_param9" class="java.lang.String"/>
+      <column name="message_param10" class="java.lang.String"/>
+      <column name="operation_type" class="java.lang.String"/>
+      <column name="message_code" class="java.lang.String"/>
+      <column name="message_key_name" class="java.lang.String"/>
+      <column name="message_origin_source" class="java.lang.String"/>
+      <column name="guidance_message" class="java.lang.String"/>
+      <column name="link_info" class="java.lang.String"/>
+      <column name="link_name" class="java.lang.String"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="MessageCntMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="MessageWatcherSearchListMapping">
+    <constructor-result target-class="com.gnomes.system.dto.MessageWatcherSearchListDto">
+      <column name="message_no" class="java.lang.String"/>
+      <column name="category" class="java.lang.Integer"/>
+      <column name="watcher_search_key" class="java.lang.String"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="SendMailCountMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="TmpQueueMailNoticeListMapping">
+    <constructor-result target-class="com.gnomes.system.entity.TmpQueueMailNotice">
+      <column name="tmp_queue_mail_notice_key" class="java.lang.String"/>
+      <column name="message_key" class="java.lang.String"/>
+      <column name="occur_date" class="java.util.Date"/>
+      <column name="message_no" class="java.lang.String"/>
+      <column name="mail_notice_status" class="java.lang.Integer"/>
+      <column name="first_regist_event_id" class="java.lang.String"/>
+      <column name="first_regist_user_number" class="java.lang.String"/>
+      <column name="first_regist_user_name" class="java.lang.String"/>
+      <column name="first_regist_datetime" class="java.util.Date"/>
+      <column name="last_regist_event_id" class="java.lang.String"/>
+      <column name="last_regist_user_number" class="java.lang.String"/>
+      <column name="last_regist_user_name" class="java.lang.String"/>
+      <column name="last_regist_datetime" class="java.util.Date"/>
+      <column name="version" class="java.lang.Integer"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="JudgePersonLicenseCountMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="JudgePersonLicenseCountAddWorkCellMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="JudgePersonLicenseSubstituteCountMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="JudgePersonLicenseSubstituteCountAddWorkCellMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="JudgePersonLicenseDoubleCheckCountMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="JudgePersonLicenseDoubleCheckCountAddWorkCellMapping">
+    <constructor-result target-class="com.gnomes.common.dto.CountDto">
+      <column name="cnt" class="java.math.BigInteger"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="UpdatePrintoutStatusTimeoutErrorMapping">
+    <constructor-result target-class="java.lang.String">
+    </constructor-result>
+  </sql-result-set-mapping>
+
+  <sql-result-set-mapping name="GetScreenEnableButtonListMapping">
+    <constructor-result target-class="com.gnomes.common.dto.MstrScreenButtonDto">
+      <column name="buttonId" class="java.lang.String"/>
+    </constructor-result>
+  </sql-result-set-mapping>
+
+</entity-mappings>
