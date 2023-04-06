@@ -1,0 +1,28 @@
+/**
+ *
+ *
+ * @version 0.01
+ * @author  30018232 S.Hosokawa
+ *
+ * ============================ MODIFICATION HISTORY ============================
+ * Release  Date       Comment
+ * ------------------------------------------------------------------------------
+ *
+ * [END OF MODIFICATION HISTORY]
+ * ==============================================================================
+ */
+
+/* ソフトウェアキーボードのサイズ指定 */
+.keyboardButton {
+	font-size: 2.75vw;
+	height:1.5em;
+	line-height: normal;
+}
+
+@media screen and (min-width:1024px) {
+	/*　画面サイズが1024px以上ならここを読み込む　*/
+	.keyboardButton {
+		font-size: 30px;
+	}
+}
+

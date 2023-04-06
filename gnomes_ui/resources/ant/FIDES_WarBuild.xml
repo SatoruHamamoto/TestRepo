@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<!--
+[EX-UI]デプロイ用warの作成
+-->
+
+<project name="war.build"  basedir="." default="all">
+
+  <property name="war.name" value="UI"/>
+
+  <property name="dir.home" location=".."/>
+  <property name="dir.classes" location="${dir.home}/WEB-INF/classes"/>
+  <property name="dir.src"     location="${dir.home}/WEB-INF/src"/>
+
+  <property name="dir.ac.home" location="${dir.home}/../src_ac"/>
+  <property name="dir.ac.classes" location="${dir.ac.home}/WEB-INF/classes"/>
+
+  <!-- アクセスコントロールのクラスファイルをコピーする -->
+  <target name="copy">
+    <mkdir dir="${dir.ac.classes}"/>
+    <copy todir="${dir.classes}">
+      <fileset dir="${dir.ac.classes}"/>
+    </copy>
+  </target>
+
+  <!-- warファイルの作成 -->
+  <target name="war">
+    <!-- プロジェクトフォルダの１つ上の階層に作成 -->
+    <jar destfile="${makeWarPath}/${war.name}.war">
+      <fileset dir="${dir.home}">
+        <!-- このファイル自体は除外 -->
+        <exclude name="ant/FIDES_WarBuild.xml"/>
+        <exclude name="tool/**/*"/>
+        <exclude name="tool"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- クラスファイル以外の必要なファイルの同期 -->
+  <target name="filecopy" description="クラスファイル以外の必要なファイルの同期">
+
+    <echo message="クラスファイル以外の必要なファイルの同期を行います" />
+    <sync todir="${dir.classes}"  verbose="true">
+            <fileset dir="${dir.src}">
+            </fileset>
+    </sync>
+  </target>
+
+
+  <!-- デフォルトターゲット -->
+  <target name="all" depends="copy, filecopy, war">
+  </target>
+
+</project>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="gnomes_purge_batchlet" version="1.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+	<step id="step001">
+		<batchlet ref="org.jberet.repository.PurgeBatchlet">
+			<properties>
+				<property name="batchStatuses" value="COMPLETED" />
+			</properties>
+		</batchlet>
+	</step>
+</job>

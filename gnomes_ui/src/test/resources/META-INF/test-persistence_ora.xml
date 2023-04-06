@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<persistence version="2.1"
+   xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+   <persistence-unit name="gnomes-ui" transaction-type="JTA">
+<!-- standalone.xml -->
+<!-- ORA -->
+      <jta-data-source>java:/UnitTestOraDS</jta-data-source>
+
+    <mapping-file>META-INF/gnomes_jpql_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_pulldown_query.xml</mapping-file>
+
+      <properties>
+         <!-- Properties for Hibernate -->
+         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+
+        <property name="hibernate.show_sql" value="true" />
+        <property name="hibernate.format_sql" value="true" />
+        <property name="hibernate.use_sql_comments" value="false" />
+
+        <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
+
+        <property name="hibernate.cache.use_second_level_cache" value="true" />
+        <property name="hibernate.cache.use_query_cache" value="true" />
+        <property name="hibernate.generate_statistics" value="true" />
+
+        <!-- 履歴登録情報 start -->
+        <!-- 履歴登録対象テーブルの接尾語 -->
+        <property name="org.hibernate.envers.audit_table_suffix" value="_rev"/>
+        <!-- リレーション項目の変更時に履歴を記録するか否か -->
+        <property name="org.hibernate.envers.revision_on_collection_change" value="false"/>
+        <!-- @version 項目の更新を履歴に残さないか否か -->
+        <property name="org.hibernate.envers.do_not_audit_optimistic_locking_field" value="false"/>
+        <!-- 削除時の履歴データ（各項目の値）を残すか否か -->
+        <property name="org.hibernate.envers.store_data_at_delete" value="true"/>
+        <!-- 履歴登録情報 end -->
+
+      </properties>
+   </persistence-unit>
+
+   <persistence-unit name="gnomes-ui_nonjta" transaction-type="RESOURCE_LOCAL">
+<!-- standalone.xml -->
+<!-- ORA -->
+      <jta-data-source>java:/UnitTestOraNonJtaDS</jta-data-source>
+
+    <mapping-file>META-INF/gnomes_jpql_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_query.xml</mapping-file>
+    <mapping-file>META-INF/gnomes_pulldown_query.xml</mapping-file>
+
+
+      <properties>
+        <property name="hibernate.hbm2ddl.auto" value="none" />
+        <property name="hibernate.show_sql" value="true" />
+        <property name="hibernate.format_sql" value="true" />
+        <property name="hibernate.use_sql_comments" value="true" />
+
+        <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
+
+        <!-- 履歴登録情報 start -->
+        <!-- 履歴登録対象テーブルの接尾語 -->
+        <property name="org.hibernate.envers.audit_table_suffix" value="_rev"/>
+        <!-- リレーション項目の変更時に履歴を記録するか否か -->
+        <property name="org.hibernate.envers.revision_on_collection_change" value="false"/>
+        <!-- @version 項目の更新を履歴に残さないか否か -->
+        <property name="org.hibernate.envers.do_not_audit_optimistic_locking_field" value="false"/>
+        <!-- 削除時の履歴データ（各項目の値）を残すか否か -->
+        <property name="org.hibernate.envers.store_data_at_delete" value="true"/>
+        <!-- 履歴登録情報 end -->
+
+      </properties>
+   </persistence-unit>
+
+
+</persistence>

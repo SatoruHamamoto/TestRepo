@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE configuration>
+<commandDatas>
+    <commandDataList>
+        <!-- ブックマーク削除 -->
+        <commandData commandId="COMMAND_ID_Y99003C001">
+            <initCommandFlag>false</initCommandFlag>
+            <isTransactional>true</isTransactional>
+            <isFunctionBeanBegin>false</isFunctionBeanBegin>
+            <isFunctionBeanEnd>false</isFunctionBeanEnd>
+            <tokenCheckFlg>true</tokenCheckFlg>
+            <tokenUpdateFlg>true</tokenUpdateFlg>
+            <doBusinessClassMethod>com.gnomes.system.logic.BLBookMark.deleteBookMark</doBusinessClassMethod>
+            <serviceFormBeanName>com.gnomes.system.view.BookMarkServiceFormBean</serviceFormBeanName>
+            <serviceFunctionBeanName>com.gnomes.system.data.BookMarkFunctionBean</serviceFunctionBeanName>
+            <serviceResponseBeanName>com.gnomes.system.data.BookMarkServiceResponseBean</serviceResponseBeanName>
+            <mappingFunctionBeanFromForm>
+                <entry>
+                    <key>bookmarkScreenId</key>
+                    <value>bookmarkScreenId</value>
+                </entry>
+            </mappingFunctionBeanFromForm>
+            <mappingBeanFromFunction>
+                <entry>
+                    <key>bookMarkKbn</key>
+                    <value>bookMarkKbn</value>
+                </entry>
+            </mappingBeanFromFunction>
+        </commandData>
+        <!-- ブックマーク追加 -->
+        <commandData commandId="COMMAND_ID_Y99003C002">
+            <initCommandFlag>false</initCommandFlag>
+            <isTransactional>true</isTransactional>
+            <isFunctionBeanBegin>false</isFunctionBeanBegin>
+            <isFunctionBeanEnd>false</isFunctionBeanEnd>
+            <tokenCheckFlg>true</tokenCheckFlg>
+            <tokenUpdateFlg>true</tokenUpdateFlg>
+            <doBusinessClassMethod>com.gnomes.system.logic.BLBookMark.insertBookMark</doBusinessClassMethod>
+            <serviceFormBeanName>com.gnomes.system.view.BookMarkServiceFormBean</serviceFormBeanName>
+            <serviceFunctionBeanName>com.gnomes.system.data.BookMarkFunctionBean</serviceFunctionBeanName>
+            <serviceResponseBeanName>com.gnomes.system.data.BookMarkServiceResponseBean</serviceResponseBeanName>
+            <mappingFunctionBeanFromForm>
+                <entry>
+                    <key>bookmarkScreenId</key>
+                    <value>bookmarkScreenId</value>
+                </entry>
+            </mappingFunctionBeanFromForm>
+            <mappingBeanFromFunction>
+                <entry>
+                    <key>bookMarkKbn</key>
+                    <value>bookMarkKbn</value>
+                </entry>
+            </mappingBeanFromFunction>
+        </commandData>
+    </commandDataList>
+    <screenDataList>
+    </screenDataList>
+</commandDatas>

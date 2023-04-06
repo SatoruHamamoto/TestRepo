@@ -1,0 +1,570 @@
+/**
+ * システム共通スタイルシート
+ */
+/* ============================ メニュー用クラス ============================== */
+.MENU_BODY{
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  color               :Black; /*screen_color*/
+  background-color    :#FFFFC0; /*screen_bgcolor*/
+  text-decoration     : none     ;
+}
+.MENU_FORM{
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+}
+.MENU_TABLE{
+  width               : 100%; /* 900px;*/ /*menu_width*/
+  min-width           : 600px;
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-top-width    : 0px;
+  border-right-width  : 0px;
+  border-bottom-width : 0px;
+  border-left-width   : 0px;
+  border-style        : none none none none;
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  cellpadding         : 0px;
+  cellspacing         : 0px;
+}
+.MENU_TR{
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+}
+.MENU_TD{
+  height              : 20px;
+  font-family         :'Meiryo UI'; /*screen_font_family*/
+  font-size           :11pt; /*screen_font_size*/
+  font-weight         :bold; /*screen_font_weight*/
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+  height              : 20px;
+}
+.MENU_TOP_MSG{
+  width               : 85%;
+  border-style        : none none none none;
+  color               : red ; /* [TOPMSG] */
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  font-weight         :bold; /*screen_font_weight*/
+}
+/* R3.02.20RC14 ADD >>------------------------------ */
+/**
+ * 「ロード中」メッセージ表示用スタイル
+ */
+.LOAD_MSG{
+  width               : 85%;
+  border-style        : none none none none;
+  color               : green ; /* [TOPMSG] */
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  font-weight         :bold; /*screen_font_weight*/
+}
+/* ------------------------------<< R3.02.20RC14 ADD */
+.MENU_PAGE_NO{
+  color               : blue;
+  text-align          : right;
+}
+.MENU_TITLE1{
+  height              : 20px;
+  width               : 75%; /* 55%; */
+  font-family         :'Meiryo UI'; /*menu_title1_font_family*/
+  font-size           :12pt; /*menu_title1_font_size*/
+  border-style        : none none none none;
+  color               :Black; /*menu_title1_color*/
+  font-weight         :bold; /*menu_title1_font_weight*/
+}
+.MENU_TITLE2{
+  height              : 20px;
+  width               : 75%; /* 55%; */
+  font-family         :'Meiryo UI'; /*menu_title2_font_family*/
+  font-size           :12pt; /*menu_title2_font_size*/
+  border-style        : none none none none;
+  color               :Black; /*menu_title2_color*/
+  font-weight         :bold; /*menu_title2_font_weight*/
+}
+.MENU_HR{
+  width               : 100%; /* 900px; */ /*menu_width*/
+}
+
+/* ========================== サブメニュー用クラス ============================ */
+.SUB_MENU_BODY{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt     ; 
+  font-weight         : bold   ;
+  color               : black ;
+  background-color    :#FFFFC0; /*screen_bgcolor*/
+  text-decoration     : none     ;
+  link                : blue     ;
+  alink               : blue     ;
+  vlink               : blue     ;
+}
+.SUB_MENU_FORM{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+}
+.SUB_MENU_TABLE{
+  width               : 100%;
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-top-width    : 0px;
+  border-right-width  : 0px;
+  border-bottom-width : 0px;
+  border-left-width   : 0px;
+  border-style        : none none none none;
+  background-color    :#AADFDF; /*menu_bgcolor*/
+  cellpadding         : 0px;
+  cellspacing         : 0px;
+}
+.SUB_MENU_TR{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+}
+.SUB_MENU_TD{
+  font-family         : 'Meiryo UI';
+  font-size           : 11pt;
+  font-weight         : bold   ;
+  padding-top         : 0px;
+  padding-left        : 0px;
+  padding-right       : 0px;
+  padding-bottom      : 0px;
+  margin-top          : 0px;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-bottom       : 0px;
+  border-width        : 0px 0px 0px 0px;
+  border-style        : none none none none;
+  height              : 20px;
+}
+.SUB_MENU_TOP_MSG{
+  border-style       : none none none none;
+  background-color   :#AADFDF; /*menu_bgcolor*/
+  background-color   :#AADFDF; /*menu_bgcolor*/
+  font-weight        : bold;
+  width              : 100%;
+}
+.SUB_MENU_PAGE_NO{
+  color              : blue;
+  text-align         : right;
+}
+.SUB_MENU_TITLE{
+  width              : 85% ;
+  font-family        :'Meiryo UI'; /*menu_title2_font_family*/
+  font-size          :12pt; /*menu_title2_font_size*/
+  border-style       : none none none none;
+  color              :Black; /*menu_title2_color*/
+  font-weight        :bold; /*menu_title2_font_weight*/
+  white-space        : nowrap;
+}
+.SUB_MENU_HR{
+  width              : 100% ;
+}
+.SUB_MENU_EXIT_BTN{
+  text-align         : center;
+  width              : 100px;
+  color              : black ;
+  background-color   : silver ;  
+}
+/* ============================ 共通オブジェクトクラス ============================== */
+TABLE{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+TR{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+TD{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  height             :26px; /*screen_table_height*/
+  font-weight        :bold; /*screen_font_weight*/
+  text-indent        : 1px;
+}
+FONT{
+  color              : blue;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+INPUT{
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+  color              :Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+}
+SELECT{
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+  color              :Blue; /*screen_select_color*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+A{
+  color              :#993366; /*screen_link_color*/
+}
+.NOINPUT_TEXT{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+}
+.LINK_TEXT{
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  background-color   : rgba(0, 0, 0, 0);
+  color              :#993366; /*screen_link_color*/
+  CURSOR             : hand;
+  border-style       : none none none none;
+  TEXT-DECORATION    : underline;
+}
+
+
+/* ============================ メニュー共通ボタン ============================== */
+/* メニュー共通ボタン通常表示 */
+.MENUBTN_UP{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#FFFFFF; /*menu_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* メニュー共通ボタン通過時表示 */
+.MENUBTN_DOWN{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#FFFFFF; /*menu_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : inset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : inset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 4px 0px 0px 0px;
+}
+/* メニュー共通ボタンクリック時 */
+.MENUBTN_OVER{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#FFFFFF; /*menu_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* メニュー共通ボタンクリック時 */
+.MENUBTN_OUT{
+  width              :98px; /*menu_button_width*/
+  height             :20px; /*menu_button_height*/
+  cursor             : auto;
+  color              :Blue; /*menu_button_color*/
+  background-color   :#D0D0D0; /*menu_button_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+
+/* 2015/09/28Add メニュー共通ボタン使用不可時のキャプション変更 */
+.MENUBTN_OUT[disabled] {
+  color              : Gray;
+}
+/* ============================ システム共通ボタン ============================== */
+/* システム共通ボタン通常表示 */
+.COMBTN_UP{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタン通過時表示 */
+.COMBTN_DOWN{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : inset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : inset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 4px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.COMBTN_OVER{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.COMBTN_OUT{
+  width              : 120px;
+  height             :20px; /*menu_button_height*/
+  cursor             : auto;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#D0D0D0; /*screen_button_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* ============================ カスタムボタン ============================== */
+/* システム共通ボタン通常表示 */
+.CSTBTN_UP{
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタン通過時表示 */
+.CSTBTN_DOWN{
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : inset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : inset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 4px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.CSTBTN_OVER{
+  height             :20px; /*menu_button_height*/
+  cursor             : hand;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#FFFFFF; /*screen_button_change_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+/* システム共通ボタンクリック時 */
+.CSTBTN_OUT{
+  height             :20px; /*menu_button_height*/
+  cursor             : auto;
+  color              :Blue; /*screen_button_color*/
+  background-color   :#D0D0D0; /*screen_button_bgcolor*/
+  text-align         : center;
+  border-top-style   : outset;
+  border-right-style : ridge;
+  border-bottom-style: ridge;
+  border-left-style  : outset;
+  border-width       : 3px 3px 3px 3px;
+  margin             : 0px 0px 0px 0px;
+  padding            : 2px 0px 0px 0px;
+}
+
+
+//========================= ビルダー用オブジェクト ==============================
+/* テキスト入力通常表示 */
+.NMLTXT_NORMAL{
+  color   :Blue; /*screen_inputtext_color*/
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+}
+/* テキスト入力反転表示 */
+.NMLTXT_CHANGE{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* テキスト入力エラー表示 */
+.NMLTXT_ERR{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* テキスト入力エリア通常表示 */
+.NMLTXA_NORMAL{
+  color              :Blue; /*screen_inputtext_color*/
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+}
+/* テキスト入力エリア反転表示 */
+.NMLTXA_CHANGE{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* テキスト入力エリアエラー表示 */
+.NMLTXA_ERR{
+  color              :#FFFFFF; /*screen_inputtext_bgcolor*/
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* チェックボックス通常表示 */
+.CHECKBOX{
+  background-color   : rgba(0, 0, 0, 0);
+}
+/* チェックボックス反転表示 */
+.CHECKBOX_CHANGE{
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* チェックボックスエラー表示 */
+.CHECKBOX_ERR{
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* ドロップダウン通常表示 */
+.NMLDLD_NORMAL{
+  color              :Blue; /*screen_select_color*/
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+}
+/* ドロップダウン反転表示 */
+.NMLDLD_CHANGE{
+  color              :#FFFFFF; /*screen_select_bgcolor*/
+  background-color   :Blue; /*screen_select_color*/
+}
+/* ドロップダウンエラー表示 */
+.NMLDLD_ERR{
+  color              :#FFFFFF; /*screen_select_bgcolor*/
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* ラジオボタン通常表示 */
+.RADIO{
+  background-color   : rgba(0, 0, 0, 0);
+}
+/* ラジオボタン反転表示 */
+.RADIO_CHANGE{
+  background-color   :Blue; /*screen_inputtext_color*/
+}
+/* ラジオボタンエラー表示 */
+.RADIO_ERR{
+  background-color   :Red; /*screen_err_bgcolor*/
+}
+/* テキスト表示 */
+.NMLLBL_NORMAL{
+  color              :Blue; /*screen_span_color*/
+}

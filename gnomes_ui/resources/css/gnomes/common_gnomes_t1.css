@@ -1,0 +1,195 @@
+/* #####################################################################
+   #
+   #   Project       : Modal Login with jQuery Effects
+   #   Author        : Rodrigo Amarante (rodrigockamarante)
+   #   Version       : 1.0
+   #   Created       : 07/28/2015
+   #   Last Change   : 08/02/2015
+   #
+   ##################################################################### */
+.table-bordered {
+    border: 1px solid #dddddd;
+    border-collapse: separate;
+    border-collapse: collapse;
+    border-left: 0;
+    border-radius: 8px;
+}
+.glyphicon {
+	color: black;
+}
+div#headerArea {
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	background-color: #4E9ABE;
+	color: #fff;
+	
+}
+
+.table-cell-text {
+	overflow:	hidden;
+}
+
+#dropdownMenu1 {
+	width: 100%;
+	text-align: left;
+}
+.dropdown-menu {
+	width: 100%;
+}
+.headerBtn {
+	width: auto;
+	border:0;
+	background:none;
+	padding:0;
+	margin:0;
+	padding: 4px;
+	background:none;
+	border:0;
+	font-size:0;
+	line-height:0;
+	overflow:visible;
+	cursor:pointer;
+}
+
+div#headerBox{
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #4E9ABE;
+	color: #fff;
+	display: block;
+	
+}
+div#headerToolBox{
+	float: top;
+	position: fixed !important;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+}
+
+div#mainBox {
+/*	position: fixed !important;
+	position: absolute;
+*/
+	left: 0px;
+	width: 100%;
+	background-color: #ffffff;
+	color: #fff;
+	display: block;
+}
+#main_area {
+	height: 100%;
+}
+
+.doubleBox:after {
+		content:	"";
+		display:	block;
+		clear:		both;
+}
+.leftBox {
+		float:	left;
+		width:	50%;
+}
+.rightBox {
+		float:	right:
+		width:	50%;
+}
+
+.panel-body {
+	width:	50%;
+	padding-top: 0px; 
+	padding-bottom: 0px;
+}
+.logo {
+	padding-top: 0px; 
+	padding-bottom: 0px;
+}
+.navbar {
+	margin-bottom: 0px;
+}
+.form-horizontal {
+	width:	50%;
+}
+.form-detailarea {
+	width: 	50%;
+	background-color:	#00ff00;
+}
+
+/**{
+  font-family         :'Meiryo UI' !important;
+}
+*/
+.MENU_TABLE {
+		visibility: collapse;
+}
+
+.MENU_HR {
+	visibility: collapse;
+}
+
+TABLE{
+  padding-top        : 0px;
+  padding-left       : 0px;
+  padding-right      : 0px;
+  padding-bottom     : 0px;
+  margin-top         : 0px;
+  margin-left        : 0px;
+  margin-right       : 0px;
+  margin-bottom      : 0px;
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-weight        :bold; /*screen_font_weight*/
+}
+
+FONT{
+  color              : blue;
+  font-size          :11pt; /*screen_font_size*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+INPUT{
+  background-color   :#FFFFFF; /*screen_inputtext_bgcolor*/
+  color              :Blue; /*screen_inputtext_color*/
+  vertical-align     : middle;
+  text-align         : left;
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  ime-mode           : inactive;
+}
+SELECT{
+  background-color   :#FFFFFF; /*screen_select_bgcolor*/
+  color              :Blue; /*screen_select_color*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+}
+A{
+  color              :#993366; /*screen_link_color*/
+}
+.NOINPUT_TEXT{
+  border-style       : none none none none;
+  background-color   : rgba(0, 0, 0, 0);
+  font-weight		 : normal;
+}
+.LINK_TEXT{
+  font-family        :'Meiryo UI'; /*screen_font_family*/
+  font-size          :11pt; /*screen_font_size*/
+  font-weight        :bold; /*screen_font_weight*/
+  background-color   : rgba(0, 0, 0, 0);
+  color              :#993366; /*screen_link_color*/
+  CURSOR             : hand;
+  border-style       : none none none none;
+  TEXT-DECORATION    : underline;
+}

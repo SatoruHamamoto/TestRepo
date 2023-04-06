@@ -1,0 +1,4010 @@
+﻿@charset "UTF-8";
+/*----------------------------------------
+ reset
+---------------------------------------- */
+html,
+body,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+img,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+sub,
+sup,
+i,
+small,
+address,
+time,
+fieldset,
+form,
+label,
+legend,
+hr,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+header,
+footer,
+nav,
+section,
+article,
+aside,
+figure,
+figcaption,
+canvas,
+audio,
+video {
+  border: 0;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  outline: none;
+}
+
+strong {
+  color: #000;
+}
+
+img {
+  vertical-align: middle;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+}
+
+th {
+  padding: 0px;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align : center;
+}
+
+td {
+  padding: 0px;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align : left;
+}
+
+input[readonly], textarea[readonly] {
+  background-color: #e5e5e5;
+  border:1px solid #ccc;
+  cursor: default;
+  padding: 2px 1px;
+}
+
+a img:hover {
+  opacity: 0.8;
+}
+
+.no-click-event img:hover {
+  opacity: 1;
+}
+
+main {
+  display: block;
+}
+
+button, input, select, textarea {
+  line-height: normal;
+  resize: none;
+}
+
+* {
+  box-sizing: content-box;
+}
+
+
+/*----------------------------------------
+ clearfix
+---------------------------------------- */
+.clearfix:after{
+  clear:both;
+  content:"";
+  display:block;
+}
+
+
+/*----------------------------------------
+ common
+---------------------------------------- */
+body {
+  color: #333;
+  font: 12px/1.5em "ＭＳ ゴシック", sans-serif;
+  background-color: #f2f5f6;
+  width: 100%;
+  min-width: 768px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.common-inner {
+  width: 95%;
+  /*margin-left: auto;*/
+  margin-left: 35px;
+  margin-right: auto;
+}
+
+@media screen and (max-width:1200px) {
+  .common-inner{
+    width: 94%;
+  }
+}
+
+/* 管理端末ヘッダー用インナー */
+.common-client-header-inner {
+  display: inline-block;
+  margin-left: 20px;
+  width: calc( 100% - 280px);
+  width: -webkit-calc(100% - 280px);
+}
+
+/* 工程端末ヘッダー用インナー */
+.common-panecon-header-inner {
+  display: inline-block;
+  margin-left: 20px;
+  width: calc( 100% - 170px);
+  width: -webkit-calc(100% - 170px);
+}
+
+/* 管理端末デフォルトフォントサイズ */
+.common-font-client {
+  font-size: 12px;
+}
+
+/* 管理端末スクロール無効 */
+.common-client-scroll-hidden {
+  overflow-y: hidden;
+}
+
+/* 工程端末デフォルトフォントサイズ */
+.common-font-koutei {
+  font-size: 14px;
+}
+
+/* 工程端末デフォルトフォントサイズ */
+.common-font-panecon {
+  font-size: 14px;
+}
+
+/* メニューの区切り線 */
+.common-menu-separation {
+  border-top: 1px solid #888;
+}
+
+/* 1文字分インデントさせる */
+.common-text-indent1 {
+  margin-left: 1em;
+}
+
+/* マージン無し */
+.common-margin-0 {
+  margin: 0 !important;
+}
+
+/* 非表示設定 */
+.common-hidden {
+  display: none !important;
+}
+
+/* disabledのオブジェクトに設定 */
+.common-disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+/*----------------------------------------
+ 横幅指定
+---------------------------------------- */
+.common-width-1340 {
+  width: 1340px !important;
+}
+
+.common-width-1310 {
+  width: 1310px !important;
+}
+
+.common-width-1000 {
+  width: 1000px !important;
+}
+
+
+/*----------------------------------------
+ オブジェクトの配置
+---------------------------------------- */
+.common-object-left {
+  float: left;
+}
+
+.common-object-right {
+  float: right;
+}
+
+/*----------------------------------------
+ 文字の色指定
+---------------------------------------- */
+.common-text-error {
+  color: #f00;
+}
+
+/*----------------------------------------
+ 文字の位置指定
+---------------------------------------- */
+.common-text-number {
+  width: 79%;
+  text-align: right;
+}
+
+.common-text-center {
+  text-align: center;
+}
+
+.common-text-align-left {
+  text-align: left;
+}
+
+.gnomes-number {
+  text-align: right;
+}
+
+/*----------------------------------------
+ データ表示領域
+---------------------------------------- */
+.common-data-area {
+  white-space: 60%;
+  height: 100%;
+}
+
+/*----------------------------------------
+ バーコードデータ表示領域
+---------------------------------------- */
+
+.common-input-barcode-style:focus {
+  background-color: #98FB98;
+}
+
+/*----------------------------------------
+ 管理端末　ベースウィンドウ
+---------------------------------------- */
+/* ヘッダーの色指定 */
+.common-header {
+  background-color: #004f9b;
+  box-shadow: 0 0 15px #666;
+  color: #fff;
+  margin: 0;
+}
+
+.common-client-header {
+  background-color: #004f9b;
+  box-shadow: 0 0 15px #666;
+  color: #fff;
+  font-size: 17px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.common-client-header-info {
+  float: left;
+  width: 100%
+}
+
+/* 画面名 */
+.common-header-screenName {
+  float: left;
+  font-weight: bold;
+  line-height: 20px;
+  margin-right: 20px;
+  padding: 17px 0;
+  vertical-align: middle;
+  max-width: 250px;
+  white-space: normal;
+  overflow: hidden;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-screenName {
+    font-size: 13px;
+  }
+}
+
+/* ホームアイコン */
+.common-header-homeIcon {
+  float: left;
+  margin-right: 20px;
+}
+
+.common-header-homeIcon a{
+  display: block;
+  line-height: 74px;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-homeIcon img{
+    width: 25px;
+  }
+}
+
+/* ログイン */
+.common-header-user-unit{
+  display: table;
+  float: left;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.common-header-userIcon {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+.common-header-userIcon a{
+  display: block;
+  line-height: 74px;
+}
+
+.common-header-user-info {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* ユーザー名 */
+.common-header-userName {
+  font-size: 14px;
+}
+
+/* 端末名 */
+.common-header-deviceName {
+  font-size: 14px;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-userIcon img{
+    width: 20px;
+  }
+  .common-header-userName,
+  .common-header-deviceName {
+    font-size: 12px;
+  }
+}
+
+/* 工場 */
+.common-header-factory-unit{
+  display: table;
+  float: left;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.common-header-factoryIcon {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+.common-header-factoryIcon a{
+  display: block;
+  line-height: 74px;
+}
+
+.common-header-factoryName {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-factory-unit,
+  .common-header-factoryIcon,
+  .common-header-factoryNam{
+    display: block;
+    padding-right: 0;
+    text-align: center;
+  }
+  .common-header-factoryIcon a{
+    line-height: 45px;
+  }
+  .common-header-factoryIcon img{
+    width: 25px;
+  }
+  .common-header-factoryName {
+    font-size: 12px;
+  }
+}
+
+/* 工程：指図工程、作業工程、作業場所のスタイル */
+.common-panecon-work-unit {
+  margin-right: 10px;
+}
+
+/* メッセージ一覧表示 */
+.common-header-messagePanel {
+  float:left;
+  position: relative;
+  vertical-align: middle;
+  width: calc(100% - 750px);
+  width: -webkit-calc(100% - 750px);
+  margin-top: 22px;
+  margin-right: 20px;
+  min-width: 160px;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-messagePanel {
+    width: calc(100% - 550px);
+    width: -webkit-calc(100% - 550px);
+  }
+}
+/* 工程端末メッセージ一覧表示 */
+.common-panecon-header-messagePanel {
+  width: calc(100% - 670px);
+  margin-left: 20px;
+}
+
+.common-header-messageBox {
+  background: #fff url(../../images/gnomes/icons/icon-arrow-3.png) center right no-repeat;
+  box-sizing: border-box;
+  color: #333;
+  cursor: pointer;
+  font-size: 12px;
+  overflow: hidden;
+  padding: 5px 1em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-dropdown-menu {
+  width: 100%;
+}
+
+/* メッセージリスト */
+.common-header-messageList {
+  background-color: #fff;
+  color: #333;
+  display: block;
+  font-size: 12px;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 1000;
+}
+
+#dropdownMenu1 {
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.common-header-messageList-show {
+  height: auto;
+  max-height: 257px;
+}
+
+.popupmenu-list-topselect {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-test-overflow: ellipsis; /* safari */
+  -o-test-overflow: ellipsis; /* Oprera */
+}
+
+.popupmenu-list-topselect2 {
+  max-width: 100px;
+}
+
+.popupmenu-list {
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-test-overflow: ellipsis; /* safari */
+  -o-test-overflow: ellipsis; /* Oprera */
+  padding: 3px 12px;
+}
+
+.common-header-messageList ul {
+  padding: 15px 19px;
+}
+
+.common-header-messageList li:hover {
+  background-color: #d1d2d5;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+}
+
+.common-header-messageList ul li:hover a{
+  color: #000;
+  text-decoration: none;
+}
+
+.common-header-messageList li {
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+}
+
+.common-header-messageList-size {
+  min-width: 160px;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+
+/* ヘッダーメニュー */
+.common-header-menu-unit{
+  display: table;
+  float: left;
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-top: 15px;
+  height: auto;
+}
+
+.common-header-menu-unit .common-mainmenu-version {
+  line-height: 40px !important;
+  font-size: 14px !important;
+}
+
+
+/* ヘッダーメニューリスト */
+.common-header-menu-list {
+  color: #000;
+  background-color: #fff;
+  box-sizing: border-box;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 150px;
+  z-index: 1000;
+  transition: .3s height, width;
+}
+
+.common-header-menu-list ul {
+  padding: 15px 19px;
+}
+
+.common-header-menu-list ul li div span:hover{
+  background-color: #005cb5;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 2px 2px 3px #999;
+}
+
+
+.common-header-menu-list li a {
+  background: url(../../images/gnomes/icons/icon-arrow-2.png) left center no-repeat;
+  display: block;
+  line-height: 1.53em;
+  padding-left: 14px;
+}
+
+
+/* メニューアイコン */
+.common-header-menu-unit{
+  display: table;
+  float: left;
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+ .common-header-menu-unit .common-menu-list-selected {
+  height: auto;
+}
+
+.common-header-menu-unit .common-header-menuIcon {
+	float: left;
+}
+
+.common-header-menuIcon {
+  padding-right: 10px;
+}
+
+.common-header-menuIcon a{
+  display: block;
+  line-height: 0px;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-menuIcon img{
+    width: 25px;
+  }
+}
+
+/* ロゴ */
+.common-header-productLogo {
+  float: right;
+  margin-right: 20px;
+}
+
+.common-header-productLogo a{
+  float: left;
+  display: block;
+  line-height: 70px;
+}
+
+.common-header-productLogo .common-software-version {
+    float: left;
+    line-height: 75px;
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+
+/*----------------------------------------
+ 工程端末 ベースウィンドウ
+---------------------------------------- */
+.common-panecon-header {
+  background-color: #004f9b;
+  box-shadow: 0 0 15px #666;
+  color: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.common-panecon-header-info {
+  float: left;
+  width: 100%;
+}
+
+.common-panecon-header-area-left {
+  float: left;
+}
+
+.common-panecon-header-area-right {
+  float: right;
+  width: 80%;
+}
+
+.common-panecon-header-area-right_new {
+  float: right;
+}
+
+/* 画面名 */
+.common-panecon-header-screenName {
+  float: left;
+  font-weight: bold;
+  line-height: 20px;
+  margin-right: 20px;
+  padding: 17px 0;
+  vertical-align: middle;
+  overflow: hidden;
+  max-width: 280px;
+  white-space: nowrap;
+}
+
+
+/* 工程名 */
+.common-panecon-header-processName {
+  float:left;
+  line-height: 74px;
+  margin-right: 20px;
+}
+
+/* サブ工程名 */
+.common-panecon-header-subProcessName {
+  float:left;
+  line-height: 74px;
+  margin-right: 20px;
+}
+
+/* 設備名 */
+.common-panecon-header-equipmentName {
+  float:left;
+  line-height: 74px;
+}
+
+/* 工場アイコン */
+.common-panecon-header-factoryIcon {
+  float:left;
+}
+
+.common-panecon-header-factoryIcon a{
+  display:block;
+  line-height: 74px;
+  padding:0 20px;
+}
+
+/* 工場 指図工程,作業工程,作業場所（工程端末）*/
+.common-header-panecon-factoryIcon {
+  display: table-cell;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+
+.common-header-panecon-factoryInfo {
+  line-height: 24px;
+  display: table-cell;
+  white-space: nowrap;
+  overflow-x: hidden;
+  font-size: 14px;
+}
+
+.common-header-panecon-faactroyinfo-work {
+  text-align: left;
+  padding-left: 5px;
+}
+
+@media screen and (max-width:1100px) {
+  .common-header-panecon-factoryIcon a{
+    line-height: 45px;
+  }
+
+  .common-header-panecon-factoryIcon img{
+    width: 25px;
+  }
+
+  .common-header-panecon-factoryInfo {
+    font-size: 12px;
+  }
+}
+
+
+/* ログイン情報 */
+.common-panecon-header-user-unit{
+  display: table;
+  float: left;
+  vertical-align: middle;
+}
+
+/* ユーザーアイコン */
+.common-panecon-header-userIcon {
+  display: table-cell;
+  padding-right: 10px;
+   vertical-align: top;
+}
+
+.common-panecon-header-userIcon a{
+  display: block;
+  line-height: 74px;
+
+}
+
+/* ログインユーザー情報 */
+.common-panecon-header-user-info {
+  display: table-cell;
+  line-height:1;
+  vertical-align: middle;
+}
+
+/* ユーザー名 */
+.common-panecon-header-userName {
+  font-size: 14px;
+}
+
+/* 端末名 */
+.common-panecon-header-deviceName {
+  font-size: 14px;
+}
+
+
+/* ロゴ */
+.common-panecon-header-productLogo {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+
+/* データ表示エリア */
+.common-data-area-wrapper {
+  margin-top: 10px;
+}
+
+.common-panecon-header-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+/* 工程端末 ヘッダーのカラム 2列表示 */
+.common-panecon-header-column2 {
+  width: calc( 99% / 2 );
+  width: -webkit-calc( 99% / 2 );
+}
+
+/* 工程端末 ヘッダーのカラム 3列表示 */
+.common-panecon-header-column3 {
+  width: calc( 99% / 3 );
+  width: -webkit-calc( 99% / 3 );
+}
+
+/*-------------------------------
+   画面ごとにwidthが異なるので
+   画面ごとに定義
+@media screen and (max-width: 767px) {
+  .common-panecon-header-column3,
+  .common-panecon-header-column2 {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+}
+---------------------------------*/
+
+
+.common-old-panecon-bottom-bottom-area {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+}
+
+  .common-panecon-side-area {
+    margin-right: 10px;
+    width: 280px;
+    min-height: 500px;
+  }
+
+  .common-panecon-side-area-wrapper {
+    width: 300px;
+  }
+
+  .common-panecon-side-area-wrapper.has-separator {
+    display: none;
+  }
+
+  .common-side-none .common-panecon-side-area-wrapper.has-separator {
+    display: block;
+  }
+
+
+@media screen and (max-width: 767px) {
+  .common-panecon-data-area {
+    width: 300px;
+  }
+}
+
+.common-panecon-msgBox {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 75px;
+  padding: 5px 10px;
+  overflow: auto;
+  line-height: 140%;
+  word-break: break-word;
+}
+
+/*----------------------------------------
+ メインメニュー ベースウィンドウ
+---------------------------------------- */
+.common-font-client .common-mainmenu-header-area {
+  background-color: #004f9b;
+  box-shadow: 0 0 15px #666;
+  height: 65px;
+  margin-bottom: 55px;
+}
+
+.common-font-panecon .common-mainmenu-header-area {
+  background-color: #004f9b;
+  box-shadow: 0 0 15px #666;
+  height: 75px;
+  margin-bottom: 10px;
+}
+
+.common-mainmenu-header-area-left {
+  float: left;
+}
+
+.common-mainmenu-header-area-right {
+  float: right;
+}
+
+.common-mainmenu-header-area-right_new {
+  float: right;
+}
+
+/* 会社ロゴ（左） */
+.common-font-client .common-mainmenu-companyLogo1 {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 10px;
+  height: 65px;
+}
+
+/* 会社ロゴ（左）(工程端末) */
+.common-font-panecon .common-mainmenu-companyLogo1 {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 10px;
+  height: 75px;
+}
+
+/* 会社ロゴ（右） */
+.common-font-client .common-mainmenu-companyLogo2 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 65px;
+}
+
+/* 会社ロゴ（右）(工程端末) */
+.common-font-panecon .common-mainmenu-companyLogo2 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 75px;
+}
+
+/* プロダクト名 */
+.common-font-client .common-mainmenu-productName {
+  color: #fff;
+  display: inline-block;
+  font-size: 2.16em;
+  line-height: 65px;
+}
+
+/* プロダクト名 */
+.common-font-panecon .common-mainmenu-productName {
+  color: #fff;
+  display: inline-block;
+  font-size: 2.16em;
+  line-height: 75px;
+}
+
+.common-mainmenu-productName span{
+    font-weight: bold;
+}
+
+@media screen and ( max-width: 1200px ) {
+  .common-mainmenu-productName {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and ( max-width: 1000px ) {
+  .common-mainmenu-productName {
+    font-size: 1.3em;
+    margin: 12.5px 0;
+  }
+
+  .common-mainmenu-productName span{
+    display: block;
+    line-height: 20px;
+  }
+}
+
+/* ソフトウェアのバージョン */
+.common-font-client .common-mainmenu-version {
+    float: left;
+    line-height: 74px;
+    margin-right: 20px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.common-font-panecon .common-mainmenu-version {
+    float: left;
+    line-height: 75px;
+    margin-right: 20px;
+    color: #fff;
+    font-size: 1.16em;
+}
+
+/* ユーザーアイコン */
+.common-font-client .common-mainmenu-userIcon {
+  float: left;
+  line-height: 65px;
+  margin-right: 20px;
+}
+
+/* ユーザーアイコン (工程端末) */
+.common-font-panecon .common-mainmenu-userIcon {
+  float: left;
+  line-height: 75px;
+  margin-right: 20px;
+}
+
+/* ログインユーザー情報 */
+.common-font-client .common-mainmenu-user-info {
+  float: left;
+  padding-top: 12px;
+  margin-right: 20px;
+}
+
+/* ログインユーザー情報 (工程端末) */
+.common-font-panecon .common-mainmenu-user-info {
+  float: left;
+  padding-top: 7px;
+  margin-right: 20px;
+}
+
+/* ユーザー名 */
+.common-mainmenu-userName {
+  color: #fff;
+  font-size: 1.16em;
+  height: 1em;
+  line-height: 1.6em;
+}
+
+
+/* 会社名 */
+.common-mainmenu-companyName {
+  color: #fff;
+  font-size: 1.16em;
+  line-height: 1.6em;
+}
+
+/* ログアウトボタン */
+.common-mainmenu-logoutButton {
+  float: left;
+  font-size: 1.25em;
+  line-height: 1.15em;
+  margin-top: 19px;
+  padding: 6px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+/* ログアウトボタン (工程端末) */
+.common-font-panecon .common-mainmenu-logoutButton {
+  float: left;
+  font-size: 1.25em;
+  line-height: 2.0em;
+  margin-top: 13px;
+  padding: 6px;
+  text-align: center;
+}
+
+.common-menu-box {
+  background: url(../../images/gnomes/icons/icon-corner-1.png) top left no-repeat #004f9b;
+  box-shadow: 0 0 15px #888;
+  display: inline-block;
+  padding-top: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.common-menu-box-img {
+  margin-bottom: 23px;
+  height: 76px;
+}
+
+@media screen and (max-width:1000px) {
+   .common-menu-box-img {
+    height: 50px;
+  }
+}
+
+.common-menu-box-text {
+  background: url(../../images/gnomes/icons/icon-arrow-1.png) center right no-repeat;
+  color: #fff;
+  font-size: 1.4em;
+  margin: 0 10px;
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width:1000px) {
+.common-menu-box-text {
+    font-size: 1em;
+  }
+}
+
+.common-info-text-area {
+  float: left;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px #ccc;
+  display: inline-block;
+  font-size: 1.4em;
+  padding: 20px;
+  width: 58.8%;
+}
+
+@media screen and (max-width:1000px) {
+ .common-info-text-area {
+    width: 79.4%;
+    font-size: 1em;
+  }
+}
+
+.common-info-table {
+  margin-left: 1em;
+}
+
+.common-info-table-title {
+  width: 400px;
+  padding: 5px 10px;
+}
+
+.common-info-table-updateDate {
+  width: 120px;
+  padding: 5px 10px;
+}
+
+.common-menu-panel {
+  float: left;
+  margin-right: 3%;
+  margin-bottom: 30px;
+  position: relative;
+  width: 17.6%;
+}
+
+.common-menu-panel:nth-child( 5n ) {
+  margin-right: 0;
+}
+
+.common-menu-panel:hover {
+  cursor: pointer;
+}
+
+
+.common-menu-panel .common-menu-list-selected {
+  height: auto;
+}
+
+.common-menu-panel-right {
+  float: right;
+}
+
+/* メニューリスト */
+.common-menu-list {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  transition: .3s height, width;
+}
+
+.common-menu-list ul {
+  padding: 15px 19px;
+}
+
+.common-menu-list li a {
+  background: url(../../images/gnomes/icons/icon-arrow-2.png) left center no-repeat;
+  display: block;
+  line-height: 1.53em;
+  padding-left: 14px;
+}
+
+.common-menu-list li a:hover {
+  background-color: #e4ecf5;
+  text-decoration: none;
+  color: #000;
+}
+
+/*----------------------------------------
+ 画面展開
+---------------------------------------- */
+/* 表示制御 Y方向表示 */
+.common-menu-showY {
+  height: auto !important;
+  overflow: auto !important;
+}
+
+/* 表示制御 Y方向非表示 */
+.common-menu-nonShowY {
+  height: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* 表示制御 X方向表示 */
+.common-menu-showX {
+  width: 100% !important;
+  overflow: auto !important;
+  visibility: visible !important;
+}
+
+/* 表示制御 X方向非表示 */
+.common-menu-nonShowX {
+  width: 210px !important;
+  /*overflow: hidden !important;*/
+  padding: 0 !important;
+  display: block !important;
+}
+
+.common-menu-nonShowX.common-panecon-flexMenu-size-searchOnly {
+  width: 270px !important;
+}
+
+/* 画像の180°回転用 */
+.common-icon-roteto180 {
+  transform: rotate( 180deg );
+}
+
+/* 一覧画面の表示エリア */
+.common-main-area {
+  height: calc(100vh - 120px);
+  height: -webkit-calc(100vh - 120px);
+  position: relative;
+}
+
+/* 一覧画面の表示エリア 左側 */
+.common-main-area-left {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  -webkit-transition: width, height 0.3s ease;
+  transition: width, height 0.3s ease;
+}
+
+.common-side-none .common-main-area-left{
+  width: calc(100% - 240px);
+  width: -webkit-calc(100% - 240px);
+}
+
+/* 管理端末の左側表示エリア設定 */
+/* 右側メニュー項目が機能メニュー、検索メニューの時 */
+.common-client-minus-flexMenu {
+  width: calc(100% - 30px);
+  width: -webkit-calc(100% - 30px);
+}
+
+/* 管理端末の左側表示エリア設定 */
+/* 右側メニュー項目が機能メニューの時 */
+.common-client-minus-flexMenu-functionOnly {
+  width: calc(100% - 30px);
+  width: -webkit-calc(100% - 30px);
+}
+
+/* 工程端末の左側表示エリア設定 */
+/* 右側メニュー項目が検索メニューの時 */
+.common-koutei-minus-flexMenu-searchOnly {
+  width: calc(100% - 350px);
+  width: -webkit-calc(100% - 350px);
+}
+
+/* 工程端末の左側表示エリア設定 */
+/* 右側メニュー項目が検索メニューの時 */
+.common-panecon-minus-flexMenu-searchOnly {
+  width: calc(100% - 70px);
+  width: -webkit-calc(100% - 70px);
+}
+
+.common-side-none .common-koutei-minus-flexMenu-searchOnly {
+  width: calc(100% - 70px);
+  width: -webkit-calc(100% - 70px);
+}
+
+/* 一覧画面の表示エリア 右側 */
+.common-main-area-right {
+  bottom: 0;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  -webkit-transition: width, height 0.3s ease;
+  transition: width, height 0.3s ease;
+}
+
+/* 一覧画面の表示エリア 右側 */
+/* 機能メニュー、検索メニュー時のサイズ */
+.common-client-flexMenu-size {
+  width: 0px;
+  display: none;
+}
+
+/* 一覧画面の表示エリア 右側 */
+/* 機能メニュー時のサイズ */
+.common-client-flexMenu-size-functionOnly {
+  width: 0px;
+  display: none;
+}
+
+/* 工程端末検索メニュー時のサイズ */
+.common-koutei-flexMenu-size-searchOnly {
+  width: 270px;
+}
+
+/* 工程端末検索メニュー時のサイズ */
+.common-panecon-flexMenu-size-searchOnly {
+  display: none;
+}
+
+.common-main-area-right input{
+  font-size: 100%;
+}
+
+
+/*----------------------------------------
+ 入力フォームのサイズ
+---------------------------------------- */
+.common-main-area input {
+  font-size: 100%;
+  font-family: "ＭＳ ゴシック", sans-serif;
+}
+
+.common-main-area textarea {
+ font-size: 100%;
+ font-family: "ＭＳ ゴシック", sans-serif;
+}
+
+.common-main-area-right input {
+  font-size: 100%;
+  width: 100%;
+  font-family: "ＭＳ ゴシック", sans-serif;
+}
+
+.common-main-area select {
+  font-size: 100%;
+  font-family: "ＭＳ ゴシック", sans-serif;
+}
+
+.common-main-area-right select {
+  font-size: 100%;
+  width: 100%;
+  font-family: "ＭＳ ゴシック", sans-serif;
+}
+
+
+/*----------------------------------------
+ 仕切り
+---------------------------------------- */
+/* 垂直方向の仕切り */
+.common-separator-vartical {
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  overflow:hidden;
+  position: absolute;
+  top: 0;
+  width: 10px;
+
+}
+
+.common-separator-vartical:after{
+  background-color:#f2f5f6;
+  bottom:0;
+  border: 0px;
+  border-top: solid 2px #d6d6d6;
+  border-right: solid 2px #d6d6d6;
+  content:"";
+  height: 12px;
+  left: -7px;
+  margin:auto;
+  top: 0;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  width: 12px;
+}
+
+.common-separator-vartical:before{
+  background-color:#d6d6d6;
+  content:"";
+
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top:0;
+  width: 2px;
+}
+
+.common-separator-vartical:hover {
+  background-color: #c4ccd5;
+}
+
+.common-separator-vartical:hover:after{
+  background-color: #c4ccd5;
+}
+
+.common-side-none .common-separator-vartical{
+  right: 220px;
+}
+
+.common-panecon-separator-vartical-flexMenu-searchOnly{
+  width: 50px;
+  right: 0px;
+}
+
+.common-side-none .common-panecon-separator-vartical-flexMenu-searchOnly{
+  right: 285px;
+}
+
+.common-side-none .common-separator-vartical:after{
+  border-right: none;
+  border-left: solid 2px #d6d6d6;
+  left: inherit;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: -7px;
+}
+
+.common-side-none .common-koutei-separator-vartical-flexMenu-searchOnly:after{
+  left:inherit;
+  right: -32px;
+}
+
+.common-side-none .common-separator-vartical:before{
+  left:inherit;
+  right:0;
+}
+
+.common-side-none .common-panecon-separator-vartical-flexMenu-searchOnly:before{
+  left:0;
+}
+
+.common-panecon-separator-vartical-flexMenu-searchOnly:before {
+  right: 0;
+  left: inherit;
+}
+
+/* 垂直方向の仕切り(左) */
+.common-separator-vartical-left{
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  left: 310px;
+  top: 0;
+  width: 50px;
+}
+
+.common-separator-vartical-left:after{
+  background-color: #f2f5f6;
+  bottom: 0;
+  border: 0;
+  border-bottom: solid 2px #d6d6d6;
+  border-left: solid 2px #d6d6d6;
+  content: "";
+  height: 65px;
+  margin: auto;
+  right: -32px;
+  top: 0;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  width: 65px;
+}
+
+.common-separator-vartical-left:before{
+  background-color:#d6d6d6;
+  content:"";
+  height: 100%;
+  right: 0;
+  position: absolute;
+  top:0;
+  width: 2px;
+}
+
+.common-side-none .common-separator-vartical-left{
+  left: 0;
+}
+
+.common-side-none .common-separator-vartical-left:after{
+  border: 0;
+  border-top: solid 2px #d6d6d6;
+  border-right: solid 2px #d6d6d6;
+  left: -32px;
+  right:inherit;
+}
+
+.common-side-none .common-separator-vartical-left:before{
+  right:inherit;
+  left:0;
+}
+
+/* 垂直方向の仕切り 工程端末 */
+.common-koutei-separator-vartical {
+  align-items: center;
+  border-left: 2px solid #d6d6d6;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  -webkit-transition: All 0.3s ease;
+  transition: All 0.3s ease;
+  width: 30px;
+}
+.common-koutei-separator-vartical:hover {
+  background-color: #c4ccd5;
+}
+
+.common-side-none .common-koutei-separator-vartical{
+  left: 0;
+}
+
+/* 垂直方向の仕切り 工程端末 */
+.common-panecon-separator-vartical {
+  align-items: center;
+  border-left: 2px solid #d6d6d6;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  -webkit-transition: All 0.3s ease;
+  transition: All 0.3s ease;
+  width: 30px;
+}
+
+.common-panecon-separator-vartical:hover {
+  background-color: #c4ccd5;
+}
+
+.common-side-none .common-panecon-separator-vartical {
+  left: 0;
+}
+
+.common-side-none .common-panecon-separator {
+  left: 290px;
+}
+
+.common-side-none .common-panecon-separator:before {
+  left: auto;
+  right: 0;
+}
+
+.common-side-none .common-panecon-separator:after {
+  border-top: none;
+  border-right: none;
+  left: 20px;
+  border-bottom: solid 2px #d6d6d6;
+  border-left: solid 2px #d6d6d6;
+}
+
+.common-panecon-separator,.common-panecon-separator:before {
+  left: 0;
+}
+
+.common-panecon-separator:after {
+  right: 18px;
+  border-right: solid 2px #d6d6d6;
+  border-top: solid 2px #d6d6d6;
+  border-bottom: none;
+  border-left: none;
+}
+
+/* 管理端末機能メニュー、検索メニュー時の位置 */
+.common-client-separator-vartical-flexMenu {
+  right: 0px;
+}
+
+/* 管理端末機能メニュー時の位置 */
+.common-client-separator-vartical-flexMenu-functionOnly {
+  right: 0px;
+}
+
+/* 工程端末機能メニュー時の位置 */
+.common-koutei-separator-vartical-flexMenu-searchOnly {
+  width:50px;
+  right: 285px;
+}
+.common-koutei-separator-vartical-flexMenu-searchOnly:after{
+  width: 65px;
+  height: 65px;
+  left: -32px;
+}
+
+/* 工程端末機能メニュー時の位置 */
+.common-panecon-separator-vartical-flexMenu-searchOnly {
+  right: 0px;
+}
+
+.common-panecon-separator-vartical-flexMenu-searchOnly:after {
+  width: 65px;
+  height: 65px;
+  left: inherit;
+  right: -32px;
+  border-left: 2px solid #d6d6d6;
+  border-bottom: 2px solid #d6d6d6;
+  border-right: none;
+  border-top: none;
+}
+
+.common-side-none .common-panecon-separator-vartical-flexMenu-searchOnly:after {
+  left: -53px;
+  border-right: solid 2px #d6d6d6;
+  border-bottom: solid 2px #d6d6d6;
+  border-left: none;
+  border-top: none;
+}
+
+/* 水平方向の仕切り */
+.common-separator-horizontal {
+  background-color: #fff;
+  cursor: pointer;
+  height: 10px;
+  vertical-align: middle;
+  text-align: center;
+  width: 500px;
+}
+
+/*　管理端末　*/
+.common-separator-horizon{
+  align-items: center;
+  cursor: pointer;
+  height: 50px;
+  overflow:hidden;
+  position: relative;
+  width: 100%;
+}
+
+.common-separator-horizon:after{
+  background-color:#f2f5f6;
+  bottom: -32px;
+  border: 0;
+  border-top: solid 2px #d6d6d6;
+  border-left: solid 2px #d6d6d6;
+  content:"";
+  height: 65px;
+  left: 0;
+  margin:auto;
+  right: 0;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  width: 65px;
+}
+
+.common-separator-horizon:before{
+  background-color:#d6d6d6;
+  content:"";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  bottom:0;
+  width: 100%;
+}
+
+.common-separator-horizon:hover {
+  background-color: #c4ccd5;
+}
+
+.common-separator-horizon:hover:after{
+  background-color: #c4ccd5;
+}
+
+.common-head-none .common-separator-horizon:after{
+  bottom:inherit;
+  border: 0;
+  border-bottom: solid 2px #d6d6d6;
+  border-right: solid 2px #d6d6d6;
+  top:-32px;
+}
+
+.common-head-none .common-separator-horizon:before{
+  bottom:inherit;
+  top:0;
+}
+
+/*----------------------------------------
+ 画面展開 メニュー郡 共通
+---------------------------------------- */
+/* 位置画面に1つのメニューを表示する場合 */
+.flexMenu-unit-1 {
+  height:calc(100% /1);
+  height:-webkit-calc(100% / 1);
+  width:100%;
+  transition:.3s height, width;
+}
+/* 位置画面に2つのメニューを表示する場合 */
+.flexMenu-unit-2 {
+  height:calc(100% /2);
+  height:-webkit-calc(100% / 2);
+  width:100%;
+  transition:.3s height, width;
+}
+/* 位置画面に3つのメニューを表示する場合 */
+.flexMenu-unit-3 {
+  height:calc(100% /3);
+  height:-webkit-calc(100% / 3);
+  width:100%;
+  transition:.3s height, width;
+}
+/* 位置画面に4つのメニューを表示する場合 */
+.flexMenu-unit-4 {
+  height:calc(100% /4);
+  height:-webkit-calc(100% / 4);
+  width:100%;
+  transition:.3s height, width;
+}
+
+.common-flexMenu-size {
+  width: 100%;
+  height: calc(100% - 40px);
+  height: -webkit-calc(100% - 40px);
+}
+
+/* 1つのメニューを表示する場合(項目表示部) */
+.common-flexMenu-size-1 {
+  width: 100%;
+  height: 100%;
+}
+
+#flexMenu-close-1 .flexMenu-unit-4 {
+  height: calc((100% - 30px)  / 3);
+  height: -webkit-calc((100% - 30px) / 3);
+}
+
+#flexMenu-close-2 .flexMenu-unit-4 {
+  height: calc((100% - 60px)  / 2);
+  height: -webkit-calc((100% - 60px) / 2);
+}
+
+#flexMenu-close-3 .flexMenu-unit-4 {
+  height: calc(100% - 90px);
+  height: -webkit-calc(100% - 90px);
+}
+
+
+#flexMenu-close-1 .flexMenu-unit-3 {
+  height: calc((100% - 30px)  / 2);
+  height: -webkit-calc((100% - 30px) / 2);
+}
+
+#flexMenu-close-2 .flexMenu-unit-3 {
+  height: calc((100% - 60px)  / 1);
+  height: -webkit-calc((100% - 60px) / 1);
+}
+
+
+#flexMenu-close-1 .flexMenu-unit-2 {
+  height: calc((100% - 30px)  / 1);
+  height: -webkit-calc((100% - 30px) / 1);
+}
+
+#flexMenu-close-1 .flexMenu-unit-1 {
+  height: calc((100% - 30px)  / 1);
+  height: -webkit-calc((100% - 30px) / 1);
+}
+
+/* ヘッダー部分のみ */
+.flexMenu-unit-4.flexMenu-close{
+  height: 30px !important;
+}
+/* ヘッダー部分のみ */
+.flexMenu-unit-3.flexMenu-close{
+  height: 30px !important;
+}
+/* ヘッダー部分のみ */
+.flexMenu-unit-2.flexMenu-close{
+  height: 30px !important;
+}
+/* ヘッダー部分のみ */
+.flexMenu-unit-1.flexMenu-close{
+  height: 30px !important;
+}
+
+/* ダイアログメッセージ部 */
+.dialog-message-unit {
+  height:calc(100% /4);
+  height:-webkit-calc(100% / 4);
+  width:100%;
+  transition:.3s height, width;
+}
+
+#dialog-message-close .dialog-message-unit {
+  height: calc((100% - 30px)  / 1);
+  height: -webkit-calc((100% - 30px) / 1);
+}
+/* ヘッダー部分のみ */
+.dialog-message-unit.dialog-message-close{
+  height: 30px !important;
+}
+
+/*----------------------------------------
+ 画面展開 機能メニュー郡
+---------------------------------------- */
+.common-flex-area-vartical {
+  height:calc(100% - 70px);
+  height:-webkit-calc(100% - 70px);
+  position: absolute;
+  right: 0;
+  top: 0;
+  width:100%;
+}
+
+.common-flexMenu-function-header {
+  border-bottom: solid 1px #004282;
+  color: #004282;
+  margin-bottom: 4px;
+  padding: 3px 10px;
+  text-shadow: 2px 2px 3px #999;
+}
+
+.common-flexMenu-function-header:hover {
+  cursor: pointer;
+}
+
+.common-flexMenu-function-header-title {
+  cursor: pointer;
+  float: left;
+  width: 100%;
+}
+
+.common-flexMenu-function-header-icon {
+  float: right;
+}
+
+.common-flexMenu-function-box {
+  background-color: #fff;
+  box-shadow: 0 0 20px #aaa;
+  margin-right: 20px;
+  overflow: auto;
+  transition: .3s height, width;
+  white-space: nowrap;
+}
+
+.common-flexMenu-function-box ul {
+  padding: 10px 22px;
+}
+
+.common-flexMenu-function-box ul li div span:hover{
+  background-color: #005cb5;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 2px 2px 3px #999;
+}
+
+/*----------------------------------------
+ 画面展開 検索
+---------------------------------------- */
+.common-flexMenu-search-textIndent {
+  display: inline-block;
+  margin-left: 1em;
+  text-align: right;
+  width: 50px;
+}
+
+.common-flexMenu-search-header {
+  border-bottom: solid 1px #005cb5;
+  color: #005cb5;
+  margin-bottom: 4px;
+  padding: 3px 10px;
+  text-shadow: 2px 2px 3px #999;
+}
+
+
+
+.common-flexMenu-search-header:hover {
+  cursor: pointer;
+}
+
+.common-flexMenu-search-header-title {
+  cursor: pointer;
+  float: left;
+  width: 100%;
+}
+
+.common-flexMenu-search-header-icon {
+  float: right;
+}
+
+.common-flexMenu-search-box {
+  background-color: #fff;
+  box-shadow: 0 0 20px #aaa;
+  margin-right: 20px;
+  overflow: auto;
+  transition: .3s height, width;
+}
+
+.common-flexMenu-search-box ul {
+  padding: 9px 16px;
+}
+
+.common-flexMenu-search-box ul li {
+  line-height: 1.8em;
+}
+
+.common-flexMenu-search-box ul li ul {
+  padding: 0;
+}
+
+
+/* 検索ボタン */
+.common-flexMenu-search-bottomBox {
+  bottom: 0;
+  left:0;
+  position: absolute;
+}
+
+.common-flexMenu-search-bottomBox a {
+  text-decoration: underline;
+}
+
+/* 検索ボタン
+.common-flexMenu-search-button {
+  padding: 7px 15px;
+}
+ */
+.common-flexMenu-search-right {
+  float: right;
+}
+
+.common-flexMenu-search-right a {
+  text-decoration: underline;
+}
+
+.common-flexMenu-search-table {
+  width: 100%;
+
+}
+
+.common-flexMenu-search-table td:nth-child( 2 ) {
+  text-align: right;
+  vertical-align: bottom;
+}
+
+/* 検索詳細リンク */
+.search-detail-link {
+  float: right;
+  margin-top: 10px;
+}
+
+/*----------------------------------------
+ 工程端末のチェックボックス
+---------------------------------------- */
+.common-input-checkbox {
+  width: 3em;
+  height: 3em;
+}
+
+.common-panecon-header-col-title-checkbox {
+  height: 66.5px;
+}
+
+/*----------------------------------------
+ 工程端末のラジオボタン
+---------------------------------------- */
+.common-panecon-input-radiobutton {
+  width: 3em;
+  height: 3em;
+}
+
+.common-panecon-header-col-title-radiobutton {
+  height: 66.5px;
+}
+
+/*----------------------------------------
+ 共通で使用するボタン
+---------------------------------------- */
+.common-button {
+  cursor          : pointer;
+  max-width       : 180px;
+  color           : #FFF;
+  text-decoration : none;
+  text-align      : center;
+  font-weight     : bold;
+  font-size       : 120%;
+  background-color: #004f9b;
+  background      : linear-gradient(to bottom, #0073e6, #002e5c);
+  border-color    : #004f9b;
+  border-style    : solid;
+  border-width    : 1px;
+  border-radius     : 7px;
+  padding         : 7px;
+  display         : inline-block;
+  vertical-align  : middle;
+  text-shadow     : 1px 1px 1px rgba(0,0,0,0.7);　/* ボタンの色が明るめの場合は0.7の数字を大きく、暗めの場合は少なくするとリアルに */
+}
+
+.common-button-inner {
+  border-radius   : 4px;
+  padding         : 0px;
+  font-size       : 100%;
+}
+
+.common-button:disabled {
+  cursor          : default;
+  color           : #777;
+  background-color: #aaa;
+  background      : linear-gradient(to bottom, #ccc, #aaa);
+  border-color    : #888;
+}
+
+.common-button:active {
+  background-color: #004f9b;
+  background      : linear-gradient(to bottom, #FFF, #0073e6);
+  color           : black;
+}
+.common-button:hover {
+  opacity         : 0.6;
+}
+
+/* 戻るボタンはcommon-buttonで作成する */
+/* 戻るボタン
+.common-back-button {
+  padding: 5px 10px;
+  width: 50px;
+} */
+
+/* 工程端末のボタン */
+.common-koutei-button {
+  padding: 15px 23px;
+}
+
+/* 工程端末のボタン */
+.common-panecon-button {
+  padding: 15px 23px;
+}
+
+/* 工程端末のボタン メインエリアのボタン */
+.common-panecon-button2 {
+  padding: 15px 23px;
+  width: 200px;
+}
+
+/*----------------------------------------
+ 共通で使用するリンク
+---------------------------------------- */
+.common-link {
+  text-decoration: underline;
+}
+
+/*----------------------------------------
+ 共通で使用するメニュー項目
+---------------------------------------- */
+.common-menu-item {
+  font-size: 12px;
+}
+
+.common-menu-item span{
+  padding: 2px 2px 3px 0px;
+}
+
+/*----------------------------------------
+ 共通で使用するダイアログ
+---------------------------------------- */
+.common-dialog-open:hover {
+  cursor: pointer;
+}
+
+.common-dialog-content {
+  background: #fff ;
+  border: 2px solid #aaa ;
+  margin: 0 ;
+  position: initial ;
+  overflow-y: auto;
+  margin: 30px auto;
+}
+
+.common-dialog-content-style {
+  width: 40%;
+}
+
+#common-dialog-overlay {
+  background-color: rgba( 0,0,0, 0.6 ) ;
+  display: none ;
+  height: 120% ;
+  left: 0 ;
+  position: fixed ;
+  top: 0 ;
+  width: 100% ;
+  z-index: 2000;
+}
+.common-dialog-header-title {
+  background-color:#004b92;
+  box-sizing:border-box;
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+  padding:10px;
+}
+.common-dialog-header-wrapper {
+  padding: 15px 10px;
+}
+.common-dialog-body-column {
+  width: 100%;
+}
+.common-dialog-body-column td{
+  white-space: normal;
+}
+.common-messagedialog-table td{
+  white-space: normal;
+}
+.common-messagedialog-detail{
+  padding-left: 20px;
+  white-space: pre-line;
+  /* overflow: auto; */
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 150px;
+}
+.common-messagedialog-separation{
+  border-top: 1px solid #888;
+  margin-top: 10px;
+}
+
+/* 検索ダイアログ用 */
+.search-dialog-area {
+  width: 800px;
+  min-width: 500px;
+  overflow: hidden;
+}
+
+.search-dialog-area-panecon {
+  min-width: 900px;
+  overflow: hidden;
+}
+
+.commmon-dialog-checkbox {
+  padding: 5px 10px;
+}
+
+/* ソートダイアログ用 */
+.sort-dialog-area {
+    width: 600px;
+    min-width: 500px;
+    overflow: hidden;
+}
+
+/* ソートダイアログ　ソート必須用の見栄えを変える */
+.orderingInfo_sortrequired {
+	background:	red;
+}
+
+.sort-dialog-body-column {
+  box-shadow: 0 0 20px #aaa;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+  max-height: 250px;
+  min-height: 150px;
+}
+
+/* ソートダイアログ フッター部 */
+.sort-dialog-footer-area {
+  padding:0 10px 10px;
+}
+
+.common-dialog-footer {
+  box-sizing:border-box;
+  padding:0 10px 10px;
+  width: 100%;
+}
+
+.common-dialog-footer-button {
+  width: 150px;
+  padding: 5px 10px;
+}
+
+.common-dialog-footer-button:hover {
+  cursor: pointer;
+}
+.common-dialog-footer-button-left {
+  float: left;
+  width: 200px;
+}
+.common-dialog-footer-button-right {
+  float: right;
+  width: 200px;
+}
+
+.login-dialog-footer-button-left {
+  float: left;
+  width: 200px;
+}
+.login-dialog-footer-button-right {
+  float: right;
+  width: 200px;
+}
+
+.common-dialog-footer-button-3 {
+  width : calc(100% / 3) ;
+}
+
+.common-dialog-footer-bottom-3button {
+  padding:0 10px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+/* データ項目のタイトル */
+.common-dialog-col-title {
+  background-color: #004b92;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 1px;
+  padding: 5px 10px;
+  text-align: center;
+  width: 40%;
+  white-space: nowrap;
+}
+
+/* データ項目のデータ */
+.common-dialog-col-data {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 54%;
+  white-space: nowrap;
+}
+/* データ項目のチェックボックス */
+.common-dialog-col-checkbox {
+  float: right;
+  margin-top: 7px;
+  margin-right: 4%;
+}
+
+/* 列固定表示 */
+.fixed-col-list {
+  padding: 5px 10px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* 追加 */
+/* ダイアログのタイトル */
+.common-dialog-title-style {
+  padding: 15px 10px;
+  text-align: center;
+  font-size: 36px;
+}
+
+/* 項目のタイトル */
+.common-dialog-dataarea-col-title {
+  font-size: 18px;
+  margin-top: 3px;
+}
+
+/* 項目のデータ */
+.common-dialog-dataarea-col-data {
+  width: 98%;
+  height: auto;
+  padding-right: 0px;
+
+}
+
+/* 項目のデータ */
+.common-dialog-panecon-dataarea-col-data {
+  width: 99%;
+  height: auto;
+  padding-right: 0px;
+  margin-top: 5px;
+}
+
+/* ダイアログのボタン */
+.common-dialog-button {
+  width: 100px;
+  height: 30px;
+  padding-top: 15px;
+  font-size: 18px;
+}
+
+/* ダイアログアイコン */
+.common-dialog-guidance-icon {
+  margin-right: 1.0em;
+}
+
+.common-dialog-function-header {
+  border-bottom: solid 1px #004282;
+  color: #004282;
+  margin-bottom: 4px;
+  padding: 3px 10px;
+  text-shadow: 2px 2px 3px #999;
+}
+
+.common-dialog-function-header:hover {
+  cursor: pointer;
+}
+
+.common-dialog-function-header-title {
+  cursor: pointer;
+  float: left;
+  width: 100%;
+}
+
+.common-dialog-function-header-icon {
+  float: right;
+}
+
+/*----------------------------------------
+ 工程端末画面で使用するダイアログ
+---------------------------------------- */
+
+.panecon-dialog-content {
+  background: #fff ;
+  border: 2px solid #aaa ;
+  display: none ;
+  margin: 0 ;
+  position: fixed ;
+  width: 50% ;
+  max-height: 80%;
+  z-index: 4000 ;
+}
+
+.panecon-searchDialog-box-size {
+  width: 100%;
+  height: 250px;
+}
+
+/*----------------------------------------
+ 詳細検索で使用するダイアログ
+---------------------------------------- */
+
+/* データ項目のタイトル */
+.search-dialog-col-title {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  padding: 5px 10px;
+  text-align: center;
+  width: 40%;
+  white-space: nowrap;
+}
+
+/* データ項目のデータ */
+.search-dialog-col-data {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 50%;
+  white-space: nowrap;
+}
+.search-dialog-height{
+  height: auto;
+}
+.search-dialog-box-size {
+  height: 220px;
+}
+
+/* データ項目のデータ2分割 */
+.search-dialog-col-data-2 {
+  width: 50%;
+}
+
+/* データ項目のチェックボックス */
+.search-dialog-col-checkbox {
+  float: right;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* フィルタ追加プルダウン */
+.search-dialog-addFilter {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-right: 1%;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 45%;
+  white-space: nowrap;
+}
+
+/* ダイアログの区切り線 */
+.search-dialog-separation {
+  border-top: 1px solid #888;
+  margin: 10px 0px;
+}
+
+/*----------------------------------------
+ 共通で使用するヘッダー情報テーブル
+---------------------------------------- */
+.common-header-table {
+  margin-top: 5px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.common-header-table th{
+  background-color: #004b92;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 5px;
+}
+
+.common-header-table td{
+  background-color: #fff;
+  border: 1px solid #333;
+  margin-right: 5px;
+  padding: 5px;
+}
+
+/*----------------------------------------
+ 共通で使用するテーブル
+---------------------------------------- */
+.common-table {
+  width: 100%;
+}
+
+/* 偶数行の色設定 */
+.common-table tr:nth-child( odd ) {
+  background-color: #e4ecf5;
+}
+
+/* 奇数行の色設定 */
+.common-table tr:nth-child( even ) {
+  background-color: #fff;
+}
+
+/* カーソルホバー時の色 */
+.common-table tr.common-table-hover {
+  background-color: #c4ccd5;
+}
+
+/* 固定ヘッダー設定 */
+.fixed-table-wrapper {
+  position: relative;
+}
+
+.common-table-ttl-fix{
+  overflow: auto;
+  transition-delay: 0s;
+  transition-duration: 0s;
+  transition-property: all;
+  transition-timing-function: ease;
+  width: 100%;
+  white-space: nowrap;
+}
+
+/* ヘッダの設定 */
+.common-table th {
+  background-color: #004b92;
+  border: solid #fff;
+  border-width: 0 1px 1px 1px;
+  color: #fff;
+  padding: 2.5px 10px;
+}
+
+/* ヘッダーの最初のカラムの罫線指定 */
+.common-table th:first-child {
+  border-width: 0 1px 1px 0;
+  text-align: center;
+}
+
+/* ヘッダーの最後のカラムの罫線指定 */
+.common-table th:last-child {
+  border-width: 0 0 1px 1px;
+}
+
+.common-table td {
+  padding: 1.5px 10px; ;
+}
+
+/* ブートストラップdatetimepicker */
+.bootstrap-datetimepicker-widget table tr th, .bootstrap-datetimepicker-widget table tr:nth-child( odd ) {
+  background-color: #fff;
+  color: #000;
+}
+
+.bootstrap-datetimepicker-widget .list-unstyled {
+  padding: 9px 16px 30px 16px;
+}
+
+.bootstrap-datetimepicker-widget .list-unstyled span.glyphicon-remove {
+  position: absolute;
+  left: 7.5%;
+  width:86%;
+  top: 87%;
+}
+
+
+/* 共通で指定するものではないのでコメントアウト
+.common-table td:first-child {
+  text-align: center;
+}
+*/
+
+/* テーブル内の文字入力 */
+.common-table-input-size-100 {
+  width: 100px;
+}
+
+/* テーブル内の文字エリア 100%指定 */
+.common-table-input-size-max {
+  width: 100%;
+  display: block;
+}
+
+/* テーブルチェックボックス項目 */
+.common-table-checkbox {
+  width: 13.15px;
+}
+
+
+/*----------------------------------------
+ テーブルページング
+---------------------------------------- */
+.common-pageNavi-area {
+}
+
+.common-pageNavi-back {
+  padding: 7px;
+  width: 60px;
+}
+
+.common-pageNavi-preview {
+  padding: 7px;
+  width: 78px;
+}
+
+.common-pageNavi-preview img {
+  vertical-align: baseline;
+  margin-right: 10px;
+}
+
+.common-pageNavi-next {
+  padding: 7px;
+  width: 78px;
+}
+
+.common-pageNavi-next img {
+  margin-left: 10px;
+  vertical-align: baseline;
+}
+
+.common-pageNavi-page {
+  padding: 7px;
+  width: auto;
+  min-width: 30px;
+}
+
+@media screen and (max-width:1100px) {
+
+  .common-pageNavi-back {
+    width: inherit;
+  }
+
+  .common-pageNavi-preview {
+    width: inherit;
+  }
+
+  .common-pageNavi-page{
+    width: auto;
+    min-width: 20px;
+  }
+
+  .common-pageNavi-next {
+    width: inherit;
+  }
+
+}
+
+@media screen and (max-width:850px) {
+  .common-pageNavi-page{
+    width: inherit;
+  }
+}
+
+.common-pageNavi-totalPage {
+  display: inline-block;
+  margin-left: 32px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+@media screen and (max-width:1100px) {
+  .common-pageNavi-totalPage{
+    margin-left:10px;
+  }
+}
+
+.common-pageNum {
+  display: inline-block;
+  position: relative;
+}
+
+.common-pageNum-current{
+  border: 1px solid #aaa;
+  background-color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 20px;
+  position: relative;
+}
+
+.common-pageNum-current:after {
+  bottom: 0;
+  border: 3px solid transparent;
+  border-top: 6px solid #000;
+  content: "";
+  height: 0;
+  margin: auto;
+  position: absolute;
+  right: 5px;
+  top: 0;
+  width: 0;
+}
+
+.common-pageNum-select {
+  background: #fff;
+  height: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 1000;
+  transition: .3s height, width;
+}
+
+.common-pageNum-select-show{
+  height: auto;
+}
+
+.common-pageNum-select ul {
+  display: inline;
+}
+
+.common-pageNum-option {
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+}
+
+.common-pageNum-option-selected {
+  background-color: #e4ecf5;
+}
+
+.common-pageNum-option:hover {
+  background-color: #c4ccd5;
+}
+
+.common-pageNavi-reload {
+  cursor: pointer;
+  float: right;
+  margin-right: 25px;
+}
+
+@media screen and (max-width:850px) {
+  .common-pageNavi-reload{
+    margin-right:0;
+  }
+}
+
+.common-page-navi-button-disable {
+  background-color: gray;
+  color: silver;
+}
+
+.common-pageNavi-flex {
+  display:flex;
+}
+
+/*----------------------------------------
+ データ表示エリアのヘッダー
+---------------------------------------- */
+
+
+/* テーブル内の日付入力エリア */
+.common-header-table-date-input{
+  padding-top: 3px;
+}
+
+/* 工程端末用の文字指定 */
+.common-header-font-size {
+  font-size: 0.8em;
+  line-height: 1.5em;
+  padding: 2px 10px;
+}
+
+/* ヘッダー情報 3行表示 */
+.common-data-area-header-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+
+}
+
+.common-data-area-header-wrapper-style2 {
+  margin-top: 5px;
+}
+.common-data-area-header-wrapper-style3 {
+  margin-top: 10px;
+}
+
+
+/* ヘッダーのカラム 2列表示 */
+.common-data-area-header-column-2 {
+  width: calc( 99% / 2 );
+  width: -webkit-calc( 99% / 2 );
+}
+
+/* ヘッダーのカラム 3列表示 */
+.common-data-area-header-column-3 {
+  width: calc( 99% / 3 );
+  width: -webkit-calc( 99% / 3 );
+}
+
+/* ヘッダーのカラム 4列表示 */
+.common-data-area-header-column-4 {
+  width: calc( 99% / 4 );
+  width: -webkit-calc( 99% / 4 );
+}
+
+@media screen and (max-width: 1100px) {
+  .common-data-area-header-column-2,
+  .common-data-area-header-column-3,
+  .common-data-area-header-column-4 {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+  .common-data-area-header-scroll-area {
+    height: 150px;
+    overflow: scroll;
+  }
+}
+
+
+/*----------------------------------------
+ データエリアのテーブルなし
+---------------------------------------- */
+/* データ表示エリア */
+.common-client-data-area-wrapper-detail {
+  height: calc( 100% - 58px );
+  height: -webkit-calc( 100% - 58px );
+}
+
+.common-area-scroll {
+  width: calc(100% - 30px);
+  height: 100%;
+  padding: 15px;
+  overflow: auto;
+}
+
+/* どこで使用する？
+.common-client-data-area {
+  box-shadow: 0 0 20px #aaa;
+  height: 330px;
+  overflow: auto;
+  width: 100%;
+}
+@media screen and (max-width: 1100px) {
+  .common-client-data-area {
+    height: 200px;
+  }
+}
+*/
+
+/* ヘッダーのカラム */
+.common-client-header-column {
+  float: left;
+  width: 50%;
+}
+
+/* 767pxだと狭いので1100pxに修正
+@media screen and (max-width: 767px) {
+*/
+@media screen and (max-width: 1100px) {
+  .common-client-header-column {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+}
+
+/*----------------------------------------
+テキストエリアカスタムタグの全幅表示用クラス
+---------------------------------------- */
+.ctag-textarea-fullwidth-header {
+    width: 100%;
+    height: auto;
+}
+.ctag-textarea-fullwidth-body {
+    width: 100%;
+}
+/*----------------------------------------
+文字数に応じた入力フィールドの幅クラス（管理端末）
+---------------------------------------- */
+.ctag-mg-width-char-a20 {
+    width: 260px;
+}
+.ctag-mg-width-char-a32 {
+    width: 405px;
+}
+.ctag-mg-width-char-a60 {
+    width: 740px;
+}
+
+/*----------------------------------------
+ 詳細画面
+---------------------------------------- */
+.common-client-header-col-data {
+  height: 28px;
+}
+
+/*----------------------------------------
+ ツリー（共通）
+---------------------------------------- */
+/* ツリー選択状態 */
+.treeview .selected{
+  background-color: #004b92 !important;
+  color:  #fff;
+}
+
+/*----------------------------------------
+ ツリー（管理端末表示）
+---------------------------------------- */
+#client-treeview {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: auto;
+  padding: 10px;
+}
+
+.client-treeview-column {
+  display: block;
+}
+
+.client-treeview-column:hover {
+  background-color: #c4ccd5;
+  color: #000;
+  width: 100%;
+}
+
+/*----------------------------------------
+ ツリー（工程端末表示）
+---------------------------------------- */
+#panecon-treeview {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  overflow: auto;
+  padding: 10px;
+  width: 269px;
+}
+
+/* SOPグループのパディングとアイコン変更 */
+#panecon-treeview .filetree .folder {
+  background: url(../../images/gnomes/treeview/folder.gif) 0 center no-repeat;
+  padding: 1px 0 1px 25px
+}
+
+#panecon-treeview .filetree li.expandable .folder {
+  background: url(../../images/gnomes/treeview/folder-closed.gif) 0 center no-repeat;
+}
+
+/* TreeViewのデフォルトアイコンを非表示 */
+#panecon-treeview .treeview li.collapsable,
+#panecon-treeview .treeview li.expandable {
+  background: none;
+}
+
+/* TreeViewのデフォルトアイコンを非表示 */
+#panecon-treeview .treeview li {
+  background: none;
+}
+
+/* TreeViewのデフォルトアイコンを非表示 */
+#panecon-treeview .treeview .hitarea {
+  background: none;
+}
+
+.panecon-treeview-column {
+  display: inline !important;
+}
+
+.panecon-treeview-column:hover {
+  background-color: #c4ccd5;
+  color: #000;
+}
+
+.panecon-treeview-column-child {
+  display: inline !important;
+  padding-left: 30px;
+}
+
+.panecon-treeview-column-child:hover {
+  background-color: #c4ccd5;
+  color: #000;
+}
+
+/*----------------------------------------
+ ツリーの（工程端末用）項目の左に表示されるアイコン
+---------------------------------------- */
+.panecon-treeview-sop-ok {
+  background: url(../../images/gnomes/icons/icon-ok-2.png) no-repeat left top;
+}
+.panecom-treeview-fixed{
+  background: url(../../images/gnomes/icons/sts-fixed.png) no-repeat left top;
+}
+.panecom-treeview-apploval{
+  background: url(../../images/gnomes/icons/sts-apploval.png) no-repeat left top;
+}
+.panecom-treeview-helmet{
+  background: url(../../images/gnomes/icons/technician-with-helmet.png) no-repeat left top;
+}
+.panecom-treeview-menu17{
+  background: url(../../images/gnomes/icons/icon-koutei-menu-17.png) no-repeat left top;
+}
+
+/*  強制 */
+.panecom-treeview-force{
+  background: url(../../images/gnomes/icons/force.png) no-repeat left top;
+}
+/*  逸脱 */
+.panecom-treeview-deviation{
+  background: url(../../images/gnomes/icons/deviation.png) no-repeat left top;
+}
+/*  ループ */
+.panecom-treeview-loop{
+  background: url(../../images/gnomes/icons/loop.png) no-repeat left top;
+}
+/* 未作業 */
+.panecom-treeview-nowork{
+  background: url(../../images/gnomes/icons/no-work.png) no-repeat left top;
+}
+/* スキップ */
+.panecom-treeview-skip{
+  background: url(../../images/gnomes/icons/skip.png) no-repeat left top;
+}
+/* スキップ終了 */
+.panecom-treeview-skipend{
+  background: url(../../images/gnomes/icons/skip-end.png) no-repeat left top;
+}
+/* 作業終了 */
+.panecom-treeview-workend{
+  background: url(../../images/gnomes/icons/work-end.png) no-repeat left top;
+}
+/* 作業中 */
+.panecom-treeview-working{
+  background: url(../../images/gnomes/icons/working.png) no-repeat left top;
+}
+
+
+.panecom-treeview-icon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  line-height: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+}
+
+
+/*----------------------------------------
+ タブ
+---------------------------------------- */
+
+
+/* タブ表示 */
+.client-tab-content {
+  width: 100%;
+}
+
+
+.client-tab-content input[type="radio"] {
+  display: none;
+}
+
+.client-tab-content label {
+  background-color: #cfedff;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 30px;
+}
+
+@media screen and (max-width: 1100px) {
+  .client-tab-content label {
+    padding-left:15px;
+    padding-right:15px;
+  }
+}
+
+.client-tab-content label:hover,
+.client-tab-content input[type="radio"]:checked + label {
+  background-color: #004b92;
+  color: #FFF;
+}
+
+.client-tab-content .client-tab-box {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.client-tab-content > .client-tab-box > div {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  display: none;
+}
+
+#tab1:checked ~ .client-tab-box > #client-tabView1 {
+  display: block;
+}
+
+#tab2:checked ~ .client-tab-box > #client-tabView2 {
+  display: block;
+}
+
+#tab3:checked ~ .client-tab-box > #client-tabView3 {
+  display: block;
+}
+
+#tab4:checked ~ .client-tab-box > #client-tabView4 {
+  display: block;
+}
+
+#tab5:checked ~ .client-tab-box > #client-tabView5 {
+  display: block;
+}
+
+#tab6:checked ~ .client-tab-box > #client-tabView6 {
+  display: block;
+}
+
+#tab7:checked ~ .client-tab-box > #client-tabView7 {
+  display: block;
+}
+
+#tab8:checked ~ .client-tab-box > #client-tabView8 {
+  display: block;
+}
+
+#tab9:checked ~ .client-tab-box > #client-tabView9 {
+  display: block;
+}
+
+#tab10:checked ~ .client-tab-box > #client-tabView10 {
+  display: block;
+}
+
+/*----------------------------------------
+ テキストリア・ボタン
+---------------------------------------- */
+.common-header-column-OrderOrNotes {
+  height: 64px;
+}
+
+.common-header-column-OrderOrNotes + div {
+  height: 64px;
+}
+
+.common-search-button {
+  margin-left: 20px;
+  padding: 5px 10px;
+}
+
+
+/*----------------------------------------
+ jQuery uiのキーボード・デイトピッカー
+---------------------------------------- */
+.ui-keyboard{
+  transform: scale(1.5);
+  transform-origin: right;
+  -webkit-transform-origin: right;
+/*right: 0px;
+  left: auto !important; */
+}
+#ui-datepicker-div{
+  transform: scale(1.5);
+  transform-origin: right;
+  -webkit-transform-origin: right;
+}
+.ui-datepicker {
+  : 2000 !important;
+}
+
+/*----------------------------------------
+ 品目コードのinputボックス
+---------------------------------------- */
+.common-data-input-size-item-code{
+  display: inline-block;
+  width: 99%;
+}
+/*----------------------------------------
+ 範囲のinputボックス
+---------------------------------------- */
+.common-data-input-size-range{
+  display: inline-block;
+  width: 45%;
+}
+
+/*----------------------------------------
+ ラベル＋プルダウン
+---------------------------------------- */
+.common-data-input-size-left-input{
+  display: inline-block;
+  width: 60%;
+}
+.common-data-input-size-right-pulldown{
+  display: inline-block;
+  width:40%;
+}
+
+
+/*----------------------------------------
+ 工程端末のメニューボタン
+---------------------------------------- */
+/* 横並び */
+.common-koutei-menu-area {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  /*justify-content: flex-start;
+  -webkit-justify-content: flex-start;*/
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
+  margin-bottom: 10px;
+}
+
+/* 縦並び */
+.common-koutei-menu-area2 {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.common-koutei-menu-area2-wrapper {
+  display: inline-block;
+}
+
+.common-koutei-menu-box {
+  background: url(../../images/gnomes/icons/icon-corner-1.png) top left no-repeat #004f9b;
+  cursor: pointer;
+  display: inline-block;
+  height: 68px;
+  margin-bottom: 5px;
+  padding-top: 8px;
+  text-align: center;
+  width: 85px;
+}
+
+.common-koutei-menu-box-text {
+  color: #fff;
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+/* 横並び */
+.common-panecon-menu-area {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  /*justify-content: flex-start;
+  -webkit-justify-content: flex-start;*/
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
+  margin-bottom: 10px;
+}
+
+/* 縦並び */
+.common-panecon-menu-area2 {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.common-panecon-menu-area2-wrapper {
+  display: inline-block;
+}
+
+.common-panecon-menu-box {
+  background: url(../../images/gnomes/icons/icon-corner-1.png) top left no-repeat #004f9b;
+  cursor: pointer;
+  display: inline-block;
+  height: 70px;
+  margin-bottom: 2px;
+  padding-top: 8px;
+  text-align: center;
+  width: 90px;
+  box-shadow: 0 0 15px #888;
+}
+
+.common-panecon-menu-box-text {
+  color: #fff;
+  font-size: 12px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.25em;
+}
+
+/*----------------------------------------
+ 工程端末の画面構成
+---------------------------------------- */
+.common-koutei-main-area {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+
+  .common-koutei-side-area {
+    width: 300px;
+    margin-right: 10px;
+    height: 100%;
+  }
+
+
+.common-koutei-data-area-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+
+@media screen and (max-width: 767px) {
+  .common-koutei-data-area {
+    width: 300px;
+  }
+}
+
+.common-koutei-msgBox {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 75px;
+  padding: 5px 10px;
+}
+
+  .common-koutei-portrait {
+    display: none;
+  }
+
+  .common-koutei-data-area-wrapper {
+    width: calc(100% - 320px);
+    width: -webkit-calc(100% - 320px);
+  }
+
+  .common-koutei-data-area {
+    display: inline-block;
+    margin-right: 20px;
+    width: calc(100% - 120px);
+    width: -webkit-calc(100% - 120px);
+  }
+
+  .common-koutei-data-area-noMenu {
+    display: inline-block;
+    margin-right: 20px;
+    width: 100%;
+  }
+
+
+.common-panecon-main-area {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.common-panecon-data-area-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+
+@media screen and (max-width: 767px) {
+  .common-panecon-data-area {
+    width: 300px;
+  }
+}
+
+
+.common-panecon-bottom-bottom-area {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+  .common-panecon-portrait {
+    display: none;
+  }
+
+  .common-panecon-data-area-wrapper {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: calc(100% - 320px);
+    width: -webkit-calc(100% - 320px);
+  }
+
+  .common-panecon-data-area-wrapper.has-separator {
+    width: calc(100% - 60px);
+    width: -webkit-calc(100% - 60px);
+  }
+
+  .common-side-none .common-panecon-data-area-wrapper.has-separator {
+    width: calc(100% - 360px);
+    width: -webkit-calc(100% - 360px);
+  }
+
+  .common-panecon-data-area {
+    display: inline-block;
+    margin-right: 20px;
+    width: calc(100% - 120px);
+    width: -webkit-calc(100% - 120px);
+  }
+
+  .common-panecon-data-area-noMenu {
+    display: inline-block;
+    margin-right: 20px;
+    width: 100%;
+  }
+
+
+/*----------------------------------------
+ 工程端末のヘッダー情報
+---------------------------------------- */
+
+  .common-koutei-header-column-wrapper {
+    display: block;
+  }
+
+
+.common-koutei-header-column {
+  margin-bottom: 3px;
+}
+
+.common-koutei-header-title {
+  width: 40%;
+  min-width: 180px;
+}
+
+.common-koutei-header-data {
+  width: 100%;
+}
+
+  .common-panecon-header-column-wrapper {
+    display: block;
+  }
+
+
+/* 管理端末 エリア 影 共通 */
+.common-client-area-shadow {
+  box-shadow: 0 0 20px #aaa;
+}
+
+.common-client-area-shadow.shadow-area {
+  display: inline-block;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+/* 工程端末 エリア 影 共通 */
+.common-panecon-area-shadow {
+  box-shadow: 0 0 20px #aaa;
+}
+
+/*----------------------------------------
+ 工程端末のテーブル
+---------------------------------------- */
+/* テーブル内のテキスト配置 */
+.common-table-textColumn {
+  box-sizing: border-box;
+  display: inline-block;
+  width: calc( 97% / 2 );
+  width: -webkit-calc( 97% / 2 );
+}
+
+.common-table-header-style {
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.common-table-body-columns-2{
+  margin-left: 8px;
+}
+
+.common-table-col-1 {
+  width: 100%;
+}
+
+.table-col-2{
+  display: inline-block;
+  width: calc( 100% / 2 );
+}
+
+.table-col-3{
+  display: inline-block;
+  width: calc( 100% / 3 );
+}
+
+.table-col-4 {
+  display: inline-block;
+  width: calc( 100% / 4 );
+}
+
+table td span {
+  overflow: auto;
+  word-break: break-word;
+  white-space: normal;
+  height: 25px;
+}
+
+table td.popupmenu-list-topselect span {
+  white-space: unset;
+}
+
+
+table td span.table-col-height-2 {
+  height: 50px !important;
+  line-height: 145%;
+}
+
+table td span.table-col-height-3 {
+  height: 75px !important;
+  line-height: 145%;
+}
+
+table td span.table-col-height-4 {
+  height: 100px !important;
+  line-height: 145%;
+}
+
+table td span.table-col-height-5 {
+  height: 125px !important;
+  line-height: 150%;
+}
+
+table td span.table-col-height-6 {
+  height: 150px !important;
+  line-height: 150%;
+}
+
+table td span.table-col-height-7 {
+  height: 175px !important;
+  line-height: 150%;
+}
+
+table td span.table-col-height-8 {
+  height: 200px !important;
+  line-height: 150%;
+}
+
+table td span.table-col-height-9 {
+  height: 225px !important;
+  line-height: 150%;
+}
+
+table td span.table-col-height-10 {
+  height: 250px !important;
+  line-height: 150%;
+}
+
+.table-col-5{
+  display: inline-block;
+  width: calc( 100% / 5 );
+}
+
+.common-table-col-input {
+  width: 93%;
+}
+
+.common-table-col-select {
+  width: 96%;
+}
+
+/* 工程端末 右側検索エリア 非表示 */
+.common-side-none .common-panecon-minus-flexMenu-searchOnly {
+  width: calc(100% - 350px);
+  width: -webkit-calc(100% - 350px);
+}
+
+
+
+/*----------------------------------------
+ 工程端末のスクロールボタン
+---------------------------------------- */
+/* スクロールボタンのエリア */
+.common-scroll-button-area {
+  width: 75px;
+  height: 100%;
+  margin-top: 10px;
+  display: inline-block;
+
+}
+.common-scroll-box {
+  -ms-overflow-style: none;
+}
+
+.common-scroll-box::-webkit-scrollbar {
+  display:none;
+}
+
+/* スクロールボタン共通設定 */
+.common-scroll-button {
+  box-sizing: border-box;
+  border: 2px solid #004f9b;
+  width: 70px;
+  height: 68px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-bottom: 1px;
+  float: right;
+}
+
+.common-scroll-button:last-child {
+  margin-bottom: 0;
+}
+
+/* スクロールボタン画像 */
+.common-scroll-button-img,
+.common-scroll-value {
+  color: #004f9b;
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.common-scroll-button-upper {
+}
+
+.common-scroll-button-up {
+}
+
+.common-scroll-button-down {
+}
+
+.common-scroll-button-under {
+}
+
+.common-scroll-button-home {
+  height: calc(100vh - 560px);
+  height: -webkit-calc(100vh - 560px);
+  min-height: 100px;
+}
+
+.common-data-scroll-area {
+}
+
+/*----------------------------------------
+ ダイアログ
+---------------------------------------- */
+
+/* 認証 */
+#myAnyModal .modal-dialog{
+  width: 600px;
+}
+
+.modal-dialog{
+  width:auto;
+  margin:10px
+}
+
+#myAnyModal .modal-dialog-style {
+  width:600px;
+}
+
+.modal-content{
+  position:relative;
+  background-color:#fff;
+  -webkit-background-clip:padding-box;
+  background-clip:padding-box;
+  border:1px solid #999;
+  border:1px solid rgba(0,0,0,.2);
+  border-radius:6px;
+  outline:0;
+  -webkit-box-shadow:0 3px 9px rgba(0,0,0,.5);
+  box-shadow:0 3px 9px rgba(0,0,0,.5)
+}
+
+@media (min-width:768px){
+  .modal-dialog{
+    width:600px;
+    margin:30px auto
+  }
+  .modal-content{
+    -webkit-box-shadow:0 5px 15px rgba(0,0,0,.5);
+    box-shadow:0 5px 15px rgba(0,0,0,.5)
+  }
+  .my-dialog{
+    width:600px;
+    margin:30px auto
+  }
+  .myAnyModal{
+    width:600px;
+    margin:30px auto
+  }
+  .messageModal{
+    width:600px;
+    margin:30px auto
+  }
+  .select-modal{
+    width:600px;
+  }
+  .login-modal{
+    width:600px;
+    margin:30px auto;
+  }
+  .lock-modal{
+    width:600px;
+    margin:30px auto;
+  }
+
+  .modal-search-dialog {
+    width:800px;
+    margin:30px auto
+  }
+
+  .modal-sort-dialog {
+    width:600px;
+    margin:30px auto
+  }
+
+ }
+
+
+
+/* 項目のタイトル */
+.login-dialog-dataarea-col-title {
+  font-size: 18px;
+}
+
+ /* データ項目のデータ */
+.common-dialog-header-col-data {
+  background-color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 1px;
+  overflow: hidden;
+  padding: 2.5px 0px;
+  width: 58%;
+  white-space: nowrap;
+}
+
+.sort-dialog-table-area {
+  overflow-x: hidden;
+}
+
+.sort-dialog-style {
+  min-width: 500px;
+}
+
+.width-100 {
+  width: 100%;
+}
+.width-40{
+  width: 40%;
+}
+.width-20{
+  width: 19%;
+}
+
+.border-style-none{
+  border-style: none;
+}
+
+.common-checkbox-radio-margin {
+  margin: 3px !important;
+}
+
+/* オートコンプリートのコンボボックス */
+.gnomes-auto-combobox {
+    position: relative;
+    display: inline-block;
+}
+/* オートコンプリートのコンボボックス */
+.gnomes-auto-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+}
+/* オートコンプリートのコンボボックス */
+.gnomes-auto-combobox-input {
+  必要に応じて画面ごとに別クラスに作成
+    margin: 0;
+  width: 99%;
+}
+
+.common-dialog-dataarea-col-data.gnomes-auto-combo {
+  margin-left: 5px;
+}
+
+#login-dialog .gnomes-auto-combo {
+  margin-left: 0;
+}
+
+.gnomes-auto-combo input {
+  width: 97.0%;
+}
+
+#login-dialog .gnomes-auto-combo input {
+  width: 97.5%;
+}
+
+/* オートコンプリートのコンボボックスのリスト */
+/* 動的モーダル（検索ダイアログなど）に隠れないようにする */
+.gnomes-threecolumnautocomplete {
+ z-index: 5000;
+ max-height: 300px;
+ overflow: auto;
+}
+
+/* オートコンプリートのコンボボックスのリスト */
+.gnomes-threecolumnautocomplete li { display: table-row-group; }
+/* オートコンプリートのコンボボックスのリスト */
+.gnomes-threecolumnautocomplete a { display: table-row !important; }
+/* オートコンプリートのコンボボックスのリスト */
+.gnomes-threecolumnautocomplete .col { display: table-cell; min-height: 15px; }
+
+/* ガイダンス テキストボックス */
+.common-guidance-box {
+  white-space:pre-wrap;
+  background-color: #fff;
+  border: 1px solid #000;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  overflow: auto;
+}
+
+/* ボタン可変ダイアログ ボディ部 */
+.variable-button-dialog-body {
+  height: 170px;
+}
+
+/* ボタン可変ダイアログ ボディ部 工程端末表示 */
+.common-font-panecon .variable-button-dialog-body {
+  height: 200px;
+}
+
+/* ボタン可変ダイアログ ボディ部左側 */
+.variable-button-dialog-body-left {
+  width: 70%;
+  display: inline-block;
+  height: 150px;
+}
+
+/* ボタン可変ダイアログ ボディ部左側 工程端末表示 */
+.common-font-panecon .variable-button-dialog-body-left {
+  height: 185px;
+}
+
+/* ボタン可変ダイアログ ボディ部右側 */
+.variable-button-dialog-body-right {
+  width: 25%;
+  display: inline-block;
+}
+
+/* ボタン可変ダイアログ ボディ部右側 divタグ */
+.variable-button-dialog-body-right div {
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+/* プルダウン選択一覧ダイアログ ボディ部 */
+.pulldown-table-dialog-body-column {
+  box-shadow: 0 0 20px #aaa;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+  max-height: 400px;
+  min-height: 150px;
+}
+
+.common-dialog-footer-button-left .common-dialog-button {
+  width: 90%;
+}
+
+.common-dialog-footer-button-right .common-dialog-button {
+  width: 90%;
+}
+
+.modal-search-dialog a, .modal-sort-dialog a {
+  display: inline-block;
+}
+/*----------------------------------------
+ 共通非表示項目
+------------------------------------------*/
+.gnomes_display_none {
+	display: none;
+}
+
+.gnomes_disabled {
+    color: silver;
+}
+
+/* メニュー 非活性 */
+.common-base-menu-disabled {
+/*   background-color: gray; */
+  color: silver;
+}
+
+/* メニュー 非表示 */
+.common-base-menu-hide {
+/*     opacity: 0 !important; */
+    display: none !important;
+}
+
+/* ボタン 非活性 */
+.common-button-disabled {
+/*    background-color: gray; */
+  color: silver;
+}
+
+/* ボタン 非表示 */
+.common-button-hide {
+  opacity: 0 !important;
+/*   display: none !important; */
+}
+
+/* アイコンメニュー 非活性 */
+.common-icon-menu-disabled {
+  background-color: gray;
+  color: silver;
+}
+
+/* アイコンメニュー 非表示 */
+.common-icon-menu-hide {
+/*     opacity: 0 !important; */
+/*    display: none !important; */
+}
+
+/* アイコンメニュー 非表示 文字 */
+.common-icon-menu-hide div {
+ /*    opacity: 0 !important; */
+    display: none !important;
+}
+
+/* アイコンメニュー 非表示 イメージ */
+.common-icon-menu-hide img {
+ /*    opacity: 0 !important; */
+    display: none !important;
+}
+
+/* バーコード入力 非活性 */
+.common-bar-code-disabled {
+  background-color: gray;
+  color: silver;
+  padding: 0px 10px;
+}
+
+/* バーコード入力 非表示 */
+.common-bar-code-hide {
+  opacity: 0 !important;
+/*   display: none !important; */
+  padding: 0px 10px;
+}
+
+/* メニューイメージボタン 非活性 */
+.common-menu-image-button-disabled {
+/*    background-color: gray; */
+  color: silver;
+}
+
+/* メニューイメージボタン 非表示 */
+.common-menu-image-button-hide {
+/*     opacity: 0 !important; */
+    display: none !important;
+}
+
+/* テーブル 非活性 */
+.common-menu-panecon-table-disabled {
+    background-color: gray;
+    color: silver;
+}
+
+/* テーブル 非表示 */
+.common-menu-panecon-table-hide {
+/*     opacity: 0 !important; */
+    display: none !important;
+}
+
+/*----------------------------------------
+ テーブル（管理端末・工程端末兼用）
+ ---------------------------------------- */
+/* チェックボックスの単一セレクトか判別用（カスタムタグテーブル使用）*/
+.select-one-checkbox0 {
+}
+.select-one-checkbox1 {
+}
+.select-one-checkbox2 {
+}
+.select-one-checkbox3 {
+}
+.select-one-checkbox4 {
+}
+.select-one-checkbox5 {
+}
+.select-one-checkbox6 {
+}
+.select-one-checkbox7 {
+}
+.select-one-checkbox8 {
+}
+.select-one-checkbox9 {
+}

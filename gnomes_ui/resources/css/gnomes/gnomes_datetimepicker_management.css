@@ -1,0 +1,33 @@
+/* カレンダーのサイズ・位置調整 */
+.bootstrap-datetimepicker-widget{
+  transform: scale(1);
+}
+
+/* common.cssと競合するdatetimepickerの調整 */
+.bootstrap-datetimepicker-widget{
+    font-family: Arial;
+}
+.bootstrap-datetimepicker-widget td {
+	white-space: normal;
+}
+
+/* 詳細検索ダイアログ上での表示位置調整 */
+.search-dialog-col-data > .dropdown-menu {
+	position: fixed;
+	top: calc(50% - 100px)!important;
+  right: 0px!important;
+  bottom: auto!important;
+  left: 0px!important;
+  margin: auto!important;
+}
+
+.search-dialog-col-data > .bootstrap-datetimepicker-widget.dropdown-menu.top::after, 
+.search-dialog-col-data > .bootstrap-datetimepicker-widget.dropdown-menu.top::before, 
+.search-dialog-col-data > .bootstrap-datetimepicker-widget.dropdown-menu.bottom::after, 
+.search-dialog-col-data > .bootstrap-datetimepicker-widget.dropdown-menu.bottom::before{
+    border-left-style: none;
+    border-right-style: none;
+}
+
+
+

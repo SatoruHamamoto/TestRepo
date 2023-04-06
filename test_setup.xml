@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="test_setup" default="common">
+
+  <target name="common">
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <exclude name="common/**" />
+        <exclude name="system/**" />
+        <exclude name="uiservice/**" />
+        <exclude name="test/**" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="common-dao1">
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <exclude name="test/**" />
+<!--
+        <exclude name="common/file/dao/UploadfileDaoTest.java" />
+-->
+        <exclude name="system/dao/AuditTrailDaoTest.java" />
+<!--
+        <exclude name="system/dao/MessageDaoTest.java" />
+        <exclude name="system/dao/MstrAreaDaoTest.java" />
+        <exclude name="system/dao/MstrComputerDaoTest.java" />
+ -->
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="test/common/SampleJMockitTest.java" />
+      </fileset>
+    </delete>
+
+  </target>
+
+
+  <target name="common-dao2">
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <exclude name="common/**/*DaoTest.java" />
+        <exclude name="system/**/*DaoTest.java" />
+        <exclude name="test/**" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="test/common/SampleJMockitTest.java" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="common/file/dao/UploadfileDaoTest.java" />
+        <include name="system/dao/AuditTrailDaoTest.java" />
+        <include name="system/dao/MessageDaoTest.java" />
+        <include name="system/dao/MstrAreaDaoTest.java" />
+        <include name="system/dao/MstrComputerDaoTest.java" />
+<!--
+        <include name="system/dao/MstrDoubleCheckDaoTest.java" />
+        <include name="system/dao/MstrInvalidPasswdDaoTest.java" />
+        <include name="system/dao/MstrLinkInfoDaoTest.java" />
+        <include name="system/dao/MstrMsgcastDaoTest.java" />
+        <include name="system/dao/MstrMsgdefDaoTest.java" />
+        <include name="system/dao/MstrPersonComputerDaoTest.java" />
+-->
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="system/dao/MstrPersonDaoTest.java" />
+        <include name="system/dao/MstrPersonPositionDaoTest.java" />
+        <include name="system/dao/MstrPersonPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrPersonRoleDaoTest.java" />
+        <include name="system/dao/MstrPositionDaoTest.java" />
+        <include name="system/dao/MstrPositionPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrPositionRoleDaoTest.java" />
+        <include name="system/dao/MstrPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrRoleDaoTest.java" />
+        <include name="system/dao/MstrRolePrivilegeDaoTest.java" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="system/dao/MstrSiteDaoTest.java" />
+        <include name="system/dao/MstrSystemConstantDaoTest.java" />
+        <include name="system/dao/MstrUnitDaoTest.java" />
+        <include name="system/dao/MstrUsrsecPolicyDaoTest.java" />
+        <include name="system/dao/TestMstrPersonComputerDaoTest.java" />
+      </fileset>
+    </delete>
+  </target>
+
+
+  <target name="common-dao3">
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <exclude name="common/**/*DaoTest.java" />
+        <exclude name="system/**/*DaoTest.java" />
+        <exclude name="test/**" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="test/common/SampleJMockitTest.java" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="common/file/dao/UploadfileDaoTest.java" />
+        <include name="system/dao/AuditTrailDaoTest.java" />
+        <include name="system/dao/MessageDaoTest.java" />
+        <include name="system/dao/MstrAreaDaoTest.java" />
+        <include name="system/dao/MstrComputerDaoTest.java" />
+        <include name="system/dao/MstrDoubleCheckDaoTest.java" />
+        <include name="system/dao/MstrInvalidPasswdDaoTest.java" />
+        <include name="system/dao/MstrLinkInfoDaoTest.java" />
+        <include name="system/dao/MstrMsgcastDaoTest.java" />
+        <include name="system/dao/MstrMsgdefDaoTest.java" />
+        <include name="system/dao/MstrPersonComputerDaoTest.java" />
+      </fileset>
+    </delete>
+<!--
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="system/dao/MstrPersonDaoTest.java" />
+        <include name="system/dao/MstrPersonPositionDaoTest.java" />
+        <include name="system/dao/MstrPersonPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrPersonRoleDaoTest.java" />
+        <include name="system/dao/MstrPositionDaoTest.java" />
+        <include name="system/dao/MstrPositionPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrPositionRoleDaoTest.java" />
+        <include name="system/dao/MstrPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrRoleDaoTest.java" />
+        <include name="system/dao/MstrRolePrivilegeDaoTest.java" />
+      </fileset>
+    </delete>
+-->
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="system/dao/MstrSiteDaoTest.java" />
+        <include name="system/dao/MstrSystemConstantDaoTest.java" />
+        <include name="system/dao/MstrUnitDaoTest.java" />
+        <include name="system/dao/MstrUsrsecPolicyDaoTest.java" />
+        <include name="system/dao/TestMstrPersonComputerDaoTest.java" />
+      </fileset>
+    </delete>
+  </target>
+
+
+  <target name="test-mock">
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <exclude name="common/**/*DaoTest.java" />
+        <exclude name="system/**/*DaoTest.java" />
+        <exclude name="test/**" />
+      </fileset>
+    </delete>
+
+<!--
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="test/common/SampleJMockitTest.java" />
+      </fileset>
+    </delete>
+-->
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="common/file/dao/UploadfileDaoTest.java" />
+        <include name="system/dao/AuditTrailDaoTest.java" />
+        <include name="system/dao/MessageDaoTest.java" />
+        <include name="system/dao/MstrAreaDaoTest.java" />
+        <include name="system/dao/MstrComputerDaoTest.java" />
+        <include name="system/dao/MstrDoubleCheckDaoTest.java" />
+        <include name="system/dao/MstrInvalidPasswdDaoTest.java" />
+        <include name="system/dao/MstrLinkInfoDaoTest.java" />
+        <include name="system/dao/MstrMsgcastDaoTest.java" />
+        <include name="system/dao/MstrMsgdefDaoTest.java" />
+        <include name="system/dao/MstrPersonComputerDaoTest.java" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="system/dao/MstrPersonDaoTest.java" />
+        <include name="system/dao/MstrPersonPositionDaoTest.java" />
+        <include name="system/dao/MstrPersonPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrPersonRoleDaoTest.java" />
+        <include name="system/dao/MstrPositionDaoTest.java" />
+        <include name="system/dao/MstrPositionPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrPositionRoleDaoTest.java" />
+        <include name="system/dao/MstrPrivilegeDaoTest.java" />
+        <include name="system/dao/MstrRoleDaoTest.java" />
+        <include name="system/dao/MstrRolePrivilegeDaoTest.java" />
+      </fileset>
+    </delete>
+
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="system/dao/MstrSiteDaoTest.java" />
+        <include name="system/dao/MstrSystemConstantDaoTest.java" />
+        <include name="system/dao/MstrUnitDaoTest.java" />
+        <include name="system/dao/MstrUsrsecPolicyDaoTest.java" />
+        <include name="system/dao/TestMstrPersonComputerDaoTest.java" />
+      </fileset>
+    </delete>
+  </target>
+
+
+  <target name="business">
+    <delete verbose="true" includeemptydirs="true">
+      <fileset dir="./gnomes_ui/src/test/java/com/gnomes">
+        <include name="common/**" />
+        <include name="system/**" />
+        <include name="uiservice/**" />
+        <include name="external/**" />
+        <include name="test/common/SampleJMockitTest.java" />
+      </fileset>
+    </delete>
+  </target>
+
+</project>

@@ -1,0 +1,105 @@
+/* iPadサンプル用CSS */
+body > form > table {
+	width: 100%;
+}
+
+/* 代表テーブル */
+.head_table {
+	width: 50%;
+	border-collapse: collapse;
+}
+
+.head_table th {
+	width: 25%;
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+	color: #333;
+	background-color: #eee;
+	border: 1px solid #b9b9b9;
+}
+
+.head_table td {
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #b9b9b9;
+}
+
+/* リストテーブル */
+.list_table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.list_table th {
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+	color: #333;
+	background-color: #eee;
+	border: 1px solid #b9b9b9;
+}
+
+.list_table td {
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #b9b9b9;
+}
+
+/* 各種個別設定 */
+.stop {
+	background-color: #fdd !important;
+}
+
+.arrow_button {
+    width: auto;
+    padding:0;
+    margin:0;
+    background:none;
+    border:0;
+    font-size:0;
+    line-height:0;
+    overflow:visible;
+    cursor:pointer;
+}
+
+.res_head {
+	 background: #f9f06f !important;
+}
+
+/* カメラボタン用 */
+
+.file {
+	display:none !important;
+}
+.file_mask_text {
+	display:none !important;
+}
+
+.file_mask span{
+	display:block;
+	background-image:url(../images/camera.png);
+	-moz-background-size:25px 25px;
+	background-size:25px 25px;
+
+	background-position:left top;
+	height:25px;
+	width:25px;
+	cursor:pointer;
+}
+.file_mask span:hover{
+	background-position:left bottom;
+}
+
+
+.IUI_LINK_TEXT {
+	background : none;
+	font-size: 20px !important;
+	font-weight: bold !important;
+	list-style: outside none none;
+	list-style-type: none;
+	list-style-image: none;
+	list-style-position: outside;
+	padding: 0px 0px 0px 0px !important;
+	text-decoration: none;
+}

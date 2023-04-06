@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+<!--
+/* ========================== MODIFICATION HISTORY ==========================
+ * Release  Date       ID/Name                   Comment
+		* ==========================================================================
+ * R0.01.01 2020/01/15 17:15 YJP/S.Hamamoto           初版
+ * [END OF MODIFICATION HISTORY]
+ * ==========================================================================
+*/
+-->
+	<!--
+		*******************************************************************************************
+			基本情報
+		*******************************************************************************************
+	 -->
+	<groupId>com.gnomes</groupId>
+	<artifactId>gnomes</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>gnomes</name>
+	<url>http://wildfly.org</url>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<distribution>repo</distribution>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<developerConnection>scm:git:https://github.com/yokogawaelectric/gnomes</developerConnection>
+	</scm>
+
+	<!--
+		*******************************************************************************************
+		 プロパティ定義
+		 		[note] Wildflyバージョンが上がったら適切に修正すること
+		*******************************************************************************************
+	 -->
+
+	<properties>
+		<!-- Explicitly declaring the source encoding eliminates the following
+			message: -->
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
+			resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- JBoss dependency versions -->
+		<version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+
+		<!-- Define the version of the JBoss BOMs we want to import to specify
+			tested stacks. -->
+		<version.jboss.bom>16.0.0.Final</version.jboss.bom>
+
+		<!-- other plugin versions -->
+		<version.compiler.plugin>3.1</version.compiler.plugin>
+		<!-- surefire-pluginのバージョンはJUnit5に対応しているものを指定 https://junit.org/junit5/docs/current/user-guide/#running-tests-build-maven -->
+		<version.surefire.plugin>2.22.2</version.surefire.plugin>
+		<version.war.plugin>2.5</version.war.plugin>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<!-- <maven.compiler.verbose>true</maven.compiler.verbose> <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation> -->
+
+		<junit.jupiter.version>5.8.1</junit.jupiter.version>
+		<junit.platform.version>1.5.2</junit.platform.version>
+	</properties>
+
+	<!--
+		*******************************************************************************************
+		 レポジトリ定義
+			GNOMESではローカルネットワークにNexusを導入し、外部ライブラリをキャッシュしている
+			Nexusを移行または、廃止するときは以下をメンテナンスすること
+		*******************************************************************************************
+	 -->
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>https://repo1.maven.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+
+		<repository>
+			<id>central-mirror</id>
+			<name>Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>gnomes</id>
+			<name>GitHub Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/yokogawaelectric/gnomes</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<!-- never, daily, interval:X (where X is in minutes) or always -->
+				<!--<updatePolicy>daily</updatePolicy> -->
+			</snapshots>
+		</repository>
+		<repository>
+			<id>gnomes_reportGen</id>
+			<name>GitHub Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/yokogawaelectric/gnomes_reportGen</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<!-- never, daily, interval:X (where X is in minutes) or always -->
+				<!--<updatePolicy>daily</updatePolicy> -->
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>https://repo1.maven.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+		<pluginRepository>
+			<id>github</id>
+			<name>GitHub Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/yokogawaelectric/gnomes</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/yokogawaelectric/gnomes</url>
+		</repository>
+	</distributionManagement>
+
+	<!--
+		*******************************************************************************************
+		 依存関係定義
+			使用するWildflyバージョンに合わせて外部ライブラリを配置する
+
+		*******************************************************************************************
+	 -->
+	<dependencies>
+
+		<!-- ****** 1.Wildflyの全ライブラリを指定 ****** -->
+		<!-- https://mvnrepository.com/artifact/org.wildfly/wildfly-feature-pack -->
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-feature-pack</artifactId>
+			<version>16.0.0.Final</version>
+			<type>pom</type>
+			<scope>provided</scope>
+			<exclusions>
+			    <exclusion>
+			        <artifactId>
+			            javax.security.enterprise-api
+			        </artifactId>
+			        <groupId>javax.security.enterprise</groupId>
+			    </exclusion>
+			    <exclusion>
+			        <artifactId>hal-console</artifactId>
+			        <groupId>org.jboss.hal</groupId>
+			    </exclusion>
+			</exclusions>
+		</dependency>
+		<!-- ****** 2.Hibernat関連依存関係 ****** -->
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate.common/hibernate-commons-annotations -->
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>5.0.5.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.15.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator-cdi -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator-cdi</artifactId>
+			<version>6.0.15.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-orm</artifactId>
+			<version>5.10.5.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-engine -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-engine</artifactId>
+			<version>5.10.5.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-serialization-avro -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-serialization-avro</artifactId>
+			<version>5.10.5.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-backend-jms -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-backend-jms</artifactId>
+			<version>5.10.5.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-envers -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>5.3.9.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.3.9.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.wildfly/jipijapa-hibernate4-1 -->
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>jipijapa-hibernate4-1</artifactId>
+			<version>16.0.0.Final</version>
+		</dependency>
+
+		<!-- ****** 3.Ininispan関連依存関係 ****** -->
+		<!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-bom -->
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-bom</artifactId>
+			<version>9.4.8.Final</version>
+			<type>pom</type>
+		</dependency>
+
+		<!-- ****** 4.picketbox関連依存関係 ****** -->
+		<dependency>
+			<groupId>org.picketbox</groupId>
+			<artifactId>picketbox-commons</artifactId>
+			<version>1.0.0.final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.picketbox/picketbox -->
+		<dependency>
+			<groupId>org.picketbox</groupId>
+			<artifactId>picketbox</artifactId>
+			<version>5.0.3.Final</version>
+		</dependency>
+
+		<!-- ****** 5.WebSocket関連依存関係 ****** -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.websocket/jboss-websocket-api_1.1_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.websocket</groupId>
+			<artifactId>jboss-websocket-api_1.1_spec</artifactId>
+			<version>1.1.3.Final</version>
+		</dependency>
+
+		<!-- ****** 6.XML関連依存関係 ****** -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<!-- ****** 7.バリデーション関連依存関係 ****** -->
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<!-- ****** 8.JSP/サーブレット関連依存関係 ****** -->
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.servlet/jboss-servlet-api_4.0_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_4.0_spec</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.servlet.jsp/jboss-jsp-api_2.3_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet.jsp</groupId>
+			<artifactId>jboss-jsp-api_2.3_spec</artifactId>
+			<version>1.0.3.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-servlet-api_3.1_spec</artifactId>
+					<groupId>org.jboss.spec.javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se</artifactId>
+			<version>2.4.8.Final</version>
+		</dependency>
+
+		<!-- ****** 9.DB/トランザクション関連依存関係 ****** -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.transaction/jboss-transaction-api_1.2_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.transaction</groupId>
+			<artifactId>jboss-transaction-api_1.2_spec</artifactId>
+			<version>1.1.1.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+
+		<!-- ****** 10.その他関連依存関係 ****** -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.22</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.interceptor/javax.interceptor-api -->
+		<!--
+		<dependency>
+			<groupId>javax.interceptor</groupId>
+			<artifactId>javax.interceptor-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+		-->
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.interceptor/jboss-interceptors-api_1.2_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.interceptor</groupId>
+			<artifactId>jboss-interceptors-api_1.2_spec</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- UTの便利ライブラリ -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>5.3.11</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- ServletContextのモックに使用 -->
+		<dependency>
+				<groupId>org.easymock</groupId>
+				<artifactId>easymock</artifactId>
+				<version>4.3</version>
+				<scope>test</scope>
+		</dependency>
+		<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-easymock</artifactId>
+				<version>2.0.9</version>
+				<scope>test</scope>
+		</dependency>
+		<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy</artifactId>
+				<version>1.12.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<!--
+		*******************************************************************************************
+		 	ビルドルール定義
+		*******************************************************************************************
+	-->
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${version.compiler.plugin}</version>
+					<configuration>
+						<useIncrementalCompilation>false</useIncrementalCompilation>
+					</configuration>
+					<executions>
+						<execution>
+							<id>default-testCompile</id>
+							<phase>test-compile</phase>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+							<configuration>
+								<skip>false</skip>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>3.0.0-M4</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${version.surefire.plugin}</version>
+					<configuration>
+			       		<additionalClasspathElements>
+			       			<additionalClasspathElement>src/test/resources</additionalClasspathElement>
+			    		</additionalClasspathElements>
+					</configuration>
+				</plugin>
+				<!--
+				<plugin>
+             				<groupId>org.sonarsource.scanner.maven</groupId>
+             				<artifactId>sonar-maven-plugin</artifactId>
+             				<version>3.7.0.1746</version>
+            			</plugin>
+				-->
+			</plugins>
+
+		</pluginManagement>
+	</build>
+
+	<!--
+		*******************************************************************************************
+		 	モジュール定義
+		 		Resource,Database,UIを指定
+		*******************************************************************************************
+	-->
+	<modules>
+		<module>gnomes_ui</module>
+		<module>gnomes_database</module>
+		<module>gnomes_resource</module>
+	</modules>
+
+</project>
